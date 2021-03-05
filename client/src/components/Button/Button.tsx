@@ -7,12 +7,12 @@ type Props = {
   typeBtn: 'button' | 'submit' | 'reset';
 };
 
-const Button: React.FC<Props> = ({ buttonName, onClick, typeBtn }) => {
+const Button: React.FC<Props> = React.memo(({ buttonName, onClick, typeBtn }) => {
   return (
     <button className={styles.btn} onClick={onClick} type={typeBtn}>
       {buttonName}
     </button>
   );
-};
+});
 
 export default Button;

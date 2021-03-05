@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-const Language: React.FC = () => {
+const Language: React.FC = React.memo(() => {
   return (
     <div className={styles.language}>
       <select>
@@ -11,5 +11,5 @@ const Language: React.FC = () => {
       </select>
     </div>
   );
-};
+});
 export default Language;

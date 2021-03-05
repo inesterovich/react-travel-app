@@ -7,7 +7,7 @@ import styles from "./styles.module.css";
 import { Container } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo(() => {
   const location = useLocation();
 
   return (
@@ -21,5 +21,5 @@ const Header: React.FC = () => {
       </Container>
     </header>
   );
-};
+});
 export default Header;

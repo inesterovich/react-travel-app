@@ -8,7 +8,7 @@ import Header from "./views/Header";
 import { theme } from "./theme";
 import "./App.css";
 
-function App() {
+const App:React.FC<{}> = React.memo(() => {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -25,6 +25,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-}
+})
 
 export default App;
