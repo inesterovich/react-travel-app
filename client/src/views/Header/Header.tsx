@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       <Container maxWidth="xl">
         <Toolbar className={styles.header_toolbar}>
           <Logo />
-          {location.pathname === "/country" && <Search />}
+          {location.pathname === "/" && <Search />}
           <Registration />
         </Toolbar>
       </Container>
