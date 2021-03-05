@@ -1,4 +1,4 @@
 .logo {
-  cursor: pointer;
-  color: rgb(253, 253, 253);
+  width: 120px;
+  display: block;
 }

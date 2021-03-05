@@ -1,8 +1,10 @@
 .header {
-  background-color: rgb(53, 52, 52);
+  background-color: #69c6ba;
+  color: rgb(250, 249, 249);
+}
+
+.header_toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  height: 60px;
-  color: rgb(250, 249, 249);
+  justify-content: space-between;
 }

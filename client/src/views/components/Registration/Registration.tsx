@@ -1,11 +1,11 @@
-import React from 'react';
-import styles from './styles.module.css';
+import React from "react";
+import styles from "./styles.module.css";
+import Button from "@material-ui/core/Button";
 
 const Registration: React.FC = () => {
   return (
     <div className={styles.registration}>
-      <p>Create</p>
-      <p>Sign in</p>
+      <Button>Login/Register</Button>
     </div>
   );
 };

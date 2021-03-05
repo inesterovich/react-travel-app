@@ -1,15 +1,11 @@
-import React from 'react';
+import logoSrc from "./logo.png";
+import { Link } from "react-router-dom";
+import styles from "./styles.module.css";
 
-import { Link } from 'react-router-dom';
-import styles from './styles.module.css';
+const Logo: React.FC = () => (
+  <Link to="/" className={styles.logo}>
+    <img src={logoSrc} alt="" />
+  </Link>
+);
 
-const Logo: React.FC = () => {
-  return (
-    <>
-      <Link to='/' className={styles.logo}>
-        Logo
-      </Link>
-    </>
-  );
-};
 export default Logo;
