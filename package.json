@@ -4,8 +4,11 @@
   "description": "Travel App RS School Team Task",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "server": "nodemon server.js",
+    "client": "npm run start --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client \" "
   },
   "repository": {
     "type": "git",
@@ -17,5 +20,14 @@
     "url": "https://github.com/inesterovich/react-travel-app/issues"
   },
   "homepage": "https://github.com/inesterovich/react-travel-app#readme",
-  "dependencies": {}
+  "dependencies": {
+    "config": "^3.3.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7"
+  }
 }
