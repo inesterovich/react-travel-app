@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/inesterovich/react-travel-app/issues"
   },
-  "homepage": "https://github.com/inesterovich/react-travel-app#readme"
+  "homepage": "https://github.com/inesterovich/react-travel-app#readme",
+  "dependencies": {}
 }
