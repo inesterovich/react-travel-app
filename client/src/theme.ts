@@ -13,6 +13,10 @@ export const theme = createMuiTheme({
   },
   typography: {
     fontFamily: "Roboto",
+    body2: {
+      fontFamily: "Roboto",
+      marginBottom: "10px",
+    },
   },
   shape: {
     borderRadius: 0,
@@ -21,6 +25,11 @@ export const theme = createMuiTheme({
     MuiChip: {
       root: {
         margin: "0 10px 20px 0",
+      },
+    },
+    MuiCard: {
+      root: {
+        boxShadow: "none",
       },
     },
     MuiTextField: {

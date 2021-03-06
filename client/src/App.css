@@ -1,3 +1,4 @@
-main {
-  padding: 30px;
+.App {
+  position: relative;
+  padding: 30px !important;
 }
