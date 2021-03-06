@@ -9,6 +9,7 @@ export const theme = createMuiTheme({
     },
     secondary: {
       main: ACCENT_COLOR,
+      contrastText: "#fff",
     },
   },
   typography: {
@@ -36,13 +37,21 @@ export const theme = createMuiTheme({
       root: {
         borderColor: ACCENT_COLOR,
         marginBottom: "20px",
-        width: "370px",
+        // width: "370px",
         "& .MuiInput-underline:before": {
           borderBottomColor: ACCENT_COLOR,
         },
         "&:hover": {
           borderBottomColor: ACCENT_COLOR,
         },
+      },
+    },
+    MuiNativeSelect: {
+      root: {
+        color: "#fff",
+      },
+      icon: {
+        color: "#fff",
       },
     },
     MuiButton: {

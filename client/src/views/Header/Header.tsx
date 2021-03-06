@@ -6,17 +6,23 @@ import { useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Container } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
+import Language from "../components/Language/Language";
 
 const Header: React.FC = () => {
   const location = useLocation();
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${
+        location.pathname === "/country" ? "header--inner" : ""
+      }`}
+    >
       <Container maxWidth="xl">
         <Toolbar className={styles.header_toolbar}>
           <Logo />
           {location.pathname === "/" && <Search />}
           <Registration />
+          <Language />
         </Toolbar>
       </Container>
     </header>

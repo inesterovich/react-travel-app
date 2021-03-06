@@ -39,3 +39,7 @@ html,
 img {
   max-width: 100%;
 }
+
+.header--inner .registration {
+  margin-left: auto !important;
+}
