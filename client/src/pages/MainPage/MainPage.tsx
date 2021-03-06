@@ -11,13 +11,11 @@ const MainPage: React.FC = () => {
         <Grid container spacing={4}>
           {Array(12)
             .fill(null)
-            .map((index) => {
-              return (
-                <Grid item xl={3} md={4} sm={6}>
-                  <CountryCard />
-                </Grid>
-              );
-            })}
+            .map(() => (
+              <Grid item xl={3} md={4} sm={6}>
+                <CountryCard />
+              </Grid>
+            ))}
         </Grid>
       </Fade>
     </div>
