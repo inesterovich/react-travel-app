@@ -1,6 +1,7 @@
 import React from 'react';
 import Content from '../content/Content';
 import SidePanel from '../sidePanel/SidePanel';
+import Map from "../../views/components/Map"
 import styles from './styles.module.css';
 
 const CountryPage: React.FC = React.memo(() => {
@@ -10,6 +11,7 @@ const CountryPage: React.FC = React.memo(() => {
       <div className={styles.counryPage}>
         <Content />
         <SidePanel />
+        <Map/>
       </div>
     </>
   );

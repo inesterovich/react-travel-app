@@ -9,7 +9,10 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
+    "@types/geojson": "^7946.0.7",
     "@types/jest": "^26.0.20",
+    "@types/leaflet-fullscreen": "^1.0.4",
+    "@types/leaflet.fullscreen": "^1.6.0",
     "@types/node": "^12.20.4",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
@@ -27,7 +30,12 @@
     "redux-thunk": "^2.3.0",
     "typescript": "^4.2.2",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.0"
+    "leaflet": "^1.7.1",
+    "leaflet-fullscreen": "^1.0.2",
+    "leaflet.fullscreen": "^2.0.0",
+    "web-vitals": "^1.1.0",
+    "react-leaflet": "^3.1.0",
+    "react-leaflet-fullscreen": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -54,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "@types/leaflet": "^1.5.23",
     "@types/react-router-dom": "^5.1.7"
   }
 }
