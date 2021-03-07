@@ -1,3 +1,31 @@
 .photoGallery {
-  border: 1px solid black;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+}
+.swiperContainer {
+  width: 400px;
+}
+.img {
+  width: 100%;
+}
+:root {
+  --swiper-theme-color: rgb(36, 13, 243);
+}
+
+.imgThumbs {
+  cursor: pointer;
+  opacity: 0.4;
+}
+.imgThumbs:active {
+  opacity: 1;
+}
+.imgThumbs:hover {
+  opacity: 1;
+}
+.imgFullscreen {
+  margin: 5px;
+  cursor: pointer;
 }
