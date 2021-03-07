@@ -43,7 +43,10 @@ const CountrySchema = new Schema({
   ],
 
   currency: {
-    
+    code: {
+     type: String
+   }
+
   },
 
   weather: {
