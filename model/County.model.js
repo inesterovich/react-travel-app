@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
+const CitySchema = require('./City.model');
 
 const CountrySchema = new Schema({
   name: {
@@ -7,10 +8,8 @@ const CountrySchema = new Schema({
     unique: true,
   },
 
-  capital: {
-    type: String,
-    required: true,
-  },
+  capital: CitySchema,
+  coordinates: [Number],
 
   description: {
     type: String,
