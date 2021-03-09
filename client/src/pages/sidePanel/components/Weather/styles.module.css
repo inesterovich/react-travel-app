@@ -1,3 +1,35 @@
 .weather {
-  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.containerTempIconText {
+  display: flex;
+}
+.containerIconText {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.weatherIcon {
+  width: 70px;
+  height: 70px;
+}
+.weatherTemp {
+  font-size: 70px;
+  margin: 0;
+  color: rgb(72, 136, 88);
+}
+.weatherText {
+  font-size: 12px;
+  margin: 0;
+  color: rgb(72, 136, 88);
+}
+.weatherHumidity {
+  font-size: 16px;
+  margin: 0;
+  color: rgb(72, 136, 88);
 }

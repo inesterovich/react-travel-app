@@ -1,3 +1,15 @@
 .currency {
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.valueCurrency {
+  margin: 0;
+  font-size: 12px;
+  color: rgb(72, 136, 88);
+}
+.nameCurrency {
+  margin: 0;
+  font-size: 16px;
+  color: rgb(72, 136, 88);
 }
