@@ -1,6 +1,6 @@
 import { Action } from '../types';
 import { users } from './defaultState';
-import { SEARCH } from './typesReducer';
+import {SEARCH, SET_CURRENT_LANGUAGE} from './typesReducer';
 
 type DefaultState = {
   searchString: string | null;
@@ -9,11 +9,13 @@ type DefaultState = {
     email: string;
     password: string;
   }[];
+  currentLanguage: "en" | "es" | "ru"
 };
 
 const defaultState: DefaultState = {
   searchString: null,
   users,
+  currentLanguage: "ru"
 };
 
 function reducer(state = defaultState, action: Action) {
@@ -24,6 +26,11 @@ function reducer(state = defaultState, action: Action) {
         searchString: action.payload.trim(),
       };
     }
+    case SET_CURRENT_LANGUAGE:
+      return {
+        ...state,
+        currentLanguage: action.payload
+      }
 
     default:
       return state;

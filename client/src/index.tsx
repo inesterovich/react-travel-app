@@ -9,7 +9,10 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
+type reducerType = typeof reducer
+export type AppStateType = ReturnType<reducerType>
 const store = createStore(reducer, applyMiddleware(thunk));
+
 
 ReactDOM.render(
   <React.StrictMode>

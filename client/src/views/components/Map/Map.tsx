@@ -4,23 +4,18 @@ import data from "./data/countries.json"
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../index";
 
 const Map: React.FC<{}> = () => {
+  const currentLanguage = useSelector((state:AppStateType)=>state.currentLanguage)
   const [mapInfo] = useState<any>(data)
   const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseXZxOTZmMWVraDJ2cGxqeW81dnoxbyJ9.iWiRopnKs9YvUXWHSHF_pg"
   const {id} = useParams<{ id: string }>()
   const countryBorders = mapInfo.features.findIndex((e:any) => e.properties.sovereignt === id)
-  const [currentLanguage, setCurrentLanguage] = useState("ru")
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentLanguage(e.target.value)
-  }
+
   return (
     <>
-      <select onChange={handleChange} value={currentLanguage}>
-        <option value={"en"}>En</option>
-        <option value={"ru"}>Ru</option>
-        <option value={"es"}>Es</option>
-      </select>
       <MapContainer fullscreenControl={true} center={ countryBorders >= 0 ? mapInfo.features[countryBorders].properties.capitalCoords : [0, 0]} zoom={6} style={{height: "400px", width: "90%"}}>
         {currentLanguage === "ru" &&
         <TileLayer

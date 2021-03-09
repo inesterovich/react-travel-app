@@ -9,8 +9,10 @@ const CountryPage: React.FC = React.memo(() => {
     <>
       <h1>Страница страны содержит:</h1>
       <div className={styles.counryPage}>
-        <Content />
-        <SidePanel />
+        <div className={styles.countryInfo}>
+          <Content />
+          <SidePanel />
+        </div>
         <Map />
       </div>
     </>
