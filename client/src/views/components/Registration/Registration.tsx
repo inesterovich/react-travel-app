@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 
 const Registration: React.FC = React.memo(() => {
   return (
-    <div className={styles.registration}>
+    <div className={`${styles.registration} registration`}>
       <Button>Login/Register</Button>
     </div>
   );

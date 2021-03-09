@@ -1,25 +1,23 @@
-import React, { useCallback } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Button from "../../components/Button";
+import React from "react";
 import styles from "./styles.module.css";
 
-type State = {
-  searchString: string;
-};
+import { Fade, Grid } from "@material-ui/core";
+import CountryCard from "../../views/components/CountryCard/index";
 
 const MainPage: React.FC = React.memo(() => {
-  const searchString = useSelector((state: State) => state.searchString);
-
-  const history = useHistory();
-  const handleClick = useCallback(() => {
-    history.push("/country");
-  }, [history]);
-
   return (
     <div className={styles.mainPage}>
-      <Link to="/country">Main Page</Link>
-      <Button onClick={handleClick} typeBtn="button" buttonName="change page" />
+      <Fade in={true} timeout={700}>
+        <Grid container spacing={4}>
+          {Array(12)
+            .fill(null)
+            .map(() => (
+              <Grid item xl={3} md={4} sm={6}>
+                <CountryCard />
+              </Grid>
+            ))}
+        </Grid>
+      </Fade>
     </div>
   );
 });
