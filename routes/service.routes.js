@@ -7,21 +7,21 @@ const router = Router();
 
 // /api/service/country
 
-router.post('/country', async (req, res) => {
+router.post('/countries', async (req, res) => {
 /* Клиент делает запрос на сервер,
  на этот запрос сервер должен найти информацию о стране, отдать информацию о стране.
  
  */
   
   try {
-    const { name } = req.body;
+    
 
-    const country = await CountryModel.findOne({ name });
+    const countries = await CountryModel.find({});
 
-    if (country) {
-      res.json({ country });
+    if (countries) {
+      res.json( countries );
     } else {
-      res.status(400).json({ message: 'Country not found' });
+      res.status(400).json({ message: 'Something went wrong, try again' });
     }
 
    
