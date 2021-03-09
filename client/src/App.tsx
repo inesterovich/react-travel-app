@@ -8,7 +8,7 @@ import Header from "./views/Header";
 import { theme } from "./theme";
 import "./App.css";
 
-const App:React.FC<{}> = React.memo(() => {
+const App: React.FC<{}> = React.memo(() => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
@@ -18,6 +18,7 @@ const App:React.FC<{}> = React.memo(() => {
             <Route exact path="/">
               <MainPage />
             </Route>
+            {/* <Route path="/:id" children={<CountryPage />} /> */}
             <Route path="/country">
               <CountryPage />
             </Route>
@@ -27,6 +28,6 @@ const App:React.FC<{}> = React.memo(() => {
       <Footer />
     </ThemeProvider>
   );
-})
+});
 
 export default App;
