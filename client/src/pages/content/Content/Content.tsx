@@ -9,10 +9,10 @@ import styles from './styles.module.css';
 const Content: React.FC = React.memo(() => {
   return (
     <div className={styles.content}>
+      <PhotoGallery />
       <DescriptionCountry />
       <InfoCountry />
       <MapCountry />
-      <PhotoGallery />
       <VideoCountry />
     </div>
   );

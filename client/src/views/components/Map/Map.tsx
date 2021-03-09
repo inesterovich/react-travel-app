@@ -6,17 +6,20 @@ import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../index";
+import styles from "./styles.module.css"
 
 const Map: React.FC<{}> = () => {
-  const currentLanguage = useSelector((state:AppStateType)=>state.currentLanguage)
+  const currentLanguage = useSelector((state: AppStateType) => state.currentLanguage)
   const [mapInfo] = useState<any>(data)
   const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseXZxOTZmMWVraDJ2cGxqeW81dnoxbyJ9.iWiRopnKs9YvUXWHSHF_pg"
   const {id} = useParams<{ id: string }>()
-  const countryBorders = mapInfo.features.findIndex((e:any) => e.properties.sovereignt === id)
+  const countryBorders = mapInfo.features.findIndex((e: any) => e.properties.sovereignt === id)
 
   return (
     <>
-      <MapContainer fullscreenControl={true} center={ countryBorders >= 0 ? mapInfo.features[countryBorders].properties.capitalCoords : [0, 0]} zoom={6} style={{height: "400px", width: "90%"}}>
+      <MapContainer fullscreenControl={true}
+                    center={countryBorders >= 0 ? mapInfo.features[countryBorders].properties.capitalCoords : [0, 0]}
+                    zoom={6} className={styles.map}>
         {currentLanguage === "ru" &&
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
