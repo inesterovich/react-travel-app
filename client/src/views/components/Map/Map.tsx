@@ -21,7 +21,7 @@ const Map: React.FC<{}> = () => {
         <option value={"ru"}>Ru</option>
         <option value={"es"}>Es</option>
       </select>
-      <MapContainer fullscreenControl={true} center={ countryBorders >= 0 ? mapInfo.features[countryBorders].properties.capitalCoords : [0, 0]} zoom={2} style={{height: "400px", width: "90%"}}>
+      <MapContainer fullscreenControl={true} center={ countryBorders >= 0 ? mapInfo.features[countryBorders].properties.capitalCoords : [0, 0]} zoom={6} style={{height: "400px", width: "90%"}}>
         {currentLanguage === "ru" &&
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
