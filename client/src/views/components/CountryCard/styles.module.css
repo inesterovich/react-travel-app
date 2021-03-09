@@ -1,0 +1,24 @@
+.meta {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.CardContent {
+  background: #c0f1eb !important;
+}
+
+.meta__city {
+  color: rgba(0, 0, 0, 0.54);
+  margin-top: 10px;
+}
+
+.meta__city svg {
+  margin-bottom: -4px;
+}
+
+.meta__country {
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: bold !important;
+  font-size: 30px !important;
+}

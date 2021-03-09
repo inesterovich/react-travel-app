@@ -1,14 +1,15 @@
-import React from 'react';
-import styles from './styles.module.css';
+import React from "react";
+import styles from "./styles.module.css";
+import { NativeSelect } from "@material-ui/core";
 
 const Language: React.FC = React.memo(() => {
   return (
     <div className={styles.language}>
-      <select>
-        <option>Русский</option>
-        <option>English</option>
-        <option>Other</option>
-      </select>
+      <NativeSelect id="select" disableUnderline={true}>
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+      </NativeSelect>
     </div>
   );
 });

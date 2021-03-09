@@ -1,8 +1,37 @@
 .footer {
-  position: absolute;
-  bottom: 0;
-  height: 40px;
+  flex: 0 0 auto;
   width: 100%;
-  background-color: rgb(53, 52, 52);
-  color: rgb(250, 249, 249);
+  background-color: #69c6ba;
+  color: #fff;
+  font-weight: bold;
+}
+
+.footer__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.footer__githubs svg,
+.footer__youtube svg {
+  color: #fff;
+}
+
+.footer__logo {
+  width: 80px;
+  color: #fff;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.footer__logo:hover {
+  opacity: 0.99;
+}
+
+.footer__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
 }
