@@ -43,3 +43,11 @@ img {
 .header--inner .registration {
   margin-left: auto !important;
 }
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: rgb(243, 136, 13);
+}
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  color: rgb(229, 243, 32);
+}
