@@ -6,7 +6,7 @@ import PhotoGallery from '../components/PhotoGallery';
 import VideoCountry from '../components/VideoCountry';
 import styles from './styles.module.css';
 
-const Content: React.FC = () => {
+const Content: React.FC = React.memo(() => {
   return (
     <div className={styles.content}>
       <DescriptionCountry />
@@ -16,5 +16,5 @@ const Content: React.FC = () => {
       <VideoCountry />
     </div>
   );
-};
+});
 export default Content;

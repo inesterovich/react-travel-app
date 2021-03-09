@@ -8,7 +8,7 @@ type State = {
   searchString: string;
 };
 
-const MainPage: React.FC = () => {
+const MainPage: React.FC = React.memo(() => {
   const searchString = useSelector((state: State) => state.searchString);
 
   const history = useHistory();
@@ -22,5 +22,5 @@ const MainPage: React.FC = () => {
       <Button onClick={handleClick} typeBtn="button" buttonName="change page" />
     </div>
   );
-};
+});
 export default MainPage;

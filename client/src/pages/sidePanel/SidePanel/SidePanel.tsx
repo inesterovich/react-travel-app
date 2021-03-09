@@ -4,7 +4,7 @@ import TimeCountry from '../components/TimeCountry';
 import Weather from '../components/Weather';
 import styles from './styles.module.css';
 
-const SidePanel: React.FC = () => {
+const SidePanel: React.FC = React.memo(() => {
   return (
     <div className={styles.sidePanel}>
       <Currency />
@@ -12,5 +12,5 @@ const SidePanel: React.FC = () => {
       <TimeCountry />
     </div>
   );
-};
+});
 export default SidePanel;

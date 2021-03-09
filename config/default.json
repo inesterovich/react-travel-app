@@ -1,0 +1,7 @@
+{
+  "port": 5000,
+  "jwtSecret": "TravelTeamApp",
+  "mongoUri": "mongodb+srv://dvTravelUser:dvTravelPassword@cluster0.lzpxt.mongodb.net/travel-app?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:5000",
+  "tripposoLocation": "https://www.triposo.com/api/20201111/location.json"
+}

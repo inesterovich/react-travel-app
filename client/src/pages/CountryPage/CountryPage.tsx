@@ -3,7 +3,7 @@ import Content from '../content/Content';
 import SidePanel from '../sidePanel/SidePanel';
 import styles from './styles.module.css';
 
-const CountryPage: React.FC = () => {
+const CountryPage: React.FC = React.memo(() => {
   return (
     <>
       <h1>Страница страны содержит:</h1>
@@ -13,5 +13,5 @@ const CountryPage: React.FC = () => {
       </div>
     </>
   );
-};
+});
 export default CountryPage;
