@@ -1,5 +1,7 @@
 const countries = require('../initialData.json');
 const countryCapitals = require('../country_capitals.json');
+const attractionsSampleResponse = require('../routes/attractions_sample_response.json');
+
 
 const fetch = require('node-fetch');
 const { Router, response } = require("express");
@@ -46,54 +48,59 @@ const fieldsString = '&order_by=name&fields=name,id,intro,properties,images,snip
 /* Мне нужна функция apiRequest*/
 
 function apiRequest(
-  baseUri,
-  endPoint,
-  authData,
-  searchBy,
-  count = 10,
-  fields = 'all',
-  exclude,
-  trigram,
-  distance,
-  sortBy
-
-
+ config
 ) {
 
+  let {
+    authData,
+    baseUri,
+    endPoint,
+    searchBy,
+    count,
+    fields,
+    exclude,
+    trigram,
+    distance,
+    sortBy } = config;
 
   if (typeof authData === 'object') {
-    /* есть searchBy [field, value],
-      есть include fields  string или простой массив значенич
-      есть exclude - это строка или массив значений.
-      есть annotate
-    */
+ 
     if (searchBy && Array.isArray(searchBy)) {
-    //  searchBy = ['location_id', 'Russia'];
+    //  searchBy = ['location_id', 'Russia'] || ''
       
-      searchBy = searchBy.join('=');
+      searchBy = searchBy.map(string => string.replace(' ', '_')).join('=');
+    } else if (!searchBy) {
+      searchBy = '';
     } else {
-      throw new Error('searchBy should be an array')
+      throw new Error('searchBy should be an array or empty string')
     }
 
     // fields = [id, images, intro, snippet, tags, location_id]
 
-    if ( fields && Array.isArray(fields)) {
-
-      fields = `fields=${fields.map(field => field.replace(' ', ' ')).join()}`
-    } else if (typeof fields === 'string') {
+    if (fields && Array.isArray(fields)) {
+      fields = `fields=${fields.join()}`
+    } else if (!fields) {
+      fields = '';
+    } else if (fields === "all") {
       fields = `fields=${fields}`;
     } else {
-      throw new Error('fields should be array or string with "all" value')
+      fields="ERROR"
     }
 
-    if (typeof count !== 'number') {
-      throw new Error('count expected to be a number');
+    if ( count && typeof count === 'number') {
+      count = `count=${count}`
+    } else if (!count) {
+      count='count=6'
+    } else {
+      throw new TypeError('count should be a number')
     }
+
     
     const queryString =
-      `${baseUri}/${endPoint}.json?${searchBy}&count=${count}&${fields}`;
+      `${baseUri}/${endPoint}.json?${searchBy}&${count}&${fields}`.replace('?&', '?');
     
-    return queryString;
+    const request = fetch(queryString, { headers: authData});
+    return request;
   }
 
   // В конечном итоге, от функции я ожидаю, что она будет возвращать готовый объект для функции fetch
@@ -261,7 +268,7 @@ router.post('/getCurrencies', async (req, res) => {
     const apiResponse = await Promise.all(requests);
     const apiData = await Promise.all(apiResponse.map(response => response.json()));
     
-    if (resu) {}
+  
 
     
 
@@ -274,15 +281,90 @@ router.post('/getCurrencies', async (req, res) => {
 })
 
 router.post('/getAttractions', async (req, res) => {
-  const baseUri = 'https://www.triposo.com/api/20201111';
-  const endPoint = 'poi';
-  const searchBy = ['location_id', 'Moscow'];
-  const count = 6;
+  
+// По факту, это тоже функция из объекта или класса dataService
+  
+  let countries = (await CountryModel.find({}));
+  let countryNames = countries.map(country => country.name)
 
+  
+  /*
   const fields = ['id', 'images', 'name', 'intro', 'snippet', 'tags', 'location_id'];
-  const query = apiRequest(baseUri, endPoint, authHeaders, searchBy, count, fields);
 
-  res.json(query);
+
+  let requests = countryNames.map(countryName => {
+    const config = {
+      authData: authHeaders,
+      baseUri: 'https://www.triposo.com/api/20201111',
+      endPoint: 'poi',
+      searchBy: ['location_id', countryName],
+      count: 40,
+      fields,
+    }
+
+    return apiRequest(config);
+
+  })
+
+  const apiResponse = await Promise.all(requests);
+  const apiData = (await Promise.all
+    (apiResponse.map(response => response.json()))).map(object => object.results);
+  
+  */
+  
+
+  
+  let results = attractionsSampleResponse;
+
+  /* Мне нужно отфильтровать достопримечательности по двум параметрам: */
+
+  let filteredData = results.map(countryAttractions =>
+    countryAttractions
+      .map(attraction => {
+    
+      return {
+        ...attraction,
+        images: attraction.images.filter(image => image.caption !== null &&
+          image.caption !== 'image')
+      }
+      })
+      .filter(attraction => attraction.images.length !== 0)
+    
+  )
+
+  filteredData = filteredData.map(countryAttractionsArray =>
+    countryAttractionsArray.slice(0, 6)
+  );
+
+  let mongoFormattedData = filteredData.map(countryAttractionsArray =>
+    countryAttractionsArray.map(attraction => {
+      return {
+        name: attraction.name,
+        description: attraction.intro,
+        snippet: attraction.snippet,
+        image: {
+          src: attraction.images[0].source_url,
+          caption: attraction.images[0].caption
+        }
+      }
+    }))
+  
+
+  
+
+  countries.forEach(async (country, index) => {
+    country.attractions = mongoFormattedData[index];
+    await country.save();
+  }) 
+
+  
+
+
+
+
+  
+
+  res.json('ok');
 })
 
 module.exports = router;

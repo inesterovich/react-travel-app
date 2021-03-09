@@ -55,7 +55,32 @@ const CountrySchema = new Schema({
 
   dateTime: {
 
-  }
+  },
+
+  attractions: [{
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    snippet: {
+      type: String,
+      required: true,
+    },
+    image: {
+      src: {
+        type: String,
+        required: true,
+      },
+      caption: {
+        type: String,
+        required: true,
+      }
+    }
+  }]
 
 })
 
