@@ -16,24 +16,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 body,
 html,
-#root,
-.App {
+#root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
-.App {
-  background: linear-gradient(135deg, #f5f4ea 0%, #eff3e2 100%), #f4f8e4;
-  position: relative;
+
+#root {
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
+
+.App {
+  flex: 1 0 auto;
+}
+
 img {
   max-width: 100%;
 }
+<<<<<<< HEAD
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   color: rgb(243, 136, 13);
@@ -41,4 +47,9 @@ img {
 .swiper-button-next:active,
 .swiper-button-prev:active {
   color: rgb(229, 243, 32);
+=======
+
+.header--inner .registration {
+  margin-left: auto !important;
+>>>>>>> 15f25a0eb003a0838f545c3f3215bcbaa7d8125f
 }
