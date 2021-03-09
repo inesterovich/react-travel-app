@@ -150,7 +150,7 @@ const startTime = (lang: String, zone: String) => {
 };
 
 const TimeCountry: React.FC = React.memo(() => {
-  const timezone = "Moskow";
+  const timezone = "Europe/Minsk";
   const lang = "en";
   const [currentTime, setCurrentTime] = useState<string | undefined>("");
 
