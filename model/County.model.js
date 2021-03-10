@@ -2,6 +2,15 @@ const { Schema, model, Types } = require('mongoose');
 const CitySchema = require('./City.model');
 
 const CountrySchema = new Schema({
+  code: {
+    type: String,
+    required: true,
+  },
+
+  flag: {
+    type: String,
+  },
+
   name: {
     type: String,
     required: true,
@@ -13,11 +22,12 @@ const CountrySchema = new Schema({
 
   description: {
     type: String,
-    required: true,
+   required: true,
   },
 
   snippet: {
     type: String,
+    required: true,
 
   },
 
@@ -44,8 +54,18 @@ const CountrySchema = new Schema({
 
   currency: {
     code: {
-     type: String
-   }
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+
+    symbol: {
+      type: String,
+      required: true,
+    },
 
   },
 
@@ -53,9 +73,6 @@ const CountrySchema = new Schema({
 
   },
 
-  dateTime: {
-
-  },
 
   attractions: [{
     name: {
@@ -71,7 +88,7 @@ const CountrySchema = new Schema({
       required: true,
     },
     image: {
-      src: {
+      url: {
         type: String,
         required: true,
       },

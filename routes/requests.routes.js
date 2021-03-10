@@ -1,10 +1,14 @@
+
 const countries = require('../initialData.json');
+const countryCodes = require('./countryCodes.json').slice().sort();
+const countrySampleTexts = require('./countryTextsSample.json');
+const capitalDataSample = require('./capitalDataSample2.json');
 const countryCapitals = require('../country_capitals.json');
 const attractionsSampleResponse = require('../routes/attractions_sample_response.json');
-
+const attractionsDataSample = require('./attractionsDataSample.json');
 
 const fetch = require('node-fetch');
-const { Router, response } = require("express");
+const { Router, response, request } = require("express");
 const config = require('config');
 const CountryModel = require('../model/County.model');
 const { model } = require('mongoose');
@@ -25,14 +29,7 @@ function stringfyCountries(array) {
 
 }
 
-/*  
-Мне нужны следующие роуты: 
 
-1. Роуты запроса данных к API. 
-2. Роуты приложения;
-3. Роуты авторизации
-
-*/
 
 
 // Нужен ли тут Content-Type?
@@ -45,26 +42,39 @@ const authHeaders = {
 
 const fieldsString = '&order_by=name&fields=name,id,intro,properties,images,snippet,coordinates&exclude_fields=id';
 
+
 /* Мне нужна функция apiRequest*/
 
 function apiRequest(
  config
 ) {
 
-  let {
-    authData,
-    baseUri,
-    endPoint,
-    searchBy,
-    count,
-    fields,
-    exclude,
-    trigram,
-    distance,
-    sortBy } = config;
-
-  if (typeof authData === 'object') {
  
+
+  if (typeof config.authData === 'object') {
+
+    let {
+      authData,
+      type,
+      baseUri,
+      endPoint,
+      searchBy,
+      count,
+      fields,
+      exclude,
+      trigram,
+      distance,
+      sortBy } = config;
+    
+    
+    if (type) {
+      type = `type=${type}`
+    } else if (!type) {
+      type = '';
+    } else {
+      throw new Error('type shoud be a string with value city or country')
+    }
+    
     if (searchBy && Array.isArray(searchBy)) {
     //  searchBy = ['location_id', 'Russia'] || ''
       
@@ -95,12 +105,37 @@ function apiRequest(
       throw new TypeError('count should be a number')
     }
 
+    if (trigram && Array.isArray(trigram)) {
+      trigram = `annotate=trigram:${trigram[0].replace(' ', '_')}&trigram=${trigram[1]}`
+    } else if (!trigram) {
+      trigram = '';
+    } else {
+      throw new Error('trigram should be an array with name and condition')
+    }
+
     
     const queryString =
-      `${baseUri}/${endPoint}.json?${searchBy}&${count}&${fields}`.replace('?&', '?');
+      `${baseUri}/${endPoint}.json?${type}&${searchBy}&${count}&${fields}&${trigram}`
+        .replace('?&', '?').replace('&&', '&');
+    
+ //   console.log(queryString);
     
     const request = fetch(queryString, { headers: authData});
     return request;
+  } else if (config.authData === '') {
+
+    let {
+      baseUri,
+      searchBy
+
+    } = config;
+
+    const request = fetch(`${baseUri}/${searchBy}`);
+
+    return request; 
+
+    
+
   }
 
   // В конечном итоге, от функции я ожидаю, что она будет возвращать готовый объект для функции fetch
@@ -108,143 +143,193 @@ function apiRequest(
 
 }
 
-router.post('/getCountries', async (req, res) => {
 
-  const countriesString = stringfyCountries(countries);
-  
-  const queryString = `${config.get('tripposoLocation')}?id=${countriesString}${fieldsString}`;
+router.post('/getData', async (req, res) => {
 
-
-
+  // Искать столицы надо по code в restCountries. 
+  // Искать инфу о стране надо по её имени. Или 10 запросов по code. 
+ 
   try {
 
-         /*
-    const data = await fetch(queryString, {
-      method: 'get',
-      headers: authHeaders,
-    });
-
-    const result = await data.json(); */
-
-    let results = countriesSampleResponse.results;
     
+  const requests = countryCodes.map(countryCode => {
+    const config = {
+      authData: '',
+      baseUri: 'https://restcountries.eu/rest/v2/alpha',
+      searchBy: countryCode
+    }
 
-    const preparedDataArray = results.map((countryObject, index) => {
-      return {
-        name: countryObject.name,
-        capital: {
-          name: countryCapitals[index]
-        },
-        coordinates: [countryObject.coordinates.latitude, countryObject.coordinates.longitude],
-        description: countryObject.intro,
-        snippet: countryObject.snippet,
-        image: {
-          url: countryObject.images[0].source_url,
-          caption: countryObject.images[0].caption
-        },
-        properties: countryObject.properties,
-        coordinates: countryObject.coordinates,
-        currency: {
-          code: '--'
-        },
+    return apiRequest(config);
+
+
+  })
+  const apiResponse = await Promise.all(requests);
+  const apiData = await Promise.all(apiResponse.map(response => response.json()));
+
+  let initialCountryData = apiData.map((country, index) => {
+
+    return {
+      code: countryCodes[index],
+      name: country.name,
+      flag: country.flag,
+      capital: {
+        name: country.capital
+      },
+      currency: country.currencies[0]
+    }
+  })
+
+    /*
+    
+    const countryTextRequests = initialCountryData.map((country, index) => {
+      const config = {
+        authData: authHeaders,
+        type: 'country',
+        baseUri: 'https://www.triposo.com/api/20201111',
+        endPoint: 'location',
+        searchBy: ['countrycode', index === 4 ? 'uk': country.code],
+        fields: ['name','intro', 'images', 'coordinates', 'snippet', 'properties'],
+        count: 1,
         
-       
       }
+
+      return apiRequest(config);
     })
 
+    const countryTextsResponse = await Promise.all(countryTextRequests);
+    let countryTexts = await Promise.all(countryTextsResponse.map(response =>
+      response.json().then(data => data.results)
+    
+    ));
 
-    if (preparedDataArray) {
-      await CountryModel.create(preparedDataArray);
-      res.json({ message: 'Documents are saved'})
-    } else {
-      throw new Error('Trouble with creation models')
-    }
-      
+    countryTexts = countryTexts.flat();
 
-     
-   } catch (error) {
-    console.log(error.message);
-    process.exit(1);
-   }
-  
+    */
+
+    
+    let countryTexts = countrySampleTexts;
+
 
   
-
- 
-  
-  
-})
-
-
-router.post('/getCities', async (req, res) => {
-  try {
-   
-    const countries = await CountryModel.find({});
-
-    let capitals = countries.map((country) => {
-      return {
-        bd_id: country.capital._id,
-        name: country.capital.name,
-        country_id: country.name
+    /*
+    
+    
+    let capitalDataRequests = initialCountryData.map((country, index) => {
+      const config = {
+        authData: authHeaders,
+        type: 'city',
+        baseUri: 'https://www.triposo.com/api/20201111',
+        endPoint: 'location',
+        fields: ['name', 'coordinates'],
+        count: 1,
+        trigram: [country.capital.name, '>=0.7']
       }
-    });
 
-     /*
+      return apiRequest(config);
+    })
 
-    const requests = capitals.map((capital, index) => {
-      const name = capital.name.trim().replace(' ', '_').replace(/[^a-zA-Z_]/g, "");
-      const fetchUri = `${config.get('tripposoLocation')}?part_of=${capital.country_id.replace(' ', '_')}&type=city&count=1&fields=id,score,intro,name,snippet,country_id&annotate=trigram:${name}&trigram=>=0.9`;
-      console.log(name)
-      
-      const data =  fetch(fetchUri, {
-        method: 'get',
-        headers: authHeaders,
-      }); 
-
-
-      return data;
-        
-      
-    });
-
-    const apiResponse = await Promise.all(requests);
-    const apiData = await Promise.all(apiResponse.map(response => response.json()));
-    let results = apiData.map(item => item.results).flat();
+    let capitalDataResponse = await Promise.all(capitalDataRequests);
+    let capitalData = (await Promise.all(capitalDataResponse
+      .map(response => response.json().then(data => data.results)))).flat();
     */
     
-    let results = citiesSampleResponse;
+    let capitalData = capitalDataSample;
 
-    capitals = capitals.map((capital, index) => {
-      return {
-        ...capital,
-        description: results[index].intro,
-        snippet: results[index].snippet,
-        coordinates: []
-     }
+
+ 
+    /*
+    
+    let countryAttractionsRequests = initialCountryData.map((country, index) => {
+      const config = {
+        authData: authHeaders,
+        baseUri: 'https://www.triposo.com/api/20201111',
+        endPoint: 'poi',
+        searchBy: ['countrycode', index === 4 ? 'uk' : country.code ],
+        count: 60,
+        fields: ['id', 'images', 'name', 'intro', 'snippet', 'tags', 'location_id'],
+        
+      }
+
+      return apiRequest(config);
     })
+
+    let countryAttractionsResponse = await Promise.all(countryAttractionsRequests);
+    let countryAttractions = await Promise.all(countryAttractionsResponse.map(response => response.json().then(data => data.results)));
+
+    */
     
-
-    countries.forEach(async (country, index) => {
-      const model = await CountryModel.findById(country._id);
-      model.capital = capitals[index];
-      await model.save();
-
-    }  )
-
-    res.json('Ok');
-
-
-
-
     
+    
+    let countryAttractions = attractionsDataSample;
 
-  
+    countryAttractions = countryAttractions.map(country =>
+      country
+        .map(attraction => {
+    
+          return {
+            ...attraction,
+            images: attraction.images.filter(image => image.caption !== null &&
+              image.caption !== 'image')
+          }
+        }).filter(attraction => attraction.images.length !== 0).slice(0, 6));
+    
+    let mongoFormattedAttractions = countryAttractions.map(country =>
+      country.map(attraction => {
+        return {
+          name: attraction.name,
+          description: attraction.intro,
+          snippet: attraction.snippet,
+          image: {
+            url: attraction.images[0].source_url,
+            caption: attraction.images[0].caption
+          }
+        }
+      })) 
 
-   
+    /*  Ends here*/
+
+    let allCountryInfo = initialCountryData.map((country, index) => {
+      return {
+        ...country,
+        code: index === 4 ? 'uk' : country.code,
+        coordinates: [
+          countryTexts[index].coordinates.latitude,
+          countryTexts[index].coordinates.longitude,
+        ],
+        capital: {
+          ...country.capital,
+          coordinates: [
+            capitalData[index].coordinates.latitude,
+            capitalData[index].coordinates.longitude,
+          ]
+        },
+        attractions: mongoFormattedAttractions[index],
+        name: countryTexts[index].name,
+        description: countryTexts[index].intro,
+        snippet: countryTexts[index].snippet,
+        image: {
+          url: countryTexts[index].images[0].source_url,
+          caption: countryTexts[index].images[0].caption
+        }
+
+        
+      }
+    })
+
+   CountryModel.create(allCountryInfo);
+
+ return res.json(allCountryInfo[1]);
+    
   } catch (error) {
     console.log(error.message)
   }
+
+
+
 })
+
+
+
 
 router.post('/getCurrencies', async (req, res) => {
   try {
@@ -280,91 +365,6 @@ router.post('/getCurrencies', async (req, res) => {
   }
 })
 
-router.post('/getAttractions', async (req, res) => {
-  
-// По факту, это тоже функция из объекта или класса dataService
-  
-  let countries = (await CountryModel.find({}));
-  let countryNames = countries.map(country => country.name)
 
-  
-  /*
-  const fields = ['id', 'images', 'name', 'intro', 'snippet', 'tags', 'location_id'];
-
-
-  let requests = countryNames.map(countryName => {
-    const config = {
-      authData: authHeaders,
-      baseUri: 'https://www.triposo.com/api/20201111',
-      endPoint: 'poi',
-      searchBy: ['location_id', countryName],
-      count: 40,
-      fields,
-    }
-
-    return apiRequest(config);
-
-  })
-
-  const apiResponse = await Promise.all(requests);
-  const apiData = (await Promise.all
-    (apiResponse.map(response => response.json()))).map(object => object.results);
-  
-  */
-  
-
-  
-  let results = attractionsSampleResponse;
-
-  /* Мне нужно отфильтровать достопримечательности по двум параметрам: */
-
-  let filteredData = results.map(countryAttractions =>
-    countryAttractions
-      .map(attraction => {
-    
-      return {
-        ...attraction,
-        images: attraction.images.filter(image => image.caption !== null &&
-          image.caption !== 'image')
-      }
-      })
-      .filter(attraction => attraction.images.length !== 0)
-    
-  )
-
-  filteredData = filteredData.map(countryAttractionsArray =>
-    countryAttractionsArray.slice(0, 6)
-  );
-
-  let mongoFormattedData = filteredData.map(countryAttractionsArray =>
-    countryAttractionsArray.map(attraction => {
-      return {
-        name: attraction.name,
-        description: attraction.intro,
-        snippet: attraction.snippet,
-        image: {
-          src: attraction.images[0].source_url,
-          caption: attraction.images[0].caption
-        }
-      }
-    }))
-  
-
-  
-
-  countries.forEach(async (country, index) => {
-    country.attractions = mongoFormattedData[index];
-    await country.save();
-  }) 
-
-  
-
-
-
-
-  
-
-  res.json('ok');
-})
 
 module.exports = router;
