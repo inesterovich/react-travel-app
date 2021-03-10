@@ -79,9 +79,6 @@ img {
   }
 }
 
-/*
-
-
 @media (min-width: 992px) {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(33% - 20px);
@@ -92,4 +89,15 @@ img {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(25% - 20px);
   }
-} */
+} 
+
+=======
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: rgb(243, 136, 13);
+}
+.swiper-button-next:active,
+.swiper-button-prev:active {
+  color: rgb(229, 243, 32);
+}
+
