@@ -43,6 +43,55 @@ img {
 .header--inner .registration {
   margin-left: auto !important;
 }
+
+.flex-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.flex-wrap .flex-wrap__item {
+  margin: 10px;
+  flex: 0 1 calc(20% - 20px);
+}
+
+@media (max-width: 1440px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(33% - 20px);
+  }
+}
+
+@media (max-width: 992px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 992px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 576px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(100% - 20px);
+  }
+}
+
+@media (min-width: 992px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(33% - 20px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(25% - 20px);
+  }
+} 
+
+=======
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   color: rgb(243, 136, 13);
@@ -51,3 +100,4 @@ img {
 .swiper-button-prev:active {
   color: rgb(229, 243, 32);
 }
+

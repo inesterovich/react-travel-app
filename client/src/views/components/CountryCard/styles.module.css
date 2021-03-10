@@ -1,26 +1,43 @@
 .meta {
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  right: 16px;
   display: flex;
   margin-bottom: 10px;
   justify-content: space-between;
 }
 
-.CardContent {
+.Card {
+  height: 100%;
   background: #c0f1eb !important;
+}
+
+.CardActionArea {
+  height: 100%;
+}
+
+.card_title {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 26px !important;
+  font-weight: bold !important;
+}
+
+.card__snippet {
+  padding-bottom: 30px;
 }
 
 .meta__city {
   color: rgba(0, 0, 0, 0.54);
-  margin-top: 10px;
+  margin-top: -5px;
 }
 
 .meta__city svg {
   margin-bottom: -4px;
 }
 
-.meta__country {
-  color: rgba(0, 0, 0, 0.54);
-  font-weight: bold !important;
-  font-size: 30px !important;
+.meta__rating {
+  height: 20px;
 }
 .link{
   text-decoration: none;
