@@ -9,7 +9,9 @@ import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
 import {Link} from "react-router-dom";
 import noImageIcon from "./no-image-icon.png";
-import {ICountry} from "../../../types";
+
+import { ICountry } from "../../../types";
+import { Link } from "react-router-dom";
 
 const CountryCard: React.FC<ICountry> = ({image, name, description}) => (
   <Link to={"/country"} className={styles.link}>
