@@ -6,19 +6,23 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
-import Russia from "./Russia.jpg";
+import noImageIcon from "./no-image-icon.png";
 import { ICountry } from "../../../types";
+import { Link, useParams } from "react-router-dom";
 
-const CountryCard: React.FC<ICountry> = ({ name, snippet }) => {
+const CountryCard: React.FC<ICountry> = ({ name, description, image }) => {
   return (
     <Card className={styles.Card}>
-      <CardActionArea href="/country" className={styles.CardActionArea}>
+      <CardActionArea
+        component={Link}
+        to={`/${name}`}
+        className={styles.CardActionArea}
+      >
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt={image ? image?.caption : ""}
           height="140"
-          image={Russia}
-          title="Contemplative Reptile"
+          image={image ? image?.url : noImageIcon}
         />
         <CardContent>
           <Typography className={styles.card_title} component="h2" gutterBottom>
@@ -30,7 +34,7 @@ const CountryCard: React.FC<ICountry> = ({ name, snippet }) => {
             className={styles.card__snippet}
             component="p"
           >
-            {snippet}...
+            {description}...
           </Typography>
           <div className={styles.meta}>
             <Rating

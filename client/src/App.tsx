@@ -18,10 +18,10 @@ const App: React.FC<{}> = React.memo(() => {
             <Route exact path="/">
               <MainPage />
             </Route>
-            {/* <Route path="/:id" children={<CountryPage />} /> */}
-            <Route path="/country">
+            <Route path="/:id" children={<CountryPage />} />
+            {/* <Route path="/country">
               <CountryPage />
-            </Route>
+            </Route> */}
           </Switch>
         </Container>
       </main>
