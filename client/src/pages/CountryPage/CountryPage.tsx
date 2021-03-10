@@ -1,9 +1,9 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import Content from "../content/Content";
 import SidePanel from "../sidePanel/SidePanel";
 import styles from "./styles.module.css";
-import { Fade } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+import {Fade} from "@material-ui/core";
 
 const CountryPage: React.FC = React.memo(() => {
   let params: { id: string } = useParams();

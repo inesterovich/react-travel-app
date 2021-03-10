@@ -11,21 +11,18 @@ import "./App.css";
 const App: React.FC<{}> = React.memo(() => {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      <main className="App">
-        <Container maxWidth="xl">
-          <Switch>
-            <Route exact path="/">
-              <MainPage />
-            </Route>
-            <Route path="/:id" children={<CountryPage />} />
-            {/* <Route path="/country">
-              <CountryPage />
-            </Route> */}
-          </Switch>
-        </Container>
-      </main>
-      <Footer />
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <MainPage />
+          </Route>
+          <Route path="/:id?">
+            <CountryPage />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 });

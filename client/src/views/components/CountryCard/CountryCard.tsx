@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./styles.module.css";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -6,12 +7,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
+import {Link} from "react-router-dom";
 import noImageIcon from "./no-image-icon.png";
+
 import { ICountry } from "../../../types";
 import { Link } from "react-router-dom";
 
-const CountryCard: React.FC<ICountry> = ({ name, description, image }) => {
-  return (
+const CountryCard: React.FC<ICountry> = ({image, name, description}) => (
+  <Link to={"/country"} className={styles.link}>
     <Card className={styles.Card}>
       <CardActionArea
         component={Link}
@@ -51,7 +54,7 @@ const CountryCard: React.FC<ICountry> = ({ name, description, image }) => {
         </CardContent>
       </CardActionArea>
     </Card>
-  );
-};
+  </Link>
+);
 
 export default CountryCard;
