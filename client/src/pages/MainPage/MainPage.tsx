@@ -9,6 +9,7 @@ import { ICountry } from "../../types";
 
 import { getCountriesThunk } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
+import {RootState} from "../../redux/rootReducer";
 
 interface IProps {
   countries: {
@@ -21,11 +22,10 @@ interface IProps {
 const MainPage: React.FC = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
   const dispatch = useDispatch();
-
+  const search = useSelector((state:RootState) => state.countries.search)
   useEffect(() => {
     if (!countries.data.length) dispatch(getCountriesThunk());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <div className={styles.mainPage}>
       {countries.isLoading ? (
@@ -33,7 +33,7 @@ const MainPage: React.FC = () => {
       ) : (
         <Fade in={true} timeout={700}>
           <div className="flex-wrap">
-            {countries.data.map((el: ICountry) => (
+            {countries.data.filter((e)=> e.name.toLowerCase().includes(search.trim().toLowerCase())).map((el: ICountry) => (
               <div className="flex-wrap__item" key={uuidv4()}>
                 <CountryCard
                   name={el.name}

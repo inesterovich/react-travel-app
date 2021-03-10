@@ -12,7 +12,6 @@ import noImageIcon from "./no-image-icon.png";
 import { ICountry } from "../../../types";
 
 const CountryCard: React.FC<ICountry> = ({image, name, description}) => (
-  <Link to={"/country"} className={styles.link}>
     <Card className={styles.Card}>
       <CardActionArea
         component={Link}
@@ -52,7 +51,6 @@ const CountryCard: React.FC<ICountry> = ({image, name, description}) => (
         </CardContent>
       </CardActionArea>
     </Card>
-  </Link>
-);
+)
 
 export default CountryCard;

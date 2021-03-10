@@ -22,19 +22,16 @@ const Map: React.FC<{}> = () => {
                     zoom={6} className={styles.map}>
         {currentLanguage === "ru" &&
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url={`https://api.mapbox.com/styles/v1/travelapprs/cklyvkn451nfo17o8kb93owrf/tiles/256/{z}/{x}/{y}@2x?access_token=${accessToken}`}
         />
         }
         {currentLanguage === "en" &&
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url={`https://api.mapbox.com/styles/v1/travelapprs/cklywb0ka53p417ryzg4bag5v/tiles/256/{z}/{x}/{y}@2x?access_token=${accessToken}`}
         />
         }
         {currentLanguage === "es" &&
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url={`https://api.mapbox.com/styles/v1/travelapprs/cklyweaf77pff17l9c68vbv4k/tiles/256/{z}/{x}/{y}@2x?access_token=${accessToken}`}
         />
         }
