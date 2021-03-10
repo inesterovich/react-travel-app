@@ -11,7 +11,7 @@ import {RootState} from "../../../redux/rootReducer";
 const Map: React.FC<{}> = () => {
   const currentLanguage = useSelector((state: RootState) => state.countries.currentLanguage)
   const [mapInfo] = useState<any>(data)
-  const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseXZxOTZmMWVraDJ2cGxqeW81dnoxbyJ9.iWiRopnKs9YvUXWHSHF_pg"
+  const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseTc0c2dpMHdxMjJ1cnp3bjJtamY0dyJ9.zreWl48n6xr29TsuSx0ApA"
   const {id} = useParams<{ id: string }>()
   const countryBorders = mapInfo.features.findIndex((e: any) => e.properties.sovereignt === id)
 
