@@ -6,37 +6,52 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
-import Russia from "./Russia.jpg";
+import noImageIcon from "./no-image-icon.png";
+import { ICountry } from "../../../types";
+import { Link, useParams } from "react-router-dom";
 
-const CountryCard: React.FC = () => (
-  <Card>
-    <CardActionArea href="/country">
-      <CardMedia
-        component="img"
-        alt="Contemplative Reptile"
-        height="140"
-        image={Russia}
-        title="Contemplative Reptile"
-      />
-      <CardContent className={styles.CardContent}>
-        <div className={styles.meta}>
-          <Typography className={styles.meta__country} component="h2">
-            Россия
+const CountryCard: React.FC<ICountry> = ({ name, description, image }) => {
+  return (
+    <Card className={styles.Card}>
+      <CardActionArea
+        component={Link}
+        to={`/${name}`}
+        className={styles.CardActionArea}
+      >
+        <CardMedia
+          component="img"
+          alt={image ? image?.caption : ""}
+          height="140"
+          image={image ? image?.url : noImageIcon}
+        />
+        <CardContent>
+          <Typography className={styles.card_title} component="h2" gutterBottom>
+            {name}
           </Typography>
-          <div className={styles.meta__city}>
-            Москва <ApartmentIcon></ApartmentIcon>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className={styles.card__snippet}
+            component="p"
+          >
+            {description}...
+          </Typography>
+          <div className={styles.meta}>
+            <Rating
+              name="read-only"
+              value={3}
+              readOnly
+              size="small"
+              className={styles.meta__rating}
+            />
+            <div className={styles.meta__city}>
+              Столица <ApartmentIcon></ApartmentIcon>
+            </div>
           </div>
-        </div>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Россия – крупнейшая страна мира, расположенная в Восточной Европе и
-          Северной Азии и омываемая водами Тихого и Северного Ледовитого
-          океанов. Ландшафт России крайне разнообразен: на ее территории есть и
-          тундра, и леса, и субтропические пляжи...
-        </Typography>
-        <Rating name="read-only" value={3} readOnly size="small" />
-      </CardContent>
-    </CardActionArea>
-  </Card>
-);
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+};
 
 export default CountryCard;

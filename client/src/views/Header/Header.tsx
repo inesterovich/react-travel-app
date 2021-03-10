@@ -14,7 +14,7 @@ const Header: React.FC = React.memo(() => {
   return (
     <header
       className={`${styles.header} ${
-        location.pathname === "/country" ? "header--inner" : ""
+        location.pathname === "/" ? "" : "header--inner"
       }`}
     >
       <Container maxWidth="xl">
