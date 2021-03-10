@@ -5,9 +5,9 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
-type reducerType = typeof reducer
-export type AppStateType = ReturnType<reducerType>
-const store = createStore(reducer, applyMiddleware(thunk));
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 
 ReactDOM.render(

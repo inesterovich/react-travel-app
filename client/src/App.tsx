@@ -17,7 +17,7 @@ const App: React.FC<{}> = React.memo(() => {
           <Route exact path="/">
             <MainPage />
           </Route>
-          <Route path="/country/:id?">
+          <Route path="/:id?">
             <CountryPage />
           </Route>
         </Switch>

@@ -2,13 +2,14 @@ import React from "react";
 import styles from "./styles.module.css";
 import { NativeSelect } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../index";
+import { RootState } from "../../../redux/rootReducer";
+import {actionSetCurrentLanguage} from "../../../redux/countries";
 
 const Language: React.FC = React.memo(() => {
   const dispatch = useDispatch()
-  const currentLanguage = useSelector((state:AppStateType)=>state.currentLanguage)
+  const currentLanguage = useSelector((state:RootState)=>state.countries.currentLanguage)
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch({type: "SET_CURRENT_LANGUAGE", payload: e.target.value})
+    dispatch(actionSetCurrentLanguage(e.target.value))
   }
   return (
     <div className={styles.language}>

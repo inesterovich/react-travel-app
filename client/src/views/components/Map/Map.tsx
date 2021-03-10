@@ -5,11 +5,11 @@ import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css'
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../../index";
 import styles from "./styles.module.css"
+import {RootState} from "../../../redux/rootReducer";
 
 const Map: React.FC<{}> = () => {
-  const currentLanguage = useSelector((state: AppStateType) => state.currentLanguage)
+  const currentLanguage = useSelector((state: RootState) => state.countries.currentLanguage)
   const [mapInfo] = useState<any>(data)
   const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseXZxOTZmMWVraDJ2cGxqeW81dnoxbyJ9.iWiRopnKs9YvUXWHSHF_pg"
   const {id} = useParams<{ id: string }>()
