@@ -1,8 +1,6 @@
 .timeCountry {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .time {
-  color: rgb(72, 136, 88);
+  color: rgba(0, 0, 0, 0.54);
 }

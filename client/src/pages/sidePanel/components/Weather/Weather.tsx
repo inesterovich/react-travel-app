@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchWeather } from "../../services";
 import styles from "./styles.module.css";
+import { Typography } from "@material-ui/core";
 
 enum lang {
   "ru" = "ru",
@@ -40,6 +41,9 @@ const Weather: React.FC = React.memo(() => {
     <div className={styles.weather}>
       {weatherData && (
         <>
+          <Typography variant="h5" gutterBottom>
+            Погода в столице:
+          </Typography>
           <div className={styles.containerTempIconText}>
             <div className={styles.weatherTemp}>
               {Math.round(weatherData.dataTemp)}&deg;C

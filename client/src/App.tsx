@@ -6,23 +6,24 @@ import MainPage from "./pages/MainPage";
 import Footer from "./views/Footer";
 import Header from "./views/Header";
 import { theme } from "./theme";
-import "./App.css";
 
 const App: React.FC<{}> = React.memo(() => {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <MainPage />
-          </Route>
-          <Route path="/:id?">
-            <CountryPage />
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
+      <Header />
+      <main className="App">
+        <Container maxWidth="xl">
+          <Switch>
+            <Route exact path="/">
+              <MainPage />
+            </Route>
+            <Route path="/:id?">
+              <CountryPage />
+            </Route>
+          </Switch>
+        </Container>
+      </main>
+      <Footer />
     </ThemeProvider>
   );
 });

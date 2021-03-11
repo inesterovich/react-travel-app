@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCurrency } from "../../services";
 import styles from "./styles.module.css";
+import { Typography } from "@material-ui/core";
 
 const textCurrencyData = {
   ru: "Валюта страны",
@@ -46,6 +47,9 @@ const Currency: React.FC = React.memo(() => {
     <div className={styles.currency}>
       {currencyData && (
         <>
+          <Typography variant="h5" gutterBottom>
+            Курс валюты:
+          </Typography>
           <p className={styles.nameCurrency}>
             {textCurrencyData[lang]}: {valueCurrencyData[country]}
           </p>
