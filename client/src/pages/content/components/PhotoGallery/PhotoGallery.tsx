@@ -10,7 +10,6 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import russia from "../../../../assets/img/russia.jpg";
 import fullscreen from "../../../../assets/img/fullscreen.png";
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
@@ -23,33 +22,6 @@ type State = {
     attractions: [];
   };
 };
-
-const imagesArray = [
-  {
-    id: "1",
-    src: russia,
-  },
-  {
-    id: "2",
-    src: russia,
-  },
-  {
-    id: "3",
-    src: russia,
-  },
-  {
-    id: "4",
-    src: russia,
-  },
-  {
-    id: "5",
-    src: russia,
-  },
-  {
-    id: "6",
-    src: russia,
-  },
-];
 
 SwiperCore.use([
   Navigation,
@@ -68,7 +40,6 @@ const PhotoGallery: React.FC = React.memo(() => {
   const currentCountryAttractions = useSelector((state: State) => {
     return state.countries.currentCountry.attractions || [];
   });
-  console.log(currentCountryAttractions);
 
   return (
     <div className={styles.photoGallery}>
@@ -93,6 +64,7 @@ const PhotoGallery: React.FC = React.memo(() => {
                     alt="slider"
                     className={styles.img}
                   />
+                  <p className={styles.textImg}>{item.name}</p>
                 </SwiperSlide>
               );
             })}
@@ -106,11 +78,11 @@ const PhotoGallery: React.FC = React.memo(() => {
             onSwiper={setControlledSwiper}
             className={styles.galleryThumbs}
           >
-            {imagesArray.map((item: any) => {
+            {currentCountryAttractions.map((item: any) => {
               return (
-                <SwiperSlide key={item.id}>
+                <SwiperSlide key={item._id}>
                   <img
-                    src={item.src}
+                    src={item.image.src}
                     alt="slider"
                     className={styles.imgThumbs}
                   />

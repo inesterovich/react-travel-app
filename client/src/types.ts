@@ -24,19 +24,17 @@ export type CurrentCountry = {
   attractions?: {
     description: string;
     image?: {
-      src: string;
+      url: string;
+      caption: string;
     };
     name: string;
     snippet: string;
     _id: string;
   }[];
-  currency?: {
+  currency: {
     code: string;
   };
-  image?: {
-    caption: string;
-    url: string;
-  };
+  image: { url: string; caption: string };
   name?: string;
   properties: {
     name: string;
