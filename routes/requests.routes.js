@@ -6,6 +6,11 @@ const capitalDataSample = require('./capitalDataSample2.json');
 const countryCapitals = require('../country_capitals.json');
 const attractionsSampleResponse = require('../routes/attractions_sample_response.json');
 const attractionsDataSample = require('./attractionsDataSample.json');
+const russianTranlationCountries = require('../langsData/Countries.ru.json');
+const russianTranslationAttractions = require('../langsData/Attractions-ru.json');
+const spanishTranslationCountries = require('../langsData/Countries-es.json');
+const spanishTranslationAttractions = require('../langsData/Attractions-es.json')
+const countryVideos = require('../videos.json');
 
 const fetch = require('node-fetch');
 const { Router, response, request } = require("express");
@@ -16,7 +21,7 @@ const { model } = require('mongoose');
 const countriesSampleResponse = require('./county_main_response.json');
 const citiesSampleResponse = require('./cities_example_response.json');
 const CitySchema = require('../model/City.model');
-const { base } = require('../model/County.model');
+
 
 
 const router = Router();
@@ -287,7 +292,9 @@ router.post('/getData', async (req, res) => {
 
     let allCountryInfo = initialCountryData.map((country, index) => {
       return {
-        ...country,
+        
+
+          ...country,
         code: index === 4 ? 'uk' : country.code,
         coordinates: [
           countryTexts[index].coordinates.latitude,
@@ -307,15 +314,43 @@ router.post('/getData', async (req, res) => {
         image: {
           url: countryTexts[index].images[0].source_url,
           caption: countryTexts[index].images[0].caption
+        },
+        video: countryVideos[index]
         }
 
         
+      
+    })
+
+   
+
+    let ruArray = russianTranlationCountries.map((country, index) => {
+      return {
+        ...country,
+        attractions: russianTranslationAttractions[index]
       }
     })
 
-   CountryModel.create(allCountryInfo);
+    let esArray = spanishTranslationCountries.map((country, index) => {
+      return {
+        ...country,
+        attractions: spanishTranslationAttractions[index]
+      }
+    });
 
- return res.json(allCountryInfo[1]);
+    let baseArray = allCountryInfo.map((country, index) => {
+      return {
+        en: {
+          ...country
+        },
+        ru: ruArray[index],
+        es: esArray[index]
+      }
+    })
+
+ await CountryModel.create(baseArray); 
+
+ return res.json(baseArray);
     
   } catch (error) {
     console.log(error.message)
@@ -324,36 +359,6 @@ router.post('/getData', async (req, res) => {
 
 
 })
-
-router.post('/test', async (req, res) => {
-  try {
-    
-
-    const countries = await CountryModel.find({}).lean();
-
-    const countriesOnly = countries.map(country =>
-      country.attractions.map(attraction => {
-        return {
-          name: attraction.name,
-        }
-      })
-    
-    )
-
-    if (countries) {
-      res.json( countriesOnly );
-    } else {
-      res.status(400).json({ message: 'Something went wrong, try again' });
-    }
-
-   
-
-} catch (error) {
-  console.log(error.message)
-}
-})
-
-
 
 
 router.post('/getCurrencies', async (req, res) => {
