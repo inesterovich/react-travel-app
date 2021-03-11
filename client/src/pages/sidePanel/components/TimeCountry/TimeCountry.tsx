@@ -3,6 +3,7 @@ import moment from "moment";
 import "moment-timezone";
 import styles from "./styles.module.css";
 import { useState } from "react";
+import { Typography } from "@material-ui/core";
 
 const days = [
   {
@@ -164,9 +165,14 @@ const TimeCountry: React.FC = React.memo(() => {
   }, [lang, timezone]);
 
   return (
-    <div className={styles.timeCountry}>
-      <h3 className={styles.time}> {`${currentTime}`}</h3>
-    </div>
+    <>
+      <Typography variant="h5" gutterBottom>
+        Дата и время:
+      </Typography>
+      <div className={styles.timeCountry}>
+        <h3 className={styles.time}> {`${currentTime}`}</h3>
+      </div>
+    </>
   );
 });
 export default TimeCountry;
