@@ -4,7 +4,8 @@ const initialState = {
   data: [] as Array<Object> | [],
   isLoading: false as boolean,
   error: null as string | null,
-  currentLanguage: "en"
+  currentLanguage: "en",
+  currentCountry: [] as Array<Object> | [],
 };
 
 type InitialStateType = typeof initialState;
@@ -37,9 +38,19 @@ const posts = (
     case "countries/SET_LANGUAGE": {
       return {
         ...state,
-        currentLanguage: action.payload.lang
-      }
+        currentLanguage: action.payload.lang,
+      };
     }
+
+    case "countries/SET_COUNTRY": {
+      console.log(action.payload.dataCountry);
+
+      return {
+        ...state,
+        currentCountry: action.payload.dataCountry,
+      };
+    }
+
     default:
       return state;
   }

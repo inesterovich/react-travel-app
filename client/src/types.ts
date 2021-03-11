@@ -19,3 +19,29 @@ export type ICountry = {
   snippet?: string;
   description?: string;
 };
+
+export type CurrentCountry = {
+  attractions?: {
+    description: string;
+    image?: {
+      src: string;
+    };
+    name: string;
+    snippet: string;
+    _id: string;
+  }[];
+  currency?: {
+    code: string;
+  };
+  image?: {
+    caption: string;
+    url: string;
+  };
+  name?: string;
+  properties: {
+    name: string;
+    value: string;
+  }[];
+  snippet?: string;
+  description?: string;
+};

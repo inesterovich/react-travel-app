@@ -7,8 +7,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import { ICountry } from "../../types";
 
-import { getCountriesThunk } from "../../redux/countries";
+import {
+  actionSetCurrentCountry,
+  getCountriesThunk,
+} from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 
 interface IProps {
   countries: {
@@ -26,6 +30,13 @@ const MainPage: React.FC = () => {
     if (!countries.data.length) dispatch(getCountriesThunk());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleClickCard = useCallback(
+    (el) => {
+      dispatch(actionSetCurrentCountry(el));
+    },
+    [dispatch]
+  );
+
   return (
     <div className={styles.mainPage}>
       {countries.isLoading ? (
@@ -34,7 +45,11 @@ const MainPage: React.FC = () => {
         <Fade in={true} timeout={700}>
           <div className="flex-wrap">
             {countries.data.map((el: ICountry) => (
-              <div className="flex-wrap__item" key={uuidv4()}>
+              <div
+                className="flex-wrap__item"
+                key={uuidv4()}
+                onClick={() => handleClickCard(el)}
+              >
                 <CountryCard
                   name={el.name}
                   description={el.description}

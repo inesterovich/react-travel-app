@@ -14,6 +14,15 @@ import russia from "../../../../assets/img/russia.jpg";
 import fullscreen from "../../../../assets/img/fullscreen.png";
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
+import { useSelector } from "react-redux";
+import { CurrentCountry } from "../../../../types";
+
+type State = {
+  countries: {
+    currentCountry: CurrentCountry;
+    attractions: [];
+  };
+};
 
 const imagesArray = [
   {
@@ -55,6 +64,12 @@ SwiperCore.use([
 const PhotoGallery: React.FC = React.memo(() => {
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const handle = useFullScreenHandle();
+
+  const currentCountryAttractions = useSelector((state: State) => {
+    return state.countries.currentCountry.attractions || [];
+  });
+  console.log(currentCountryAttractions);
+
   return (
     <div className={styles.photoGallery}>
       <div className={styles.swiperContainer}>
@@ -70,10 +85,14 @@ const PhotoGallery: React.FC = React.memo(() => {
             controller={{ control: controlledSwiper }}
             effect="cube"
           >
-            {imagesArray.map((item: any) => {
+            {currentCountryAttractions.map((item: any) => {
               return (
-                <SwiperSlide key={item.id}>
-                  <img src={item.src} alt="slider" className={styles.img} />
+                <SwiperSlide key={item._id}>
+                  <img
+                    src={item.image.src}
+                    alt="slider"
+                    className={styles.img}
+                  />
                 </SwiperSlide>
               );
             })}
