@@ -1,5 +1,6 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 const ACCENT_COLOR = "rgb(105, 186, 190)";
+const TEXT_COLOR = "rgba(0, 0, 0, 0.768)";
 
 // Create a theme instance.
 export const theme = createMuiTheme({
@@ -17,6 +18,36 @@ export const theme = createMuiTheme({
     body2: {
       fontFamily: "Roboto",
       marginBottom: "10px",
+    },
+    h1: {
+      fontWeight: "bold",
+      fontSize: "40px",
+      marginBottom: "20px",
+      color: TEXT_COLOR,
+    },
+    h2: {
+      fontWeight: "bold",
+      fontSize: "36px",
+      marginBottom: "20px",
+      color: TEXT_COLOR,
+    },
+    h3: {
+      fontWeight: "bold",
+      fontSize: "34px",
+      marginBottom: "20px",
+      color: TEXT_COLOR,
+    },
+    h4: {
+      fontWeight: "bold",
+      fontSize: "26px",
+      marginBottom: "20px",
+      color: TEXT_COLOR,
+    },
+    h5: {
+      fontWeight: "bold",
+      fontSize: "22px",
+      marginBottom: "20px",
+      color: TEXT_COLOR,
     },
   },
   shape: {

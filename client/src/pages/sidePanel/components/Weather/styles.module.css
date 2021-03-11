@@ -1,7 +1,5 @@
 .weather {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
 }
 .containerTempIconText {
@@ -21,15 +19,15 @@
 .weatherTemp {
   font-size: 70px;
   margin: 0;
-  color: rgb(72, 136, 88);
+  color: rgba(0, 0, 0, 0.54);
 }
 .weatherText {
   font-size: 12px;
   margin: 0;
-  color: rgb(72, 136, 88);
+  color: rgba(0, 0, 0, 0.54);
 }
 .weatherHumidity {
   font-size: 16px;
   margin: 0;
-  color: rgb(72, 136, 88);
+  color: rgba(0, 0, 0, 0.54);
 }
