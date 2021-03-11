@@ -5,14 +5,6 @@ const CitySchema = new Schema({
     type: String,
   },
 
-  description: {
-    type: String,
-  },
-  
-  snippet: {
-    type: String
-  },
-
   coordinates: [Number]
 })
 

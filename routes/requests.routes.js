@@ -236,8 +236,8 @@ router.post('/getData', async (req, res) => {
     let capitalData = capitalDataSample;
 
 
- 
-    /*
+ /*
+    
     
     let countryAttractionsRequests = initialCountryData.map((country, index) => {
       const config = {
@@ -246,7 +246,7 @@ router.post('/getData', async (req, res) => {
         endPoint: 'poi',
         searchBy: ['countrycode', index === 4 ? 'uk' : country.code ],
         count: 60,
-        fields: ['id', 'images', 'name', 'intro', 'snippet', 'tags', 'location_id'],
+        fields: ['id', 'name', 'images','location_id'],
         
       }
 
@@ -255,12 +255,13 @@ router.post('/getData', async (req, res) => {
 
     let countryAttractionsResponse = await Promise.all(countryAttractionsRequests);
     let countryAttractions = await Promise.all(countryAttractionsResponse.map(response => response.json().then(data => data.results)));
-
-    */
+        */
     
+   // return res.json(countryAttractions);
     
     
     let countryAttractions = attractionsDataSample;
+    
 
     countryAttractions = countryAttractions.map(country =>
       country
@@ -271,20 +272,16 @@ router.post('/getData', async (req, res) => {
             images: attraction.images.filter(image => image.caption !== null &&
               image.caption !== 'image')
           }
-        }).filter(attraction => attraction.images.length !== 0).slice(0, 6));
+        }).filter(attraction => attraction.images.length !== 0).slice(0, 10));
     
     let mongoFormattedAttractions = countryAttractions.map(country =>
       country.map(attraction => {
         return {
           name: attraction.name,
-          description: attraction.intro,
-          snippet: attraction.snippet,
-          image: {
-            url: attraction.images[0].source_url,
-            caption: attraction.images[0].caption
-          }
+          url: attraction.images[0].source_url,
+          
         }
-      })) 
+      }))  
 
     /*  Ends here*/
 
@@ -326,6 +323,34 @@ router.post('/getData', async (req, res) => {
 
 
 
+})
+
+router.post('/test', async (req, res) => {
+  try {
+    
+
+    const countries = await CountryModel.find({}).lean();
+
+    const countriesOnly = countries.map(country =>
+      country.attractions.map(attraction => {
+        return {
+          name: attraction.name,
+        }
+      })
+    
+    )
+
+    if (countries) {
+      res.json( countriesOnly );
+    } else {
+      res.status(400).json({ message: 'Something went wrong, try again' });
+    }
+
+   
+
+} catch (error) {
+  console.log(error.message)
+}
 })
 
 
