@@ -11,6 +11,7 @@ const russianTranslationAttractions = require('../langsData/Attractions-ru.json'
 const spanishTranslationCountries = require('../langsData/Countries-es.json');
 const spanishTranslationAttractions = require('../langsData/Attractions-es.json')
 const countryVideos = require('../videos.json');
+const bdInitData = require('../data/database-init.json');
 
 const fetch = require('node-fetch');
 const { Router, response, request } = require("express");
@@ -358,6 +359,20 @@ router.post('/getData', async (req, res) => {
 
 
 
+})
+
+router.post('/bdInit', async (req, res) => {
+  const result = await CountryModel.create(bdInitData);
+
+ return res.json(result);
+})
+
+router.post('/getPlain', async (req, res) => {
+  const countries = await CountryModel.find({});
+
+  if (countries) {
+    res.json(countries);
+  }
 })
 
 

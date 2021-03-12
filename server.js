@@ -17,7 +17,7 @@ async function start() {
 
   try {
     
-      await mongoose.connect(config.get('testUri'), {
+      await mongoose.connect(config.get('mongoUri'), {
 
           useNewUrlParser: true,
           useUnifiedTopology: true,
