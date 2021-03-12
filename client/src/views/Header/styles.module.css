@@ -1,4 +1,9 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
   background-color: #69c6ba;
   color: rgb(250, 249, 249);
 }
