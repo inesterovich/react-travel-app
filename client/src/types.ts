@@ -10,7 +10,7 @@ export type InferValueTypes<T> = T extends { [key: string]: infer U }
   : never;
 export type ActionTypes = ReturnType<InferValueTypes<typeof CountriesActions>>;
 
-export type ICountry = {
+export type CountryType = {
   name: string;
   image?: {
     caption: string;
@@ -18,4 +18,12 @@ export type ICountry = {
   };
   snippet?: string;
   description?: string;
+  capital?: {
+    coordinates: Array<number>
+    name:string
+  }
+}
+
+export type ICountry = {
+  [key: string] : CountryType
 };

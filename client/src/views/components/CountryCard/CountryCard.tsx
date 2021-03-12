@@ -9,9 +9,9 @@ import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
 import noImageIcon from "./no-image-icon.png";
-import { ICountry } from "../../../types";
+import {CountryType} from "../../../types";
 
-const CountryCard: React.FC<ICountry> = ({ image, name, description }) => (
+const CountryCard: React.FC<CountryType> = ({ image, name, description , capital}) => (
   <Card className={styles.Card}>
     <CardActionArea
       component={Link}
@@ -45,7 +45,7 @@ const CountryCard: React.FC<ICountry> = ({ image, name, description }) => (
             className={styles.meta__rating}
           />
           <div className="meta__city">
-            Столица <ApartmentIcon></ApartmentIcon>
+            {capital?.name} <ApartmentIcon></ApartmentIcon>
           </div>
         </div>
       </CardContent>

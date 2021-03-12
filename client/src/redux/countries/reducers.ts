@@ -4,7 +4,8 @@ const initialState = {
   data: [] as Array<Object> | [],
   isLoading: false as boolean,
   error: null as string | null,
-  currentLanguage: "en"
+  currentLanguage: "en",
+  search: "",
 };
 
 type InitialStateType = typeof initialState;
@@ -38,6 +39,12 @@ const posts = (
       return {
         ...state,
         currentLanguage: action.payload.lang
+      }
+    }
+    case "countries/SET_SEARCH": {
+      return {
+        ...state,
+        search: action.payload.search
       }
     }
     default:
