@@ -27,7 +27,6 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     if (!countries.data.length) dispatch(getCountriesThunk());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(countries.data)
   return (
     <div className={styles.mainPage}>
       {countries.isLoading ? (
