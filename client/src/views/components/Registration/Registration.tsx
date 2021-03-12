@@ -8,6 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Avatar, IconButton } from "@material-ui/core";
+import InputFile from "../InputFile/index";
 
 const RegisterLayout: React.FC = () => {
   return (
@@ -37,10 +38,7 @@ const RegisterLayout: React.FC = () => {
           fullWidth
           className="mb_50"
         />
-        <Button variant="outlined" color="secondary" component="label">
-          Upload Image
-          <input type="file" hidden accept="image/jpeg,image/png,image/gif" />
-        </Button>
+        <InputFile />
       </DialogContent>
     </div>
   );
@@ -95,7 +93,7 @@ const Registration: React.FC = React.memo(() => {
       </IconButton>
       <IconButton>
         <Avatar
-          alt="Remy Sharp"
+          alt=""
           className="Avatar"
           src="https://material-ui.com/static/images/avatar/3.jpg"
         />
@@ -107,7 +105,7 @@ const Registration: React.FC = React.memo(() => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {register ? <RegisterLayout /> : <LoginLayout />}
+        {register ? <LoginLayout /> : <RegisterLayout />}
 
         <DialogActions>
           <Button onClick={handleRegister} color="primary">
