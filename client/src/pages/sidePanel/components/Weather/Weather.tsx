@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchWeather } from "../../services";
 import styles from "./styles.module.css";
 import { Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { CurrentCountry } from "../../../../types";
 
 enum lang {
   "ru" = "ru",
@@ -15,6 +17,16 @@ const dataLang = {
   [lang.es]: "humedad",
 };
 
+type WeatherDescription = {
+  [key in lang]?: string;
+};
+
+const textWeatherHeader: WeatherDescription = {
+  [lang.ru]: "Погода в столице",
+  [lang.en]: "Weather in the capital",
+  [lang.es]: "Clima en la capital",
+};
+
 interface CurrentWeather {
   dataHumidity: number;
   dataIcon: string;
@@ -22,9 +34,24 @@ interface CurrentWeather {
   dataText: string;
 }
 
+type State = {
+  countries: {
+    currentCountry: CurrentCountry;
+    currentLanguage: string;
+    name: string;
+  };
+};
+
 const Weather: React.FC = React.memo(() => {
   const [weatherData, setWeatherDate] = useState<CurrentWeather | null>(null);
-  const [lang, setLang] = useState<string>("en");
+  const currentLanguage = useSelector(
+    (state: State) => state.countries.currentLanguage
+  );
+
+  const currentCountry = useSelector((state: State) => {
+    return state.countries.currentCountry || [];
+  });
+
   useEffect(() => {
     const getDataWeather = async () => {
       const data = await fetchWeather("Moskau");
@@ -33,16 +60,12 @@ const Weather: React.FC = React.memo(() => {
     getDataWeather();
   }, []);
 
-  useEffect(() => {
-    setLang("en");
-  }, []);
-
   return (
     <div className={styles.weather}>
       {weatherData && (
         <>
           <Typography variant="h5" gutterBottom>
-            Погода в столице:
+            {textWeatherHeader[currentLanguage as lang]}:
           </Typography>
           <div className={styles.containerTempIconText}>
             <div className={styles.weatherTemp}>
@@ -61,7 +84,7 @@ const Weather: React.FC = React.memo(() => {
           </div>
 
           <div className={styles.weatherHumidity}>
-            {dataLang[lang as lang]} {weatherData.dataHumidity}%
+            {dataLang[currentLanguage as lang]} {weatherData.dataHumidity}%
           </div>
         </>
       )}
