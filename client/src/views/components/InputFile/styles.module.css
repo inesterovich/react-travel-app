@@ -1,10 +1,17 @@
 .input_file {
   display: flex;
+  align-items: center;
 }
 
 .input_file__avatar {
   position: relative;
   margin-left: 10px;
+}
+
+.input_file__avatar__img {
+  width: 36px !important;
+  height: 36px !important;
+  border: 1px solid rgb(105, 186, 190);
 }
 
 .input_file__remove {

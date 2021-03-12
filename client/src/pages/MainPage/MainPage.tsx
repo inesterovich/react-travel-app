@@ -47,7 +47,6 @@ const MainPage: React.FC = () => {
                 at the top of travelers’ wish lists.
               </p>
             </div>
-            <InputFile />
             <div className="flex-wrap">
               {countries.data.map((el: ICountry) => (
                 <div className="flex-wrap__item" key={uuidv4()}>

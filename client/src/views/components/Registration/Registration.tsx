@@ -93,7 +93,7 @@ const Registration: React.FC = React.memo(() => {
       </IconButton>
       <IconButton>
         <Avatar
-          alt="Remy Sharp"
+          alt=""
           className="Avatar"
           src="https://material-ui.com/static/images/avatar/3.jpg"
         />

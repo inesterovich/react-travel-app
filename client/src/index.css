@@ -89,10 +89,10 @@ img {
   margin-bottom: 30px;
 }
 
-.Avatar {
-  width: 30px !important;
-  height: 30px !important;
-}
+/* .Avatar {
+  width: 25px !important;
+  height: 25px !important;
+} */
 
 .intro_text {
   text-align: center;
