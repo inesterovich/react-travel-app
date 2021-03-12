@@ -10,3 +10,5 @@ export const actionSetCurrentLanguage = (lang: string) =>
   ({ type: "countries/SET_LANGUAGE", payload: { lang } } as const);
 export const actionSetCurrentCountry = (dataCountry: any) =>
   ({ type: "countries/SET_COUNTRY", payload: { dataCountry } } as const);
+export const actionSetSearch = (search: string) =>
+  ({ type: "countries/SET_SEARCH", payload: { search } } as const);

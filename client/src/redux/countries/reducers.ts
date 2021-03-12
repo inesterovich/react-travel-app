@@ -6,6 +6,7 @@ const initialState = {
   error: null as string | null,
   currentLanguage: "en",
   currentCountry: [] as Array<Object> | [],
+  search: "",
 };
 
 type InitialStateType = typeof initialState;
@@ -51,6 +52,12 @@ const posts = (
       };
     }
 
+    case "countries/SET_SEARCH": {
+      return {
+        ...state,
+        search: action.payload.search,
+      };
+    }
     default:
       return state;
   }
