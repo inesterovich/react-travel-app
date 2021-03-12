@@ -55,7 +55,7 @@ router.post('/countries', async (req, res) => {
             name: country.es.capitalName
           },
           image: {
-            ...country.ru.image,
+            ...country.en.image,
             caption: country.es.imageCaption
           },
           description: country.es.description,
