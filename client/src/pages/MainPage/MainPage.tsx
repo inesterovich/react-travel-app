@@ -10,6 +10,7 @@ import { ICountry } from "../../types";
 import { getCountriesThunk } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@material-ui/lab";
+import InputFile from "../../views/components/InputFile";
 
 interface IProps {
   countries: {
@@ -46,6 +47,7 @@ const MainPage: React.FC = () => {
                 at the top of travelers’ wish lists.
               </p>
             </div>
+            <InputFile />
             <div className="flex-wrap">
               {countries.data.map((el: ICountry) => (
                 <div className="flex-wrap__item" key={uuidv4()}>
