@@ -19,6 +19,11 @@ const AttractionSchema = new Schema({
     userId: {
       type: Types.ObjectId,
       required: true
+    },
+
+    avatar: {
+      type: String,
+      required: true
     }
   }]
 })
