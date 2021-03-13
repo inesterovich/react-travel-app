@@ -72,12 +72,31 @@ img {
   margin-bottom: 0 !important;
 }
 
+.mb_10 {
+  margin-bottom: 50px !important;
+}
+.mb_20 {
+  margin-bottom: 20px !important;
+}
+.mb_30 {
+  margin-bottom: 30px !important;
+}
+.mb_40 {
+  margin-bottom: 40px !important;
+}
 .mb_50 {
   margin-bottom: 50px !important;
 }
 
 .dialog {
-  max-width: 400px;
+  width: 400px;
+}
+
+.capital {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  padding: 0px 0 20px;
 }
 
 .section {
@@ -88,11 +107,6 @@ img {
 .meta {
   margin-bottom: 30px;
 }
-
-/* .Avatar {
-  width: 25px !important;
-  height: 25px !important;
-} */
 
 .intro_text {
   text-align: center;
@@ -122,6 +136,7 @@ img {
 }
 
 .flex-wrap .flex-wrap__item {
+  overflow: hidden;
   margin: 10px;
   flex: 0 1 calc(20% - 20px);
   transition: all 0.3s ease;
@@ -131,6 +146,30 @@ img {
   margin-bottom: 40px;
   background: rgb(192, 241, 235);
   padding: 20px;
+}
+
+.question {
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.question a {
+  color: #69c6ba;
+  font-weight: bold;
+}
+
+.question a:hover {
+  text-decoration: none;
+}
+
+.MuiDialogActions-root {
+  justify-content: space-between !important;
+  padding: 16px 24px !important;
+  background: #dcfffa !important;
+}
+
+.MuiDialogTitle-root {
+  background: #dcfffa !important;
 }
 
 @media (max-width: 1400px) {

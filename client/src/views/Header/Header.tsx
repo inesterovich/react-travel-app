@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../components/Logo";
 import Search from "../components/Search";
-import Registration from "../components/Registration";
+import Registration from "../components/Authorization";
 import { useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Container } from "@material-ui/core";

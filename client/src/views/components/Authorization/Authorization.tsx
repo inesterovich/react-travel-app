@@ -44,7 +44,9 @@ const Registration: React.FC = React.memo(() => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        {register ? <FormLogin /> : <FormRegister />}
+        <FormLogin />
+        <FormRegister />
+        {/* {register ? <FormRegister /> : <FormLogin />} */}
       </Dialog>
     </div>
   );

@@ -5,7 +5,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import ApartmentIcon from "@material-ui/icons/Apartment";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
 import noImageIcon from "./no-image-icon.png";
@@ -26,14 +25,19 @@ const CountryCard: React.FC<ICountry> = ({ image, name, description }) => (
       />
       <CardContent>
         <Typography className={styles.card_title} component="h2" gutterBottom>
-          {name}
+          {name} Соединенные Штаты Америки
         </Typography>
+        <div className="capital">Столица: Вашингтон, округ Колумбия</div>
         <Typography
           variant="body2"
           color="textSecondary"
           className={styles.card__snippet}
           component="p"
         >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore,
+          facilis illum. Soluta, atque odio quod recusandae ratione sint
+          asperiores voluptas expedita? Sunt vitae explicabo, quod officia nisi
+          magnam beatae tempora. Ex adipisci asperiores possimus quo quod,
           {description}...
         </Typography>
         <div className={styles.meta}>
@@ -44,9 +48,6 @@ const CountryCard: React.FC<ICountry> = ({ image, name, description }) => (
             size="small"
             className={styles.meta__rating}
           />
-          <div className="meta__city">
-            Столица <ApartmentIcon></ApartmentIcon>
-          </div>
         </div>
       </CardContent>
     </CardActionArea>

@@ -36,9 +36,6 @@ const MainPage: React.FC = () => {
       ) : (
         <Fade in={true} timeout={700}>
           <>
-            <Alert severity="success">
-              Hi) Я скрытый текст — <strong>Только для избранных!</strong>
-            </Alert>
             <div className="intro_text">
               <h1>Top Destination</h1>
               <p>

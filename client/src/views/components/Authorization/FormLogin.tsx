@@ -10,6 +10,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import DialogActions from "@material-ui/core/DialogActions";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,12 +31,12 @@ const FormLogin: React.FC = () => {
   return (
     <div className="dialog">
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-        <DialogTitle id="form-dialog-title">Register</DialogTitle>
+        <DialogTitle id="form-dialog-title">Login</DialogTitle>
         <DialogContent>
           <TextField
             type="email"
             name="email"
-            label="Email"
+            label="Email *"
             fullWidth
             inputRef={register}
             error={!!errors.email}
@@ -44,29 +45,27 @@ const FormLogin: React.FC = () => {
           <TextField
             type="password"
             name="password"
-            label="Password"
+            label="Password *"
             fullWidth
-            className="mb_50"
             inputRef={register}
             error={!!errors.password}
             helperText={errors?.password?.message}
+            className="mb_30"
           />
-          <InputFile />
-          <Button color="primary" type="submit" disabled={!formState.isValid}>
+        </DialogContent>
+        <DialogActions>
+          <div className="question">
+            Новый пользователь? <br />
+            <Link to="/login/">Регистрация</Link>
+          </div>
+          <Button
+            type="submit"
+            variant="outlined"
+            color="primary" /* disabled={!formState.isValid} */
+          >
             Submit
           </Button>
-          <Box>
-            Новый пользователь?&nbsp;
-            <Link
-              to="/registration/"
-              id="registration-link"
-              href="#"
-              color="secondary"
-            >
-              Регистрация
-            </Link>
-          </Box>
-        </DialogContent>
+        </DialogActions>
       </form>
     </div>
   );

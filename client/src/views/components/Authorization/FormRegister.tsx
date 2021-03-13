@@ -10,6 +10,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import DialogActions from "@material-ui/core/DialogActions";
 
 const schema = yup.object().shape({
   email: yup
@@ -36,7 +37,7 @@ const FormRegister: React.FC = () => {
           <TextField
             type="text"
             name="name"
-            label="Name"
+            label="Name *"
             fullWidth
             autoFocus
             inputRef={register}
@@ -46,7 +47,7 @@ const FormRegister: React.FC = () => {
           <TextField
             type="email"
             name="email"
-            label="Email"
+            label="Email *"
             fullWidth
             inputRef={register}
             error={!!errors.email}
@@ -55,24 +56,28 @@ const FormRegister: React.FC = () => {
           <TextField
             type="password"
             name="password"
-            label="Password"
+            label="Password *"
             fullWidth
             inputRef={register}
             error={!!errors.password}
             helperText={errors?.password?.message}
           />
           <InputFile />
-          <Box>
-            Уже зарегистрированы?&nbsp;
-            <Link to="/login/" id="login-link" href="#" color="secondary">
-              Войти
-            </Link>
-          </Box>
-
-          <Button color="primary" type="submit" disabled={!formState.isValid}>
+        </DialogContent>
+        <DialogActions>
+          <div className="question">
+            Уже зарегистрированы?
+            <br />
+            <Link to="/login/">Войти</Link>
+          </div>
+          <Button
+            type="submit"
+            variant="outlined"
+            color="primary" /* disabled={!formState.isValid} */
+          >
             Submit
           </Button>
-        </DialogContent>
+        </DialogActions>
       </form>
     </div>
   );

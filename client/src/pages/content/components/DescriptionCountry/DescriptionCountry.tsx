@@ -1,6 +1,5 @@
 import { Grid, Typography } from "@material-ui/core";
 import React from "react";
-import ApartmentIcon from "@material-ui/icons/Apartment";
 import VideoCountry from "../VideoCountry";
 
 const DescriptionCountry: React.FC = React.memo(() => {
@@ -18,14 +17,10 @@ const DescriptionCountry: React.FC = React.memo(() => {
         </Grid>
         <Grid item md={7}>
           <section className="section">
-            <div className="meta">
-              <Typography variant="h1" gutterBottom>
-                Страна
-              </Typography>
-              <div className="meta__city">
-                Столица <ApartmentIcon></ApartmentIcon>
-              </div>
-            </div>
+            <Typography variant="h1" gutterBottom>
+              Страна
+            </Typography>
+            <div className="capital">Столица: Страна</div>
             <Typography variant="body1" gutterBottom>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
               blanditiis tenetur unde suscipit, quam beatae rerum inventore
