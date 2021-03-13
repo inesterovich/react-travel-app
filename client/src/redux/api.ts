@@ -15,7 +15,7 @@ const BASE_API_URL = `https://loft-taxi.glitch.me`;
 
 export const serverLogin = async (payload: any) => {
   try {
-    return await axios.post(`${BASE_API_URL}/auth`, JSON.stringify(payload));
+    return await axios.post(`${BASE_API_URL}/auth`, payload);
   } catch (err) {
     console.error("ERROR IN API = ", err);
   }

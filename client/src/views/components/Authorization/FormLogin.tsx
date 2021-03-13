@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,9 +8,12 @@ import styles from "./styles.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Dialog } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { CircularProgress, Dialog } from "@material-ui/core";
 import DialogActions from "@material-ui/core/DialogActions";
+
+import { serverLoginThunk } from "../../../redux/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/rootReducer";
 
 const schema = yup.object().shape({
   email: yup
@@ -25,20 +28,48 @@ const FormLogin: React.FC<{
   handleClose: () => void;
   handleRegisterOpen: () => void;
 }> = ({ open, handleClose, handleRegisterOpen }) => {
-  const { register, handleSubmit, errors, formState } = useForm({
+  const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const loginError = useSelector((state: RootState) => state.auth.error);
+
+  useEffect(() => {
+    if (loginError) {
+      setIsLoading(false);
+    }
+  }, [loginError]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsLoading(false);
+    }
+  }, [isLoggedIn]);
+
+  const onSubmit = (data: any) => {
+    setIsLoading(true);
+    dispatch(serverLoginThunk(data));
+  };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+      {isLoading && <CircularProgress className="centered" />}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`${isLoading && "disabled"}`}
+        encType="multipart/form-data"
+      >
         <div className={styles.dialog}>
           <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <TextField
+              value="test@test.com"
               type="email"
               name="email"
               label="Email *"
@@ -49,6 +80,7 @@ const FormLogin: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
+              value="123123"
               type="password"
               name="password"
               label="Password *"
@@ -62,15 +94,11 @@ const FormLogin: React.FC<{
           <DialogActions>
             <div className="question">
               Новый пользователь? <br />
-              <a href="#" onClick={handleRegisterOpen}>
+              <div className="link" onClick={handleRegisterOpen}>
                 Регистрация
-              </a>
+              </div>
             </div>
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary" /* disabled={!formState.isValid} */
-            >
+            <Button type="submit" variant="outlined" color="primary">
               Submit
             </Button>
           </DialogActions>

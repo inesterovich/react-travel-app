@@ -158,6 +158,17 @@ img {
   font-weight: bold;
 }
 
+.link {
+  color: #69c6ba;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
 .question a:hover {
   text-decoration: none;
 }
@@ -170,6 +181,20 @@ img {
 
 .MuiDialogTitle-root {
   background: #dcfffa !important;
+}
+
+.disabled {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
 }
 
 @media (max-width: 1400px) {

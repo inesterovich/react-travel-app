@@ -2,19 +2,32 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../rootReducer";
 import { Action } from "redux";
 import {
-  actionLogin,
-  // actionLoginFailed,
+  actionAuthenticate,
+  actionLoginSuccess,
+  actionLoginFailed,
   // authenticate,
   // actionLogout,
 } from "./actions";
 import { serverLogin } from "../api";
 
-export const serverLoginThunk = (
-  action: any
-): ThunkAction<void, RootState, unknown, Action<string>> => async (
+export const SERVER_ERROR_MESSAGE =
+  "Ошибка соединения с сервером. Проверьте параметры подключения к интернет.";
+
+export const serverLoginThunk = ({
+  email,
+  password,
+}: any): ThunkAction<void, RootState, unknown, Action<string>> => async (
   dispatch
 ) => {
-  dispatch(actionLogin(action.payload));
-  // const countriesList = await serverLogin();
-  // dispatch(actionCountriesSuccess(countriesList));
+  dispatch(actionAuthenticate(email, password));
+  const isLogin = await serverLogin({
+    email,
+    password,
+  });
+
+  if (isLogin?.data.success) {
+    dispatch(actionLoginSuccess(isLogin?.data.token));
+  } else {
+    dispatch(actionLoginFailed(isLogin?.data.error));
+  }
 };

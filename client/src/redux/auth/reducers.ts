@@ -18,13 +18,18 @@ const auth = (
       return { ...state, isLoggedIn: true, token: action.payload.token };
     }
     case "auth/LOG_OUT": {
-      return { ...state };
+      return { ...state, isLoggedIn: false, token: null, error: null };
     }
     case "auth/AUTHENTICATE": {
       return { ...state };
     }
     case "auth/LOG_IN_FAILED": {
-      return { ...state, error: action.payload.error };
+      return {
+        ...state,
+        isLoggedIn: false,
+        token: null,
+        error: action.payload.error,
+      };
     }
     default:
       return state;

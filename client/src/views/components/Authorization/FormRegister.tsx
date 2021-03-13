@@ -27,7 +27,7 @@ const FormRegister: React.FC<{
   handleClose: () => void;
   handleLoginOpen: () => void;
 }> = ({ open, handleClose, handleLoginOpen }) => {
-  const { register, handleSubmit, errors, formState } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
@@ -45,6 +45,7 @@ const FormRegister: React.FC<{
         <div className={styles.dialog}>
           <DialogContent>
             <TextField
+              value="Elmira"
               type="text"
               name="name"
               label="Name *"
@@ -55,6 +56,7 @@ const FormRegister: React.FC<{
               helperText={errors?.name?.message}
             />
             <TextField
+              value="timra.work@g.ru"
               type="email"
               name="email"
               label="Email *"
@@ -64,6 +66,7 @@ const FormRegister: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
+              value="1"
               type="password"
               name="password"
               label="Password *"
@@ -72,21 +75,18 @@ const FormRegister: React.FC<{
               error={!!errors.password}
               helperText={errors?.password?.message}
             />
+            {/* <InputFile inputRef={register} /> */}
             <InputFile />
           </DialogContent>
           <DialogActions>
             <div className="question">
               Уже зарегистрированы?
               <br />
-              <a href="#" onClick={handleLoginOpen}>
+              <div className="link" onClick={handleLoginOpen}>
                 Войти
-              </a>
+              </div>
             </div>
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary" /* disabled={!formState.isValid} */
-            >
+            <Button type="submit" variant="outlined" color="primary">
               Submit
             </Button>
           </DialogActions>
