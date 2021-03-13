@@ -10,7 +10,7 @@ import { ICountry } from "../../types";
 import { getCountriesThunk } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
 
-interface IProps {
+export interface IProps {
   countries: {
     data: Array<ICountry> | [];
     isLoading?: boolean;
