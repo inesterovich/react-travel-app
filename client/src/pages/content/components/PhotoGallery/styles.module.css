@@ -36,6 +36,11 @@
 .imgThumbs:active {
   opacity: 1;
 }
+
+.slideThumbsActive {
+  opacity: 1;
+}
+
 .imgThumbs:hover {
   opacity: 1;
 }

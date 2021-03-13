@@ -1,16 +1,17 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import styles from "./styles.module.css";
+
 import { CircularProgress, Fade } from "@material-ui/core";
 import CountryCard from "../../views/components/CountryCard/index";
 import { v4 as uuidv4 } from "uuid";
+
 import { ICountry } from "../../types";
+
 import {
   actionSetCurrentCountry,
   getCountriesThunk,
 } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "@material-ui/lab";
-import styles from "./styles.module.css";
-
 import { RootState } from "../../redux/rootReducer";
 
 interface IProps {
@@ -23,7 +24,6 @@ interface IProps {
 
 const MainPage: React.FC = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
-  console.log(countries);
 
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => state.countries.search);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -14,7 +14,15 @@ import fullscreen from "../../../../assets/img/fullscreen.png";
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
 import { useSelector } from "react-redux";
-import { CurrentCountry } from "../../../../types";
+import { CurrentCountry, CurrentCountryLang } from "../../../../types";
+import { useEffect } from "react";
+import { RootState } from "../../../../redux/rootReducer";
+
+enum Lang {
+  Ru = "ru",
+  Es = "es",
+  En = "en",
+}
 
 type State = {
   countries: {
@@ -37,9 +45,22 @@ const PhotoGallery: React.FC = React.memo(() => {
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const handle = useFullScreenHandle();
 
-  const currentCountryAttractions = useSelector((state: State) => {
-    return state.countries.currentCountry.attractions || [];
+  const currentCountry = useSelector((state: State) => {
+    return state.countries.currentCountry || [];
   });
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
+
+  const [
+    countryLangData,
+    setCountryLangData,
+  ] = useState<CurrentCountryLang | null>(null);
+
+  useEffect(() => {
+    setCountryLangData(currentCountry[currentLanguage as Lang]);
+  }, [currentCountry, currentLanguage]);
 
   return (
     <div className={styles.photoGallery}>
@@ -56,14 +77,10 @@ const PhotoGallery: React.FC = React.memo(() => {
             controller={{ control: controlledSwiper }}
             effect="cube"
           >
-            {currentCountryAttractions.map((item: any) => {
+            {countryLangData?.attractions?.map((item: any) => {
               return (
                 <SwiperSlide key={item._id}>
-                  <img
-                    src={item.image.src}
-                    alt="slider"
-                    className={styles.img}
-                  />
+                  <img src={item.url} alt="slider" className={styles.img} />
                   <p className={styles.textImg}>{item.name}</p>
                 </SwiperSlide>
               );
@@ -76,13 +93,15 @@ const PhotoGallery: React.FC = React.memo(() => {
             freeMode={true}
             // @ts-ignore
             onSwiper={setControlledSwiper}
+            watchSlidesVisibility
+            watchSlidesProgress
             className={styles.galleryThumbs}
           >
-            {currentCountryAttractions.map((item: any) => {
+            {countryLangData?.attractions?.map((item: any) => {
               return (
-                <SwiperSlide key={item._id}>
+                <SwiperSlide key={item._id} className={styles.slideThumbs}>
                   <img
-                    src={item.image.src}
+                    src={item.url}
                     alt="slider"
                     className={styles.imgThumbs}
                   />

@@ -3,7 +3,8 @@ import { fetchCurrency } from "../../services";
 import styles from "./styles.module.css";
 import { Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { CurrentCountry } from "../../../../types";
+import { CurrentCountry, CurrentCountryLang } from "../../../../types";
+import { RootState } from "../../../../redux/rootReducer";
 
 enum Lang {
   Ru = "ru",
@@ -111,25 +112,27 @@ const Currency: React.FC = React.memo(() => {
   });
 
   const currentLanguage = useSelector(
-    (state: State) => state.countries.currentLanguage
+    (state: RootState) => state.countries.currentLanguage
   );
 
+  const [
+    countryLangData,
+    setCountryLangData,
+  ] = useState<CurrentCountryLang | null>(null);
+
   useEffect(() => {
-    if (currentLanguage === "ru") {
-    } else if (currentLanguage === "en") {
-    } else if (currentLanguage === "es") {
-    }
-  }, [currentLanguage]);
+    setCountryLangData(currentCountry[currentLanguage as Lang]);
+  }, [currentCountry, currentLanguage]);
 
   useEffect(() => {
     const getDataCurrency = async () => {
-      if (currentCountry.currency.code) {
-        const data = await fetchCurrency(currentCountry.currency.code);
+      if (countryLangData?.currency?.code) {
+        const data = await fetchCurrency(countryLangData?.currency?.code);
         setCurrencyData(data);
       }
     };
     getDataCurrency();
-  }, [currentCountry.currency.code]);
+  }, [countryLangData?.currency?.code]);
 
   return (
     <div className={styles.currency}>
@@ -141,10 +144,11 @@ const Currency: React.FC = React.memo(() => {
           <p className={styles.nameCurrency}>
             {textCurrencyData[currentLanguage as Lang]}:{" "}
             {
-              textValueCurrencyData[currentCountry.currency.code as ValueLang][
-                currentLanguage as Lang
-              ]
-            }
+              textValueCurrencyData[
+                countryLangData?.currency?.code as ValueLang
+              ][currentLanguage as Lang]
+            }{" "}
+            {countryLangData?.currency?.symbol}
           </p>
           <p className={styles.valueCurrency}>USD: {currencyData.ratesUSD}</p>
           <p className={styles.valueCurrency}>EUR: {currencyData.ratesEUR}</p>

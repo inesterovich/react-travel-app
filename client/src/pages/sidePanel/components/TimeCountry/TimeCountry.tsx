@@ -58,10 +58,6 @@ enum MounthIndex {
   Twelve = 12,
 }
 
-// type TZDescription = {
-//   [key in NameCountry]?: string;
-// };
-
 type TimeDescription = {
   [key in LangHeader]?: string;
 };
@@ -125,13 +121,16 @@ const TimeCountry: React.FC = React.memo(() => {
   useEffect(() => {
     let timer = setInterval(() => {
       setCurrentTime(
-        startTime(currentLanguage, dataTZ[currentCountry.name as NameCountry])
+        startTime(
+          currentLanguage,
+          dataTZ[currentCountry.en.name as NameCountry]
+        )
       );
     }, 1000);
     return () => {
       clearInterval(timer);
     };
-  }, [currentLanguage, currentCountry.name]);
+  }, [currentLanguage, currentCountry.en.name]);
 
   return (
     <>
