@@ -44,8 +44,6 @@ const posts = (
     }
 
     case "countries/SET_COUNTRY": {
-      console.log(action.payload.dataCountry);
-
       return {
         ...state,
         currentCountry: action.payload.dataCountry,

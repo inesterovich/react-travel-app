@@ -42,23 +42,31 @@ const VideoCountry: React.FC = React.memo(() => {
     setCountryLangData,
   ] = useState<CurrentCountryLang | null>(null);
 
+  const [videoLink, setVideoLink] = useState("");
+
   useEffect(() => {
     setCountryLangData(currentCountry[currentLanguage as Lang]);
   }, [currentCountry, currentLanguage]);
+
+  useEffect(() => {
+    if (countryLangData?.video) {
+      const re = /watch/gi;
+      const newLink = countryLangData?.video.replace(re, "embed");
+      setVideoLink(newLink);
+    }
+  }, [countryLangData?.video]);
+
   return (
     <>
       <Typography variant="h4" gutterBottom>
         {textVideoData[currentLanguage as Lang]}
       </Typography>
-      {countryLangData && (
+      {countryLangData?.video && (
         <iframe
           width="100%"
           height="400"
-          src={
-            countryLangData?.video ||
-            "https://www.youtube.com/embed/8TpBg6D5OsQ"
-          }
-          title={countryLangData?.video}
+          src={videoLink}
+          title={countryLangData?.name}
           // @ts-ignore
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

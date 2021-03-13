@@ -98,7 +98,6 @@ const Weather: React.FC = React.memo(() => {
       setWeatherDataText("Changeable weather");
     else setWeatherDataText(weatherData?.dataText as NameWeather);
   }, [weatherData]);
-  console.log(weatherDataText);
 
   return (
     <div className={styles.weather}>
