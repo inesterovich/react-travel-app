@@ -14,7 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 
-interface IProps {
+export interface IProps {
   countries: {
     data: Array<ICountry> | [];
     isLoading?: boolean;

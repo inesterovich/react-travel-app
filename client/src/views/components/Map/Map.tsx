@@ -7,14 +7,19 @@ import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import styles from "./styles.module.css"
 import {RootState} from "../../../redux/rootReducer";
+import {IProps} from "../../../pages/MainPage/MainPage";
 
 const Map: React.FC<{}> = () => {
+  const {id} = useParams<{ id: string }>()
   const currentLanguage = useSelector((state: RootState) => state.countries.currentLanguage)
+  const countryData = useSelector((state: IProps) => state.countries || []);
   const [mapInfo] = useState<any>(data)
   const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseTc0c2dpMHdxMjJ1cnp3bjJtamY0dyJ9.zreWl48n6xr29TsuSx0ApA"
-  const {id} = useParams<{ id: string }>()
-  const countryBorders = mapInfo.features.findIndex((e: any) => e.properties.sovereignt === id)
-
+  const countryBorders = mapInfo.features.findIndex((e: any) => e.properties.sovereignt.includes(id))
+  const filteredData =  countryData?.data.filter((e) =>
+    e["es"].name === id
+    || e["en"].name === id
+    || e["ru"].name === id)
   return (
     <>
       <MapContainer fullscreenControl={true}
@@ -39,9 +44,17 @@ const Map: React.FC<{}> = () => {
         <>
           <GeoJSON data={mapInfo.features[countryBorders]}/>
           <Marker position={mapInfo.features[countryBorders].properties.capitalCoords}>
-            <Popup>
-              London
+            {filteredData.length > 0 && <Popup>
+              {/*/@ts-ignore/*/}
+              <img alt={filteredData[0][`${currentLanguage}`].name + " Flag"} src={filteredData[0][`${currentLanguage}`].flag}/>
+              <b>
+                {
+                  filteredData
+                    .map(e => e[`${currentLanguage}`].capital?.name)
+                }
+              </b>
             </Popup>
+            }
           </Marker>
         </>
         }
