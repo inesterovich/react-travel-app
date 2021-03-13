@@ -16,7 +16,7 @@ const Map: React.FC<{}> = () => {
   const [mapInfo] = useState<any>(data)
   const accessToken = "pk.eyJ1IjoidHJhdmVsYXBwcnMiLCJhIjoiY2tseTc0c2dpMHdxMjJ1cnp3bjJtamY0dyJ9.zreWl48n6xr29TsuSx0ApA"
   const countryBorders = mapInfo.features.findIndex((e: any) => e.properties.sovereignt.includes(id))
-  const filteredData =  countryData.data.filter((e) =>
+  const filteredData =  countryData?.data.filter((e) =>
     e["es"].name === id
     || e["en"].name === id
     || e["ru"].name === id)
@@ -44,16 +44,17 @@ const Map: React.FC<{}> = () => {
         <>
           <GeoJSON data={mapInfo.features[countryBorders]}/>
           <Marker position={mapInfo.features[countryBorders].properties.capitalCoords}>
-            <Popup>
+            {filteredData.length > 0 && <Popup>
               {/*/@ts-ignore/*/}
               <img alt={filteredData[0][`${currentLanguage}`].name + " Flag"} src={filteredData[0][`${currentLanguage}`].flag}/>
               <b>
                 {
                   filteredData
-                  .map(e => e[`${currentLanguage}`].capital?.name)
+                    .map(e => e[`${currentLanguage}`].capital?.name)
                 }
               </b>
             </Popup>
+            }
           </Marker>
         </>
         }
