@@ -289,7 +289,7 @@ router.post('/getData', async (req, res) => {
         }
       }))  
 
-    /*  Ends here*/
+   
 
     let allCountryInfo = initialCountryData.map((country, index) => {
       return {
@@ -349,7 +349,7 @@ router.post('/getData', async (req, res) => {
       }
     })
 
- await CountryModel.create(baseArray); 
+// await CountryModel.create(baseArray); 
 
  return res.json(baseArray);
     
@@ -359,6 +359,48 @@ router.post('/getData', async (req, res) => {
 
 
 
+})
+
+router.post('/fix', async (req, res) => {
+  const ItalyId = '604a2a15d090f518a4963fa0';
+  const Italy = await CountryModel.findById(ItalyId).lean();
+
+  const Britain_ru = {
+    _id: Italy.ru._id,
+    name: Italy.ru.name,
+    capitalName: Italy.ru.capitalName,
+    description: Italy.ru.description,
+    snippet: Italy.ru.snippet,
+    imageCaption: Italy.ru.description
+  }
+  
+  const Britain_es = {
+    _id: Italy.es._id,
+    name: Italy.es.name,
+    capitalName: Italy.es.capitalName,
+    description: Italy.es.description,
+    snippet: Italy.es.snippet,
+    imageCaption: Italy.es.description
+  }
+
+  const Britain = await CountryModel.findById('604a2a15d090f518a4963f7d').lean();
+
+  let ItalyFixed = {
+    en: Italy.en,
+    ru: {
+      ...Italy.ru,
+      name: Britain.ru.name,
+      capitalData: Britain.ru.capitalName,
+      description: Britain.ru.description,
+      snippet: Britain.ru.capitalName
+    }
+  }
+
+
+
+
+
+  res.json({ ItalyFixed})
 })
 
 router.post('/bdInit', async (req, res) => {
