@@ -1,6 +1,8 @@
 .input_file {
   display: flex;
   align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .input_file__avatar {

@@ -10,7 +10,6 @@ import { ICountry } from "../../types";
 import { getCountriesThunk } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "@material-ui/lab";
-import InputFile from "../../views/components/InputFile";
 
 interface IProps {
   countries: {

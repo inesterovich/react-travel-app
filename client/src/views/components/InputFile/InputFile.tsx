@@ -53,7 +53,7 @@ const InputFile: React.FC = React.memo(() => {
 
       <label htmlFor="avatar">
         <Button variant="outlined" component="span" color="secondary">
-          Upload
+          Upload AVATAR
         </Button>
       </label>
 
