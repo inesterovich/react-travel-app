@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
+
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Avatar, IconButton } from "@material-ui/core";
 
@@ -10,19 +9,22 @@ import FormRegister from "./FormRegister";
 import FormLogin from "./FormLogin";
 
 const Registration: React.FC = React.memo(() => {
-  const [open, setOpen] = React.useState(false);
-  const [register, setRegiser] = React.useState(false);
+  const [loginOpen, setLoginOpen] = React.useState(false);
+  const [registerOpen, setRegisterOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleLoginOpen = () => {
+    setLoginOpen(true);
+    setRegisterOpen(false);
+  };
+
+  const handleRegisterOpen = () => {
+    setRegisterOpen(true);
+    setLoginOpen(false);
   };
 
   const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleRegister = () => {
-    setRegiser(!register);
+    setLoginOpen(false);
+    setRegisterOpen(false);
   };
 
   return (
@@ -38,16 +40,18 @@ const Registration: React.FC = React.memo(() => {
         />
       </IconButton>
 
-      <Button onClick={handleClickOpen}>Login/Register</Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <FormLogin />
-        <FormRegister />
-        {/* {register ? <FormRegister /> : <FormLogin />} */}
-      </Dialog>
+      <Button onClick={handleRegisterOpen}>Login/Register</Button>
+
+      <FormLogin
+        open={loginOpen}
+        handleClose={handleClose}
+        handleRegisterOpen={handleRegisterOpen}
+      />
+      <FormRegister
+        open={registerOpen}
+        handleClose={handleClose}
+        handleLoginOpen={handleLoginOpen}
+      />
     </div>
   );
 });
