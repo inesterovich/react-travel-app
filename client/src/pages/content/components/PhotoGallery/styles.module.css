@@ -3,13 +3,27 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  width: 300px;
+  height: 300px;
 }
 .swiperContainer {
   width: 100%;
 }
 .img {
-  width: 100%;
+  width: 300px;
+  height: 250px;
 }
+.textImg {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: rgb(201, 195, 195);
+}
+
+.textImg:hover {
+  color: rgb(243, 136, 13);
+}
+
 :root {
   --swiper-theme-color: rgb(36, 13, 243);
 }
@@ -17,10 +31,16 @@
 .imgThumbs {
   cursor: pointer;
   opacity: 0.4;
+  height: 30px;
 }
 .imgThumbs:active {
   opacity: 1;
 }
+
+.slideThumbsActive {
+  opacity: 1;
+}
+
 .imgThumbs:hover {
   opacity: 1;
 }

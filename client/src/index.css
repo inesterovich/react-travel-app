@@ -10,6 +10,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.MuiToolbar-gutters {
+  padding: 0 !important;
 }
 
 code {
@@ -34,10 +39,74 @@ html,
 
 .App {
   flex: 1 0 auto;
+  padding: 90px 0;
+  margin-bottom: -50px;
+}
+
+.MuiAlert-standardSuccess {
+  background-color: rgba(105, 198, 186, 0.2) !important;
+}
+
+.center_block {
+  text-align: center;
 }
 
 img {
   max-width: 100%;
+}
+
+.counryPage__wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.counryPage__img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mb_0 {
+  margin-bottom: 0 !important;
+}
+
+.mb_50 {
+  margin-bottom: 50px !important;
+}
+
+.dialog {
+  max-width: 400px;
+}
+
+.section {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.meta {
+  margin-bottom: 30px;
+}
+
+.Avatar {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.intro_text {
+  text-align: center;
+}
+
+.meta__city {
+  vertical-align: top;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: -5px;
+  line-height: 0.6;
+}
+
+.meta svg {
+  margin-bottom: -8px;
 }
 
 .header--inner .registration {
@@ -48,6 +117,8 @@ img {
   display: flex;
   flex-flow: row wrap;
   align-items: stretch;
+  margin: 0 -10px;
+  justify-content: center;
 }
 
 .flex-wrap .flex-wrap__item {
@@ -55,15 +126,15 @@ img {
   flex: 0 1 calc(20% - 20px);
 }
 
-@media (max-width: 1440px) {
-  .flex-wrap .flex-wrap__item {
-    flex: 0 1 calc(33% - 20px);
-  }
+.widget {
+  margin-bottom: 40px;
+  background: rgb(192, 241, 235);
+  padding: 20px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .flex-wrap .flex-wrap__item {
-    flex: 0 1 calc(50% - 20px);
+    flex: 0 1 calc(25% - 20px);
   }
 }
 
@@ -79,19 +150,6 @@ img {
   }
 }
 
-@media (min-width: 992px) {
-  .flex-wrap .flex-wrap__item {
-    flex: 0 1 calc(33% - 20px);
-  }
-}
-
-@media (min-width: 1200px) {
-  .flex-wrap .flex-wrap__item {
-    flex: 0 1 calc(25% - 20px);
-  }
-} 
-
-=======
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   color: rgb(243, 136, 13);
@@ -100,4 +158,3 @@ img {
 .swiper-button-prev:active {
   color: rgb(229, 243, 32);
 }
-

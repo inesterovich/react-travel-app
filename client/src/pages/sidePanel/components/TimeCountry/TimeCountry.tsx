@@ -3,92 +3,33 @@ import moment from "moment";
 import "moment-timezone";
 import styles from "./styles.module.css";
 import { useState } from "react";
-
-const days = [
-  {
-    ru: "Воскресенье",
-    es: "Domingo",
-  },
-  {
-    ru: "Понедельник",
-    es: "Lunes",
-  },
-  {
-    ru: "Вторник",
-    es: "Martes",
-  },
-  {
-    ru: "Среда",
-    es: "Miércoles",
-  },
-  {
-    ru: "Четверг",
-    es: "Jueves",
-  },
-  {
-    ru: "Пятница",
-    es: "Viernes",
-  },
-  {
-    ru: "Суббота",
-    es: "Sábado",
-  },
-];
-
-const mounths = [
-  {
-    ru: "январь",
-    es: "enero",
-  },
-  {
-    ru: "февраль",
-    es: "febrero",
-  },
-  {
-    ru: "март",
-    es: "marzo",
-  },
-  {
-    ru: "апрель",
-    es: "abril",
-  },
-  {
-    ru: "май",
-    es: "mayo",
-  },
-  {
-    ru: "июнь",
-    es: "junio",
-  },
-  {
-    ru: "июль",
-    es: "julio",
-  },
-  {
-    ru: "август",
-    es: "agosto",
-  },
-  {
-    ru: "сентябрь",
-    es: "septiembre",
-  },
-  {
-    ru: "октябрь",
-    es: "octubre",
-  },
-  {
-    ru: "ноябрь",
-    es: "noviembre",
-  },
-  {
-    ru: "декабрь",
-    es: "diciembre",
-  },
-];
+import { Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { CurrentCountry } from "../../../../types";
+import { dataTZ, days, mounths } from "./helper";
 
 enum Lang {
   Ru = "ru",
   Es = "es",
+}
+
+enum LangHeader {
+  Ru = "ru",
+  Es = "es",
+  En = "en",
+}
+
+enum NameCountry {
+  china = "China",
+  dr = "Dominican Republic",
+  france = "France",
+  italy = "Italy",
+  spain = "Spain",
+  usa = "United States",
+  maldives = "Maldives",
+  russia = "Russia",
+  thailand = "Thailand",
+  uk = "United Kingdom",
 }
 
 enum DayIndex {
@@ -117,11 +58,29 @@ enum MounthIndex {
   Twelve = 12,
 }
 
+type TimeDescription = {
+  [key in LangHeader]?: string;
+};
+
+const headerTime: TimeDescription = {
+  [LangHeader.Ru]: "Дата и время",
+  [LangHeader.En]: "Date and time",
+  [LangHeader.Es]: "Fecha y hora",
+};
+
+type State = {
+  countries: {
+    currentCountry: CurrentCountry;
+    currentLanguage: string;
+    name: string;
+  };
+};
+
 const getWeekDay = (date: DayIndex, language: Lang) => {
   return days[date][language];
 };
 const getMounth = (date: MounthIndex, language: Lang) => {
-  return mounths[date];
+  return mounths[date][language];
 };
 
 const startTime = (lang: String, zone: String) => {
@@ -150,23 +109,38 @@ const startTime = (lang: String, zone: String) => {
 };
 
 const TimeCountry: React.FC = React.memo(() => {
-  const timezone = "Europe/Minsk";
-  const lang = "en";
+  const currentLanguage = useSelector(
+    (state: State) => state.countries.currentLanguage
+  );
+  const currentCountry = useSelector((state: State) => {
+    return state.countries.currentCountry;
+  });
+
   const [currentTime, setCurrentTime] = useState<string | undefined>("");
 
   useEffect(() => {
     let timer = setInterval(() => {
-      setCurrentTime(startTime(lang, timezone));
+      setCurrentTime(
+        startTime(
+          currentLanguage,
+          dataTZ[currentCountry.en.name as NameCountry]
+        )
+      );
     }, 1000);
     return () => {
       clearInterval(timer);
     };
-  }, [lang, timezone]);
+  }, [currentLanguage, currentCountry.en.name]);
 
   return (
-    <div className={styles.timeCountry}>
-      <h3 className={styles.time}> {`${currentTime}`}</h3>
-    </div>
+    <>
+      <Typography variant="h5" gutterBottom>
+        {headerTime[currentLanguage as LangHeader]}:
+      </Typography>
+      <div className={styles.timeCountry}>
+        <h3 className={styles.time}> {`${currentTime}`}</h3>
+      </div>
+    </>
   );
 });
 export default TimeCountry;

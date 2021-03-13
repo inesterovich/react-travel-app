@@ -10,37 +10,26 @@ import SwiperCore, {
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import russia from "../../../../assets/img/russia.jpg";
 import fullscreen from "../../../../assets/img/fullscreen.png";
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
+import { useSelector } from "react-redux";
+import { CurrentCountry, CurrentCountryLang } from "../../../../types";
+import { useEffect } from "react";
+import { RootState } from "../../../../redux/rootReducer";
 
-const imagesArray = [
-  {
-    id: "1",
-    src: russia,
-  },
-  {
-    id: "2",
-    src: russia,
-  },
-  {
-    id: "3",
-    src: russia,
-  },
-  {
-    id: "4",
-    src: russia,
-  },
-  {
-    id: "5",
-    src: russia,
-  },
-  {
-    id: "6",
-    src: russia,
-  },
-];
+enum Lang {
+  Ru = "ru",
+  Es = "es",
+  En = "en",
+}
+
+type State = {
+  countries: {
+    currentCountry: CurrentCountry;
+    attractions: [];
+  };
+};
 
 SwiperCore.use([
   Navigation,
@@ -55,6 +44,24 @@ SwiperCore.use([
 const PhotoGallery: React.FC = React.memo(() => {
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const handle = useFullScreenHandle();
+
+  const currentCountry = useSelector((state: State) => {
+    return state.countries.currentCountry || [];
+  });
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
+
+  const [
+    countryLangData,
+    setCountryLangData,
+  ] = useState<CurrentCountryLang | null>(null);
+
+  useEffect(() => {
+    setCountryLangData(currentCountry[currentLanguage as Lang]);
+  }, [currentCountry, currentLanguage]);
+
   return (
     <div className={styles.photoGallery}>
       <div className={styles.swiperContainer}>
@@ -70,10 +77,11 @@ const PhotoGallery: React.FC = React.memo(() => {
             controller={{ control: controlledSwiper }}
             effect="cube"
           >
-            {imagesArray.map((item: any) => {
+            {countryLangData?.attractions?.map((item: any) => {
               return (
-                <SwiperSlide key={item.id}>
-                  <img src={item.src} alt="slider" className={styles.img} />
+                <SwiperSlide key={item._id}>
+                  <img src={item.url} alt="slider" className={styles.img} />
+                  <p className={styles.textImg}>{item.name}</p>
                 </SwiperSlide>
               );
             })}
@@ -85,13 +93,15 @@ const PhotoGallery: React.FC = React.memo(() => {
             freeMode={true}
             // @ts-ignore
             onSwiper={setControlledSwiper}
+            watchSlidesVisibility
+            watchSlidesProgress
             className={styles.galleryThumbs}
           >
-            {imagesArray.map((item: any) => {
+            {countryLangData?.attractions?.map((item: any) => {
               return (
-                <SwiperSlide key={item.id}>
+                <SwiperSlide key={item._id} className={styles.slideThumbs}>
                   <img
-                    src={item.src}
+                    src={item.url}
                     alt="slider"
                     className={styles.imgThumbs}
                   />
