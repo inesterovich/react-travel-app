@@ -38,7 +38,7 @@ router.post(
     try {
 
       
-      const { email, password, avatar } = req.body;
+      const { name, email, password } = req.body;
 
       const errors = validationResult(req);
 
@@ -66,6 +66,7 @@ router.post(
      
       const user = new UserModel(
         {
+          name,
           email,
           password: hashedPassword,
           avatar: req.file.path.replace('\\', '/')
