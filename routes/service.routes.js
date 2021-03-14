@@ -145,7 +145,8 @@ try {
     const ratingObject = {
       value: Number(value),
       userId: userId,
-      avatar: user.avatar
+      avatar: user.avatar,
+      username: user.name
     }
     enAttraction.rating.push(ratingObject)
  }
