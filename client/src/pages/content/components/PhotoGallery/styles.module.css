@@ -3,12 +3,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
 }
 .swiperContainer {
   width: 100%;
 }
+
 .img {
   width: 300px;
   height: 250px;
@@ -21,7 +22,7 @@
 }
 
 .textImg:hover {
-  color: rgb(243, 136, 13);
+  color: rgb(36, 35, 35);
 }
 
 :root {
@@ -33,21 +34,15 @@
   opacity: 0.4;
   height: 30px;
 }
-.imgThumbs:active {
-  opacity: 1;
-}
 
-.slideThumbsActive {
-  opacity: 1;
-}
-
-.imgThumbs:hover {
-  opacity: 1;
-}
 .imgFullscreen {
   margin: 5px;
   cursor: pointer;
   position: absolute;
   z-index: 10;
   right: 0;
+}
+.imgFullscreen:hover {
+  filter: invert(1);
+  transition: transform 1s;
 }

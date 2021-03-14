@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { fetchWeather } from "../../services";
 import styles from "./styles.module.css";
 import { Typography } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CurrentCountry } from "../../../../types";
 import { textWeatherData } from "./helper";
 import { RootState } from "../../../../redux/rootReducer";
-
+import { actionSetLoaderWeather } from "../../../../redux/countries";
+import { CircularProgress } from "@material-ui/core";
 enum lang {
   "ru" = "ru",
   "en" = "en",
@@ -69,6 +70,7 @@ type State = {
 };
 
 const Weather: React.FC = React.memo(() => {
+  const dispatch = useDispatch();
   const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null);
   const [weatherDataText, setWeatherDataText] = useState("Changeable weather");
   const currentLanguage = useSelector(
@@ -83,16 +85,20 @@ const Weather: React.FC = React.memo(() => {
     }
     return state.countries.currentCountry.en.capital?.name || "";
   });
+  const isLoaderWeather = useSelector(
+    (state: RootState) => state.countries.isLoaderWeather
+  );
 
   useEffect(() => {
     const getDataWeather = async () => {
+      dispatch(actionSetLoaderWeather(true));
       const data = await fetchWeather(currentCapital);
+      dispatch(actionSetLoaderWeather(false));
       setWeatherData(data);
     };
     getDataWeather();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (!textWeatherData[weatherData?.dataText as NameWeather])
       setWeatherDataText("Changeable weather");
@@ -101,38 +107,44 @@ const Weather: React.FC = React.memo(() => {
 
   return (
     <div className={styles.weather}>
-      {weatherData && (
+      {isLoaderWeather ? (
+        <CircularProgress />
+      ) : (
         <>
-          <Typography variant="h5" gutterBottom>
-            {textWeatherHeader[currentLanguage as lang]}:
-          </Typography>
-          <div className={styles.containerTempIconText}>
-            <div className={styles.weatherTemp}>
-              {Math.round(weatherData.dataTemp)}&deg;C
-            </div>
-            <div className={styles.containerIconText}>
-              <div>
-                <img
-                  alt="weatherIcon"
-                  src={weatherData.dataIcon}
-                  className={styles.weatherIcon}
-                />
-              </div>
-              {weatherData && (
-                <div className={styles.weatherText}>
-                  {
-                    textWeatherData[weatherDataText as NameWeather][
-                      currentLanguage as lang
-                    ]
-                  }
+          {weatherData && (
+            <>
+              <Typography variant="h5" gutterBottom>
+                {textWeatherHeader[currentLanguage as lang]}:
+              </Typography>
+              <div className={styles.containerTempIconText}>
+                <div className={styles.weatherTemp}>
+                  {Math.round(weatherData.dataTemp)}&deg;C
                 </div>
-              )}
-            </div>
-          </div>
+                <div className={styles.containerIconText}>
+                  <div>
+                    <img
+                      alt="weatherIcon"
+                      src={weatherData.dataIcon}
+                      className={styles.weatherIcon}
+                    />
+                  </div>
+                  {weatherData && (
+                    <div className={styles.weatherText}>
+                      {
+                        textWeatherData[weatherDataText as NameWeather][
+                          currentLanguage as lang
+                        ]
+                      }
+                    </div>
+                  )}
+                </div>
+              </div>
 
-          <div className={styles.weatherHumidity}>
-            {dataLang[currentLanguage as lang]} {weatherData.dataHumidity}%
-          </div>
+              <div className={styles.weatherHumidity}>
+                {dataLang[currentLanguage as lang]} {weatherData.dataHumidity}%
+              </div>
+            </>
+          )}
         </>
       )}
     </div>

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { fetchCurrency } from "../../services";
 import styles from "./styles.module.css";
 import { Typography } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CurrentCountry, CurrentCountryLang } from "../../../../types";
 import { RootState } from "../../../../redux/rootReducer";
+import { actionSetLoaderCurrency } from "../../../../redux/countries";
+import { CircularProgress } from "@material-ui/core";
 
 enum Lang {
   Ru = "ru",
@@ -103,10 +105,13 @@ type State = {
 };
 
 const Currency: React.FC = React.memo(() => {
+  const dispatch = useDispatch();
   const [currencyData, setCurrencyData] = useState<CurrentCurrency | null>(
     null
   );
-
+  const isLoaderCurrency = useSelector(
+    (state: RootState) => state.countries.isLoaderCurrency
+  );
   const currentCountry = useSelector((state: State) => {
     return state.countries.currentCountry || [];
   });
@@ -126,33 +131,47 @@ const Currency: React.FC = React.memo(() => {
 
   useEffect(() => {
     const getDataCurrency = async () => {
+      dispatch(actionSetLoaderCurrency(true));
       if (countryLangData?.currency?.code) {
         const data = await fetchCurrency(countryLangData?.currency?.code);
         setCurrencyData(data);
+        dispatch(actionSetLoaderCurrency(false));
       }
     };
     getDataCurrency();
-  }, [countryLangData?.currency?.code]);
+  }, [countryLangData?.currency?.code, dispatch]);
 
   return (
     <div className={styles.currency}>
-      {currencyData && (
+      {isLoaderCurrency ? (
+        <CircularProgress />
+      ) : (
         <>
-          <Typography variant="h5" gutterBottom>
-            {headerCurrency[currentLanguage as Lang]}:
-          </Typography>
-          <p className={styles.nameCurrency}>
-            {textCurrencyData[currentLanguage as Lang]}:{" "}
-            {
-              textValueCurrencyData[
-                countryLangData?.currency?.code as ValueLang
-              ][currentLanguage as Lang]
-            }{" "}
-            {countryLangData?.currency?.symbol}
-          </p>
-          <p className={styles.valueCurrency}>USD: {currencyData.ratesUSD}</p>
-          <p className={styles.valueCurrency}>EUR: {currencyData.ratesEUR}</p>
-          <p className={styles.valueCurrency}>RUB: {currencyData.ratesRUB}</p>
+          {currencyData && (
+            <>
+              <Typography variant="h5" gutterBottom>
+                {headerCurrency[currentLanguage as Lang]}:
+              </Typography>
+              <p className={styles.nameCurrency}>
+                {textCurrencyData[currentLanguage as Lang]}:{" "}
+                {
+                  textValueCurrencyData[
+                    countryLangData?.currency?.code as ValueLang
+                  ][currentLanguage as Lang]
+                }{" "}
+                {countryLangData?.currency?.symbol}
+              </p>
+              <p className={styles.valueCurrency}>
+                USD: {currencyData.ratesUSD}
+              </p>
+              <p className={styles.valueCurrency}>
+                EUR: {currencyData.ratesEUR}
+              </p>
+              <p className={styles.valueCurrency}>
+                RUB: {currencyData.ratesRUB}
+              </p>
+            </>
+          )}
         </>
       )}
     </div>

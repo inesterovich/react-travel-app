@@ -58,20 +58,25 @@ const VideoCountry: React.FC = React.memo(() => {
 
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        {textVideoData[currentLanguage as Lang]}
-      </Typography>
-      {countryLangData?.video && (
-        <iframe
-          width="100%"
-          height="400"
-          src={videoLink}
-          title={countryLangData?.name}
-          // @ts-ignore
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+      {" "}
+      {videoLink && (
+        <>
+          <Typography variant="h4" gutterBottom>
+            {textVideoData[currentLanguage as Lang]}
+          </Typography>
+          {countryLangData?.video && (
+            <iframe
+              width="100%"
+              height="400"
+              src={videoLink}
+              title={countryLangData?.name}
+              // @ts-ignore
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          )}
+        </>
       )}
     </>
   );
