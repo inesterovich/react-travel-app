@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import styles from "./styles.module.css";
-interface IProps {
+export interface IProps {
   countries: {
     data: Array<ICountry> | [];
     isLoading?: boolean;
