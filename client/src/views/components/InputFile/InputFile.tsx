@@ -1,22 +1,38 @@
 import { Avatar, Button, Fade } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.css";
+import { actionSetAvatar } from "../../../redux/registration/actions";
+import { RootState } from "../../../redux/rootReducer";
 
-const InputFile: React.FC = React.memo(() => {
+const InputFile: React.FC<{
+  register: any;
+}> = React.memo(({ register }) => {
   const [avatarUrl, setAvatarUrl] = useState(undefined);
   const [updateFile, setUpdateFile] = useState(false);
 
   useEffect(() => {
     setUpdateFile(true);
+    setAvatarUrl(undefined);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setUpdateFile(true);
   }, [updateFile]);
 
+  useEffect(() => {
+    if (avatarUrl) dispatch(actionSetAvatar(avatarUrl));
+  }, [avatarUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const reduxAvatarUrl = useSelector(
+    (state: RootState) => state.registration.avatar
+  );
+
   const handleFile = (e: any) => {
     setAvatarUrl(e.target.result);
   };
+
+  const dispatch = useDispatch();
 
   const handleChangeFile = (e: React.ChangeEvent) => {
     const input = e.target as HTMLInputElement;
@@ -26,15 +42,17 @@ const InputFile: React.FC = React.memo(() => {
       return;
     }
 
-    const file = input.files[0];
     setUpdateFile(true);
-    let fileData = new FileReader();
+    const fileData = new FileReader();
     fileData.onloadend = handleFile;
+    const file = input.files[0];
     fileData.readAsDataURL(file);
+    console.log(`file type`, typeof file, file);
   };
 
   const handleClickCancel = () => {
     setUpdateFile(false);
+    dispatch(actionSetAvatar(undefined));
     setAvatarUrl(undefined);
   };
 
@@ -42,12 +60,14 @@ const InputFile: React.FC = React.memo(() => {
     <div className={styles.input_file}>
       {updateFile && (
         <input
+          autoComplete="off"
           id="avatar"
           type="file"
           name="avatar"
           style={{ display: "none" }}
           accept="image/jpeg,image/png,image/gif"
           onChange={handleChangeFile}
+          ref={register}
         />
       )}
 
@@ -57,12 +77,12 @@ const InputFile: React.FC = React.memo(() => {
         </Button>
       </label>
 
-      {avatarUrl && (
+      {reduxAvatarUrl && (
         <Fade in={true} timeout={400}>
           <div className={styles.input_file__avatar}>
             <Avatar
               className={styles.input_file__avatar__img}
-              src={avatarUrl}
+              src={reduxAvatarUrl}
             />
             <div
               className={styles.input_file__remove}

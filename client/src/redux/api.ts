@@ -21,15 +21,23 @@ export const serverLogin = async (payload: any) => {
   }
 };
 
-// export const serverRegister = async ({ email, password, name, surname }) => {
-//   const params = {
-//     ...commonParams,
-//     body: JSON.stringify({
-//       name: name,
-//       surname: surname,
-//       email: email,
-//       password: password,
-//     }),
-//   };
-//   return fetchData(`${BASE_API_URL}/register`, params);
-// };
+export const serverRegister = async (payload: any) => {
+  const { name, email, password } = payload;
+  const tempData = {
+    name: name,
+    email: email,
+    password: password,
+    surname: "a",
+  };
+  try {
+    // const headers = {
+    //   "Content-Type": "multipart/form-data",
+    // };
+    // return await axios.post(`${BASE_API_URL}/register`, payload, {
+    //   headers: headers,
+    // });
+    return await axios.post(`${BASE_API_URL}/register`, tempData);
+  } catch (err) {
+    console.error("ERROR IN API = ", err);
+  }
+};

@@ -14,6 +14,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { serverLoginThunk } from "../../../redux/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/rootReducer";
+import { Alert } from "@material-ui/lab";
 
 const schema = yup.object().shape({
   email: yup
@@ -28,14 +29,13 @@ const FormLogin: React.FC<{
   handleClose: () => void;
   handleRegisterOpen: () => void;
 }> = ({ open, handleClose, handleRegisterOpen }) => {
-  const dispatch = useDispatch();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
   });
+
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const loginError = useSelector((state: RootState) => state.auth.error);
@@ -47,10 +47,17 @@ const FormLogin: React.FC<{
   }, [loginError]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoading && !isLoggedIn) {
+      setTimeout(() => {
+        // dispatch(actionLogout());
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [isLoading, isLoggedIn]);
 
   const onSubmit = (data: any) => {
     setIsLoading(true);
@@ -59,6 +66,7 @@ const FormLogin: React.FC<{
 
   return (
     <Dialog open={open} onClose={handleClose}>
+      {loginError && <Alert severity="error">{loginError}</Alert>}
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -69,7 +77,7 @@ const FormLogin: React.FC<{
           <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <TextField
-              value="test@test.com"
+              // value="test@test.com"
               type="email"
               name="email"
               label="Email *"
@@ -80,7 +88,7 @@ const FormLogin: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              value="123123"
+              // value="123123"
               type="password"
               name="password"
               label="Password *"

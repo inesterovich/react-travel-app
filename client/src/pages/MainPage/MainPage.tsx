@@ -9,8 +9,6 @@ import { ICountry } from "../../types";
 
 import { getCountriesThunk } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/rootReducer";
-import { Alert } from "@material-ui/lab";
 
 interface IProps {
   countries: {
@@ -24,19 +22,12 @@ const MainPage: React.FC = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-
   useEffect(() => {
     if (!countries.data.length) dispatch(getCountriesThunk());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.mainPage}>
-      {isLoggedIn && (
-        <Fade in={true} timeout={700}>
-          <Alert severity="success">Hi, Elmira</Alert>
-        </Fade>
-      )}
       {countries.isLoading ? (
         <div className="center_block">
           <CircularProgress />
