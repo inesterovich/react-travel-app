@@ -12,3 +12,13 @@ export const actionSetCurrentCountry = (dataCountry: any) =>
   ({ type: "countries/SET_COUNTRY", payload: { dataCountry } } as const);
 export const actionSetSearch = (search: string) =>
   ({ type: "countries/SET_SEARCH", payload: { search } } as const);
+export const actionSetLoaderWeather = (isLoaderWeather: boolean) =>
+  ({
+    type: "countries/SET_LOADER_WEATHER",
+    payload: { isLoaderWeather },
+  } as const);
+export const actionSetLoaderCurrency = (isLoaderCurrency: boolean) =>
+  ({
+    type: "countries/SET_LOADER_CURRENCY",
+    payload: { isLoaderCurrency },
+  } as const);

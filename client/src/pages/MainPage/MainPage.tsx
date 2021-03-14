@@ -1,19 +1,15 @@
 import React, { useCallback, useEffect } from "react";
-import styles from "./styles.module.css";
-
 import { CircularProgress, Fade } from "@material-ui/core";
 import CountryCard from "../../views/components/CountryCard/index";
 import { v4 as uuidv4 } from "uuid";
-
 import { ICountry } from "../../types";
-
 import {
   actionSetCurrentCountry,
   getCountriesThunk,
 } from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
-
+import styles from "./styles.module.css";
 interface IProps {
   countries: {
     data: Array<ICountry> | [];
@@ -30,8 +26,11 @@ const MainPage: React.FC = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.countries.currentLanguage
   );
+
   useEffect(() => {
-    if (!countries.data.length) dispatch(getCountriesThunk());
+    if (!countries.data.length) {
+      dispatch(getCountriesThunk());
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickCard = useCallback(
