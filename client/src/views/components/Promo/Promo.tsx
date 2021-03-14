@@ -17,7 +17,7 @@ type PromoDescription = {
 const textPromo1: PromoDescription = {
   [Lang.Ru]: "Откройте для себя",
   [Lang.En]: "Explore the",
-  [Lang.Es]: "Explore la ",
+  [Lang.Es]: "Explore la",
 };
 
 const textPromo2: PromoDescription = {
@@ -41,7 +41,7 @@ const CountryCard: React.FC = () => {
     <Fade in={true} timeout={1800}>
       <div className={styles.promo}>
         <Container maxWidth="xl">
-          <div className={styles.promo__title}>
+          <div className={styles.promo__title} id={"promo"}>
             {textPromo1[currentLanguage as Lang]} <br />
             {textPromo2[currentLanguage as Lang]} <br />
             {textPromo3[currentLanguage as Lang]}
