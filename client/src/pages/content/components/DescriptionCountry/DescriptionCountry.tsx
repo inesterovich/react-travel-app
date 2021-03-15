@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import ApartmentIcon from "@material-ui/icons/Apartment";
 import VideoCountry from "../VideoCountry";
 import { CurrentCountry, CurrentCountryLang } from "../../../../types";
 import { RootState } from "../../../../redux/rootReducer";

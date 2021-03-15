@@ -73,7 +73,7 @@ const MainPage: React.FC = () => {
                   />
                 </div>
               ))}
-            </div>
+          </div>
         </Fade>
       )}
     </div>
