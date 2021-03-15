@@ -20,7 +20,11 @@ export interface IProps {
 }
 
 const MainPage: React.FC = () => {
-  const countries = useSelector((state: IProps) => state.countries || []);
+  const countries = useSelector((state: IProps) => {
+    console.log(state);
+
+    return state.countries || [];
+  });
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => state.countries.search);
   const currentLanguage = useSelector(

@@ -26,6 +26,22 @@ enum Lang {
   En = "en",
 }
 
+type BtnVoteDescription = {
+  [key in Lang]?: string;
+};
+
+const textBtnVote: BtnVoteDescription = {
+  [Lang.Ru]: "Голосовать",
+  [Lang.En]: "Vote",
+  [Lang.Es]: "Votar",
+};
+
+const textBtnSave: BtnVoteDescription = {
+  [Lang.Ru]: "Сохранить",
+  [Lang.En]: "Save",
+  [Lang.Es]: "Salvar",
+};
+
 type State = {
   countries: {
     currentCountry: CurrentCountry;
@@ -43,6 +59,8 @@ const PhotoGallery: React.FC = React.memo(() => {
   const currentLanguage = useSelector(
     (state: RootState) => state.countries.currentLanguage
   );
+
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const [
     countryLangData,
@@ -101,11 +119,22 @@ const PhotoGallery: React.FC = React.memo(() => {
     };
 
     try {
-      const data = await request("/api/service/vote", "POST", resultReiting);
+      console.log(token);
+
+      const data = await request("/api/service/vote", "POST", resultReiting, {
+        Authorization: `Bearer ${token}`,
+      });
       console.log(data);
     } catch (error) {}
     setOpen(false);
-  }, [valueReiting, currentCountry, attractionID, currentLanguage, request]);
+  }, [
+    valueReiting,
+    currentCountry,
+    attractionID,
+    currentLanguage,
+    request,
+    token,
+  ]);
 
   return (
     <div className={styles.photoGallery}>
@@ -139,7 +168,7 @@ const PhotoGallery: React.FC = React.memo(() => {
                       color="primary"
                       onClick={() => handleClickOpen(item._id)}
                     >
-                      Vote
+                      {textBtnVote[currentLanguage as Lang]}
                     </Button>
                   </div>
                 </SwiperSlide>{" "}
@@ -167,7 +196,7 @@ const PhotoGallery: React.FC = React.memo(() => {
             className={styles.btnRating}
             onClick={handleClickSave}
           >
-            SAVE
+            {textBtnSave[currentLanguage as Lang]}
           </Button>
         </Modal>
         {images.length && (
