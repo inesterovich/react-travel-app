@@ -17,7 +17,7 @@ export type ActionTypesRegister = ReturnType<
   InferValueTypes<typeof RegisterActions>
 >;
 
-export type ICountry = {
+export type CountryType = {
   name: string;
   image?: {
     caption: string;
@@ -25,4 +25,63 @@ export type ICountry = {
   };
   snippet?: string;
   description?: string;
+  capital?: {
+    coordinates: Array<number>;
+    name: string;
+  };
+};
+
+export type ICountry = {
+  [key: string]: CountryType;
+};
+
+enum Lang {
+  Ru = "ru",
+  Es = "es",
+  En = "en",
+}
+
+export type CurrentCountryLang = {
+  attractions?: {
+    name: string;
+    url: string;
+    _id: string;
+  }[];
+
+  capital?: {
+    name: string;
+  };
+
+  code: string;
+
+  currency: {
+    code: string;
+    name: string;
+    symbol: string;
+  };
+
+  description?: string;
+
+  flag?: String;
+
+  image: {
+    caption: string;
+    url: string;
+  };
+
+  name: string;
+
+  snippet: string;
+
+  video: string;
+
+  _id: string;
+};
+
+export type CurrentCountry = {
+  [Lang.En]: CurrentCountryLang;
+
+  [Lang.Ru]: CurrentCountryLang;
+
+  [Lang.Es]: CurrentCountryLang;
 };

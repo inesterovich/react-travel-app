@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
-import styles from "./styles.module.css";
-
+import React, { useCallback, useEffect } from "react";
 import { CircularProgress, Fade } from "@material-ui/core";
 import CountryCard from "../../views/components/CountryCard/index";
 import { v4 as uuidv4 } from "uuid";
 
 import { ICountry } from "../../types";
-
-import { getCountriesThunk } from "../../redux/countries";
+import {
+  actionSetCurrentCountry,
+  getCountriesThunk,
+} from "../../redux/countries";
 import { useDispatch, useSelector } from "react-redux";
-
-interface IProps {
+import { RootState } from "../../redux/rootReducer";
+import styles from "./styles.module.css";
+export interface IProps {
   countries: {
     data: Array<ICountry> | [];
     isLoading?: boolean;
@@ -21,10 +22,23 @@ interface IProps {
 const MainPage: React.FC = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
   const dispatch = useDispatch();
+  const search = useSelector((state: RootState) => state.countries.search);
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
 
   useEffect(() => {
-    if (!countries.data.length) dispatch(getCountriesThunk());
+    if (!countries.data.length) {
+      dispatch(getCountriesThunk());
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleClickCard = useCallback(
+    (el) => {
+      dispatch(actionSetCurrentCountry(el));
+    },
+    [dispatch]
+  );
 
   return (
     <div className={styles.mainPage}>
@@ -34,26 +48,32 @@ const MainPage: React.FC = () => {
         </div>
       ) : (
         <Fade in={true} timeout={700}>
-          <>
-            <div className="intro_text">
-              <h1>Top Destination</h1>
-              <p>
-                Feel the love—these iconic, can’t-miss destinations are always
-                at the top of travelers’ wish lists.
-              </p>
-            </div>
-            <div className="flex-wrap">
-              {countries.data.map((el: ICountry) => (
-                <div className="flex-wrap__item" key={uuidv4()}>
+          <div className="flex-wrap">
+            {countries.data
+              .filter(
+                (e) =>
+                  e[`${currentLanguage}`].name
+                    ?.toLowerCase()
+                    .includes(search.trim().toLowerCase()) ||
+                  e[`${currentLanguage}`].capital?.name
+                    ?.toLowerCase()
+                    .includes(search.trim().toLowerCase())
+              )
+              .map((el: ICountry) => (
+                <div
+                  className="flex-wrap__item"
+                  key={uuidv4()}
+                  onClick={() => handleClickCard(el)}
+                >
                   <CountryCard
-                    name={el.name}
-                    description={el.description}
-                    image={el.image}
+                    name={el[`${currentLanguage}`].name}
+                    description={el[`${currentLanguage}`].description}
+                    image={el[`${currentLanguage}`].image}
+                    capital={el[`${currentLanguage}`].capital}
                   />
                 </div>
               ))}
             </div>
-          </>
         </Fade>
       )}
     </div>

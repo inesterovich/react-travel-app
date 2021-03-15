@@ -21,6 +21,7 @@ export const fetchWeather = async (city: String) => {
 
     return dataWeather;
   } catch (e) {
+    console.error("Weather ERROR = ", e);
     return e;
   }
 };
@@ -37,6 +38,7 @@ export const fetchCurrency = async (base: String) => {
     };
     return dataCurrency;
   } catch (e) {
+    console.error("Currency ERROR = ", e);
     return e;
   }
 };

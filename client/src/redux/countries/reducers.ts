@@ -4,7 +4,11 @@ const initialState = {
   data: [] as Array<Object> | [],
   isLoading: false as boolean,
   error: null as string | null,
-  currentLanguage: "en"
+  currentLanguage: "en",
+  currentCountry: [] as Array<Object> | [],
+  search: "",
+  isLoaderWeather: false as boolean,
+  isLoaderCurrency: false as boolean,
 };
 
 type InitialStateType = typeof initialState;
@@ -37,8 +41,34 @@ const posts = (
     case "countries/SET_LANGUAGE": {
       return {
         ...state,
-        currentLanguage: action.payload.lang
-      }
+        currentLanguage: action.payload.lang,
+      };
+    }
+
+    case "countries/SET_COUNTRY": {
+      return {
+        ...state,
+        currentCountry: action.payload.dataCountry,
+      };
+    }
+
+    case "countries/SET_SEARCH": {
+      return {
+        ...state,
+        search: action.payload.search,
+      };
+    }
+    case "countries/SET_LOADER_WEATHER": {
+      return {
+        ...state,
+        isLoaderWeather: action.payload.isLoaderWeather,
+      };
+    }
+    case "countries/SET_LOADER_CURRENCY": {
+      return {
+        ...state,
+        isLoaderCurrency: action.payload.isLoaderCurrency,
+      };
     }
     default:
       return state;

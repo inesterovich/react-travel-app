@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Porcelana",
+    "capitalName": "Beijing",
+    "description": "El país más poblado del mundo y una de las civilizaciones más antiguas, con una amplia gama de tesoros culturales y naturales entre el desarrollo frenético.",
+    "snippet": "El país más poblado del mundo y una de las civilizaciones más antiguas, con una amplia gama de tesoros culturales y naturales entre el desarrollo frenético.",
+    "imageCaption": "Tia South Gate, Pekín"
+  },
+  {
+    "name": "República Dominicana",
+    "capitalName": "Santo Domingo",
+    "description": "Una economía de rápido crecimiento con algunas de las ciudades coloniales más antiguas del hemisferio.",
+    "snippet": "Una economía de rápido crecimiento con algunas de las ciudades coloniales más antiguas del hemisferio.",
+    "imageCaption": "República Dominicana"
+  },
+  {
+    "name": "España",
+    "capitalName": "Madrid",
+    "description": "Este país es uno de los mejores destinos de Europa para los mejores destinos para las vacaciones y la vida: la cultura, la vida nocturna, las playas y la historia, todos le dan la belleza humana a un país que tiene mucha belleza natural.",
+    "snippet": "Este país es uno de los mejores destinos de Europa para los mejores destinos para las vacaciones y la vida: la cultura, la vida nocturna, las playas y la historia, todos le dan la belleza humana a un país que tiene mucha belleza natural.",
+    "imageCaption": "cáceresGuadalupeRealMonasterioDeSantaMaríaDeGuadalupe"
+  },
+  {
+    "name": "Francia",
+    "capitalName": "París",
+    "description": "Francia recibe más turistas que cualquier otro país del mundo, y es el país de la Unión Europea más grande por área de tierra.",
+    "snippet": "Francia recibe más turistas que cualquier otro país del mundo, y es el país de la Unión Europea más grande por área de tierra.",
+    "imageCaption": "París - Notre Dame - 15-07-2007 - 19h35"
+  },
+  {
+    "name": "Reino Unido",
+    "capitalName": "Londres",
+    "description": "Desde las colinas de Inglaterra, hasta los profundos valles de Gales, los hermosos Gletas de Escocia a la costa salvaje de Irlanda del Norte, el primer corazón del imperio más grande del mundo sigue siendo tan magnífico como lo fue cuando gobernó las olas, con inigualable.Historia que cita antes de la conquista romana y las diversas ciudades que ofrecen una gran cantidad de oportunidades aparentemente ilimitadas.",
+    "snippet": "Desde las colinas de Inglaterra, hasta los profundos valles de Gales, los hermosos Gletas de Escocia a la costa salvaje de Irlanda del Norte, el primer corazón del imperio más grande del mundo sigue siendo tan magnífico como lo fue cuando gobernó las olas, con inigualable.Historia que cita antes de la conquista romana y las diversas ciudades que ofrecen una gran cantidad de oportunidades aparentemente ilimitadas.",
+    "imageCaption": "Edinburgh Panorama"
+  },
+  {
+    "name": "Italia",
+    "capitalName": "Roma",
+    "description": "La península italiana en forma de bota fue la cuna tanto del Imperio Romano como del Renacimiento, y ha atraído a los turistas desde lejos, ya que antes del país fue unificado en 1870.",
+    "snippet": "La península italiana en forma de bota fue la cuna tanto del Imperio Romano como del Renacimiento, y ha atraído a los turistas desde lejos, ya que antes del país fue unificado en 1870.",
+    "imageCaption": "La cúpula de Brunelleschi"
+  },
+ 
+  {
+    "name": "Maldivas",
+    "capitalName": "Pequeño",
+    "description": "Hogar a hermosas playas, con una cultura influenciada por la India y el Medio Oriente.",
+    "snippet": "Hogar a hermosas playas, con una cultura influenciada por la India y el Medio Oriente.",
+    "imageCaption": "Maldivas Bandos Island"
+  },
+  {
+    "name": "Rusia",
+    "capitalName": "Moscú",
+    "description": "El norte de Asia pertenece a Rusia.Mientras que la región se conoce tradicionalmente como Siberia, este es también el nombre de una región federal que forma la parte interna de la Rusia asiática.Esta es una región vasta y escasamente poblada que se extiende desde el Ártico hasta los desiertos de Asia Central.",
+    "snippet": "El norte de Asia pertenece a Rusia.",
+    "imageCaption": "Lago Baikal, el lago más profundo del mundo."
+  },
+  {
+    "name": "Tailandia",
+    "capitalName": "Bangkok",
+    "description": "El único país para evitar el colonialismo occidental, conocido por la rica cultura y la cocina con ciudades frenéticas, playas relajadas y restos de reinos budistas, lo que lo convierte en un destino muy popular con los visitantes que regresan de una y otra vez.",
+    "snippet": "El único país para evitar el colonialismo occidental, conocido por la rica cultura y la cocina con ciudades frenéticas, playas relajadas y restos de reinos budistas, lo que lo convierte en un destino muy popular con los visitantes que regresan de una y otra vez.",
+    "imageCaption": "Mi playa en el hombre"
+  },
+  {
+    "name": "Estados Unidos",
+    "capitalName": "Washington DC.",
+    "description": "Una de las naciones más grandes y étnicamente diversas y multiculturales en la Tierra incluye algunas de las ciudades más famosas del mundo, parques naturales de belleza indecible, y prácticamente todo lo que está en medio.",
+    "snippet": "Una de las naciones más grandes y étnicamente diversas y multiculturales en la Tierra incluye algunas de las ciudades más famosas del mundo, parques naturales de belleza indecible, y prácticamente todo lo que está en medio.",
+    "imageCaption": "Comprensivo_ab_oo 12 8"
+  }
+]
