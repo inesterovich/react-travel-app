@@ -13,3 +13,8 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@media (max-width: 576px) {
+  .header {
+  }
+}
