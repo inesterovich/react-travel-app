@@ -19,7 +19,7 @@ type textDescription = {
 };
 
 const textHeaderPhotogallery: textDescription = {
-  [Lang.Ru]: "Достопримечательности",
+  [Lang.Ru]: "Места",
   [Lang.En]: "Sights",
   [Lang.Es]: "Monumentos",
 };
@@ -39,12 +39,12 @@ const CountryPage: React.FC = React.memo(() => {
       <Fade in={true} timeout={1200}>
         <div className={styles.counryPage}>
           <Grid container spacing={4}>
-            <Grid item md={9}>
+            <Grid item xl={9} md={8}>
               <section className="section">
                 <DescriptionCountry />
               </section>
             </Grid>
-            <Grid item md={3}>
+            <Grid item xl={3} md={4} xs={12}>
               <SidePanel />
               <section className="section">
                 <Typography variant="h4" gutterBottom>

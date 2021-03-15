@@ -62,10 +62,10 @@ img {
 }
 
 .counryPage__img {
-  position: absolute;
+  height: 300px;
   width: 100%;
-  height: 100%;
   object-fit: cover;
+  margin-bottom: 20px;
 }
 
 .mb_0 {
@@ -86,10 +86,6 @@ img {
 }
 .mb_50 {
   margin-bottom: 50px !important;
-}
-
-.dialog {
-  width: 400px;
 }
 
 .capital {
@@ -197,6 +193,10 @@ img {
   margin-left: -20px;
 }
 
+.MuiDialog-paper {
+  margin: 10px !important;
+}
+
 @media (max-width: 1400px) {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(25% - 20px);
@@ -219,13 +219,12 @@ img {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(100% - 20px);
   }
-}
+  .MuiIconButton-root {
+    padding-left: 0 !important;
+    padding-right: 5px !important;
+  }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  color: rgb(243, 136, 13);
-}
-.swiper-button-next:active,
-.swiper-button-prev:active {
-  color: rgb(229, 243, 32);
+  .MuiNativeSelect-select {
+    font-size: 14px !important;
+  }
 }

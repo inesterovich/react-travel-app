@@ -60,7 +60,7 @@ const Registration: React.FC = React.memo(() => {
           </Tooltip>
         </IconButton>
       ) : (
-        <Button onClick={handleRegisterOpen}>Login/Register</Button>
+        <Button onClick={handleRegisterOpen}>Login</Button>
       )}
 
       <FormLogin

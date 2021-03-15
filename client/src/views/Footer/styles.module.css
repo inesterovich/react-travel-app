@@ -35,3 +35,14 @@
   justify-content: space-between;
   width: 120px;
 }
+
+@media (max-width: 576px) {
+  .footer__meta {
+    width: 85px;
+    font-size: 14px;
+  }
+
+  .footer__logo {
+    width: 60px;
+  }
+}
