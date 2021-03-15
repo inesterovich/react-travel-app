@@ -39,8 +39,8 @@ const FormRegister: React.FC<{
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const loginError = useSelector((state: RootState) => state.auth.error);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const loginError = useSelector((state: RootState) => state.auth?.error);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   useEffect(() => {
     setIsLoading(false);
