@@ -154,21 +154,23 @@ const Currency: React.FC = React.memo(() => {
               </Typography>
               <p className={styles.nameCurrency}>
                 {textCurrencyData[currentLanguage as Lang]}:{" "}
-                {
-                  textValueCurrencyData[
-                    countryLangData?.currency?.code as ValueLang
-                  ][currentLanguage as Lang]
-                }{" "}
-                {countryLangData?.currency?.symbol}
+                <strong>
+                  {
+                    textValueCurrencyData[
+                      countryLangData?.currency?.code as ValueLang
+                    ][currentLanguage as Lang]
+                  }{" "}
+                  {countryLangData?.currency?.symbol}
+                </strong>
               </p>
               <p className={styles.valueCurrency}>
-                USD: {currencyData.ratesUSD}
+                USD: <strong> {currencyData.ratesUSD}</strong>
               </p>
               <p className={styles.valueCurrency}>
-                EUR: {currencyData.ratesEUR}
+                EUR: <strong> {currencyData.ratesEUR}</strong>
               </p>
               <p className={styles.valueCurrency}>
-                RUB: {currencyData.ratesRUB}
+                RUB: <strong> {currencyData.ratesRUB}</strong>
               </p>
             </>
           )}

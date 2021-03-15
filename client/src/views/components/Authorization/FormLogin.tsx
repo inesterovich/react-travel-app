@@ -77,7 +77,7 @@ const FormLogin: React.FC<{
           <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <TextField
-              // value="test@test.com"
+              value="dev@dev.ru"
               type="email"
               name="email"
               label="Email *"
@@ -88,7 +88,7 @@ const FormLogin: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              // value="123123"
+              value="password"
               type="password"
               name="password"
               label="Password *"

@@ -80,7 +80,6 @@ const PhotoGallery: React.FC = React.memo(() => {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          effect="cube"
         >
           {countryLangData?.attractions?.map((item: any) => {
             return (

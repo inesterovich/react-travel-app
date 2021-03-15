@@ -138,7 +138,7 @@ const TimeCountry: React.FC = React.memo(() => {
         {headerTime[currentLanguage as LangHeader]}:
       </Typography>
       <div className={styles.timeCountry}>
-        <h3 className={styles.time}> {`${currentTime}`}</h3>
+        <p>{`${currentTime}`}</p>
       </div>
     </>
   );
