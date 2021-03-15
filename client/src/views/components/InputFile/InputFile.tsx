@@ -1,9 +1,8 @@
 import { Avatar, Button, Fade } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
 import { actionSetAvatar } from "../../../redux/registration/actions";
-import { RootState } from "../../../redux/rootReducer";
 
 const InputFile: React.FC<{
   register: any;
@@ -21,12 +20,8 @@ const InputFile: React.FC<{
   }, [updateFile]);
 
   useEffect(() => {
-    if (avatarUrl) dispatch(actionSetAvatar(avatarUrl));
+    dispatch(actionSetAvatar(avatarUrl));
   }, [avatarUrl]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const reduxAvatarUrl = useSelector(
-    (state: RootState) => state.registration.avatar
-  );
 
   const handleFile = (e: any) => {
     setAvatarUrl(e.target.result);
@@ -47,12 +42,10 @@ const InputFile: React.FC<{
     fileData.onloadend = handleFile;
     const file = input.files[0];
     fileData.readAsDataURL(file);
-    console.log(`file type`, typeof file, file);
   };
 
   const handleClickCancel = () => {
     setUpdateFile(false);
-    dispatch(actionSetAvatar(undefined));
     setAvatarUrl(undefined);
   };
 
@@ -77,12 +70,12 @@ const InputFile: React.FC<{
         </Button>
       </label>
 
-      {reduxAvatarUrl && (
+      {avatarUrl && (
         <Fade in={true} timeout={400}>
           <div className={styles.input_file__avatar}>
             <Avatar
               className={styles.input_file__avatar__img}
-              src={reduxAvatarUrl}
+              src={avatarUrl}
             />
             <div
               className={styles.input_file__remove}
