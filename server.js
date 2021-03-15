@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const config = require('config');
@@ -17,7 +18,7 @@ server.use('/api/request', require('./routes/requests.routes'));
 server.use('/api/service', require('./routes/service.routes'));
 server.use('/api/auth', require('./routes/auth.routes'));
 
-/*
+
 if (process.env.NODE_ENV === 'production') {
     
     server.use('/', express.static(path.join(__dirname, 'client', 'build')));
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
     });
     
 }
-*/
+
 
 
 const PORT = config.get('port') || 5000;
