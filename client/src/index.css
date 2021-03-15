@@ -72,12 +72,31 @@ img {
   margin-bottom: 0 !important;
 }
 
+.mb_10 {
+  margin-bottom: 50px !important;
+}
+.mb_20 {
+  margin-bottom: 20px !important;
+}
+.mb_30 {
+  margin-bottom: 30px !important;
+}
+.mb_40 {
+  margin-bottom: 40px !important;
+}
 .mb_50 {
   margin-bottom: 50px !important;
 }
 
 .dialog {
-  max-width: 400px;
+  width: 400px;
+}
+
+.capital {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  padding: 0px 0 20px;
 }
 
 .section {
@@ -87,11 +106,6 @@ img {
 
 .meta {
   margin-bottom: 30px;
-}
-
-.Avatar {
-  width: 30px !important;
-  height: 30px !important;
 }
 
 .intro_text {
@@ -122,8 +136,10 @@ img {
 }
 
 .flex-wrap .flex-wrap__item {
+  overflow: hidden;
   margin: 10px;
   flex: 0 1 calc(20% - 20px);
+  transition: all 0.3s ease;
 }
 
 .widget {
@@ -132,13 +148,68 @@ img {
   padding: 20px;
 }
 
-@media (max-width: 1200px) {
+.question {
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.question a {
+  color: #69c6ba;
+  font-weight: bold;
+}
+
+.link {
+  color: #69c6ba;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.question a:hover {
+  text-decoration: none;
+}
+
+.MuiDialogActions-root {
+  justify-content: space-between !important;
+  padding: 16px 24px !important;
+  background: #dcfffa !important;
+}
+
+.MuiDialogTitle-root {
+  background: #dcfffa !important;
+}
+
+.disabled {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+}
+
+@media (max-width: 1400px) {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(25% - 20px);
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
+  .flex-wrap .flex-wrap__item {
+    flex: 0 1 calc(33% - 20px);
+  }
+}
+
+@media (max-width: 1000px) {
   .flex-wrap .flex-wrap__item {
     flex: 0 1 calc(50% - 20px);
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../components/Logo";
 import Search from "../components/Search";
-import Registration from "../components/Registration";
+import Authorization from "../components/Authorization";
 import { useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Container } from "@material-ui/core";
@@ -21,7 +21,7 @@ const Header: React.FC = React.memo(() => {
         <Toolbar className={styles.header_toolbar}>
           <Logo />
           {location.pathname === "/" && <Search />}
-          <Registration />
+          <Authorization />
           <Language />
         </Toolbar>
       </Container>
