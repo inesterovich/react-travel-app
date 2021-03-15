@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import ApartmentIcon from "@material-ui/icons/Apartment";
 import VideoCountry from "../VideoCountry";
 import { CurrentCountry, CurrentCountryLang } from "../../../../types";
 import { RootState } from "../../../../redux/rootReducer";
@@ -54,7 +53,7 @@ const DescriptionCountry: React.FC = React.memo(() => {
         <Grid item md={5}>
           <div className="counryPage__wrap">
             <img
-              src={countryLangData?.image.url}
+              src="https://images03.nicepage.io/a1389d7bc73adea1e1c1fb7e/2dafdd6ed7d25c1097f9d794/pexels-photo-5893858.jpeg"
               alt=""
               className="counryPage__img"
             />
@@ -66,10 +65,9 @@ const DescriptionCountry: React.FC = React.memo(() => {
               <Typography variant="h1" gutterBottom>
                 {countryLangData?.name}
               </Typography>
-              <div className="meta__city">
+              <div className="capital">
                 {capitalData[currentLanguage as Lang]}:{" "}
                 {countryLangData?.capital?.name}
-                <ApartmentIcon></ApartmentIcon>
               </div>
             </div>
             <Typography variant="body1" gutterBottom>

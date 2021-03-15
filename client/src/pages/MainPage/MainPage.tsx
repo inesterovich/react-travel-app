@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { CircularProgress, Fade } from "@material-ui/core";
 import CountryCard from "../../views/components/CountryCard/index";
 import { v4 as uuidv4 } from "uuid";
+
 import { ICountry } from "../../types";
 import {
   actionSetCurrentCountry,
@@ -20,7 +21,6 @@ export interface IProps {
 
 const MainPage: React.FC = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
-
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => state.countries.search);
   const currentLanguage = useSelector(
