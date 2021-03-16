@@ -35,11 +35,15 @@ export type ICountry = {
   [key: string]: CountryType;
 };
 
-enum Lang {
+export enum Lang {
   Ru = "ru",
   Es = "es",
   En = "en",
 }
+
+export type typeLocalization = {
+  [key in Lang]?: string;
+};
 
 export type CurrentCountryLang = {
   attractions?: {

@@ -7,6 +7,7 @@ import DescriptionCountry from "../content/components/DescriptionCountry";
 import PhotoGallery from "../content/components/PhotoGallery";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
+import VideoCountry from "../content/components/VideoCountry";
 
 enum Lang {
   Ru = "ru",
@@ -19,7 +20,7 @@ type textDescription = {
 };
 
 const textHeaderPhotogallery: textDescription = {
-  [Lang.Ru]: "Места",
+  [Lang.Ru]: "Достопримечательности",
   [Lang.En]: "Sights",
   [Lang.Es]: "Monumentos",
 };
@@ -39,18 +40,21 @@ const CountryPage: React.FC = React.memo(() => {
       <Fade in={true} timeout={1200}>
         <div className={styles.counryPage}>
           <Grid container spacing={4}>
-            <Grid item xl={9} md={8}>
+            <Grid item xl={9} md={8} xs={12}>
               <section className="section">
                 <DescriptionCountry />
               </section>
-            </Grid>
-            <Grid item xl={3} md={4} xs={12}>
-              <SidePanel />
               <section className="section">
                 <Typography variant="h4" gutterBottom>
                   {textHeaderPhotogallery[currentLanguage as Lang]}
                 </Typography>
                 <PhotoGallery />
+              </section>
+            </Grid>
+            <Grid item xl={3} md={4} xs={12}>
+              <SidePanel />
+              <section className="section">
+                <VideoCountry />
               </section>
             </Grid>
           </Grid>
