@@ -25,11 +25,10 @@ export const serverLoginThunk = ({
     password,
   });
 
-  console.log("isLogin = ", isLogin);
-
-  if (isLogin?.data.token) {
-    dispatch(actionLoginSuccess(isLogin?.data.token));
+  if (isLogin && isLogin?.data?.token) {
+    const { token, userId, avatar } = isLogin?.data;
+    dispatch(actionLoginSuccess(token, userId, avatar));
   } else {
-    dispatch(actionLoginFailed(isLogin?.data.error));
+    dispatch(actionLoginFailed(isLogin.response.data.message));
   }
 };

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import VideoCountry from "../VideoCountry";
 import { CurrentCountry, CurrentCountryLang } from "../../../../types";
 import { RootState } from "../../../../redux/rootReducer";
 
@@ -13,6 +12,7 @@ type State = {
     image: { url: string };
   };
 };
+
 enum Lang {
   Ru = "ru",
   Es = "es",
@@ -49,27 +49,21 @@ const DescriptionCountry: React.FC = React.memo(() => {
 
   return (
     <>
-      <section className="section">
-        <Typography variant="h1" gutterBottom>
-          {countryLangData?.name}
-        </Typography>
-        <div className="capital">
-          {capitalData[currentLanguage as Lang]}:{" "}
-          {countryLangData?.capital?.name}
-        </div>
-        <img
-          src={countryLangData?.image?.url}
-          alt={countryLangData?.image?.caption}
-          aria-hidden
-          className="counryPage__img"
-        />
-        <Typography variant="body1" gutterBottom>
-          {countryLangData?.description}
-        </Typography>
-      </section>
-      <section className="section mb_0">
-        <VideoCountry />
-      </section>
+      <Typography variant="h1" gutterBottom>
+        {countryLangData?.name}
+      </Typography>
+      <div className="capital">
+        {capitalData[currentLanguage as Lang]}: {countryLangData?.capital?.name}
+      </div>
+      <img
+        src={countryLangData?.image?.url}
+        alt={countryLangData?.image?.caption}
+        aria-hidden
+        className="counryPage__img"
+      />
+      <Typography variant="body1" gutterBottom>
+        {countryLangData?.description}
+      </Typography>
     </>
   );
 });

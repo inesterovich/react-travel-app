@@ -16,13 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { serverRegisterThunk } from "../../../redux/registration/thunks";
 import { RootState } from "../../../redux/rootReducer";
 import { Alert } from "@material-ui/lab";
+import { actionRemoveErrorMessage } from "../../../redux/auth";
 
 const schema = yup.object().shape({
   email: yup
     .string()
     .email("Электронная почта должна иметь правильный формат")
     .required("Email - обязательное поле"),
-  password: yup.string().required("Пароль - обязательное поле"),
+  password: yup
+    .string()
+    .required("Пароль - обязательное поле")
+    .min(6, "Минимум 6 символов"),
   name: yup.string().required("Имя - обязательное поле"),
 });
 
@@ -38,9 +42,18 @@ const FormRegister: React.FC<{
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputFileErr, setInputFileErr] = useState<boolean>(false);
 
   const loginError = useSelector((state: RootState) => state.auth?.error);
   const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
+
+  const isAvatarLoaded = useSelector(
+    (state: RootState) => state.registration.avatar
+  );
+
+  useEffect(() => {
+    if (isAvatarLoaded) setInputFileErr(false);
+  }, [isAvatarLoaded]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -49,13 +62,18 @@ const FormRegister: React.FC<{
   useEffect(() => {
     if (isLoading && !isLoggedIn) {
       setTimeout(() => {
-        // dispatch(actionLogout());
         setIsLoading(false);
-      }, 1000);
+        dispatch(actionRemoveErrorMessage());
+      }, 3000);
     }
-  }, [isLoading, isLoggedIn]);
+  }, [isLoading, isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = (data: any) => {
+    if (!data.avatar.length) {
+      setInputFileErr(true);
+      return;
+    }
+    setInputFileErr(false);
     setIsLoading(true);
     dispatch(serverRegisterThunk(data));
   };
@@ -66,18 +84,18 @@ const FormRegister: React.FC<{
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      {loginError && <Alert severity="error">{loginError}</Alert>}
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        encType="multipart/form-data"
+        // encType="multipart/form-data"
         className={`${isLoading && "disabled"}`}
       >
         <div className={styles.dialog}>
+          {loginError && <Alert severity="error">{loginError}</Alert>}
           <DialogTitle id="form-dialog-title">Register</DialogTitle>
           <DialogContent>
             <TextField
-              // value="Elmira"
+              value="Elmira"
               type="text"
               name="name"
               label="Name *"
@@ -88,7 +106,7 @@ const FormRegister: React.FC<{
               helperText={errors?.name?.message}
             />
             <TextField
-              // value="timra.work@g.ru"
+              // value="t@gmail.ru"
               type="email"
               name="email"
               label="Email *"
@@ -98,7 +116,7 @@ const FormRegister: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              // value="1"
+              value="123456"
               type="password"
               name="password"
               label="Password *"
@@ -108,6 +126,9 @@ const FormRegister: React.FC<{
               helperText={errors?.password?.message}
             />
             <InputFile register={register} />
+            {inputFileErr && !isAvatarLoaded && (
+              <div className="error error--input_file">Avatar is required</div>
+            )}
           </DialogContent>
           <DialogActions>
             <div className="question">

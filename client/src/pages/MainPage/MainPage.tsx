@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import styles from "./styles.module.css";
+import { getAuthCountriesThunk } from "../../redux/countries/thunks";
 export interface IProps {
   countries: {
     data: Array<ICountry> | [];
@@ -27,11 +28,19 @@ const MainPage: React.FC<{}> = () => {
     (state: RootState) => state.countries?.currentLanguage
   );
 
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   useEffect(() => {
     if (!countries.data.length) {
       dispatch(getCountriesThunk());
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getAuthCountriesThunk());
+    }
+  }, [isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickCard = useCallback(
     (el) => {
