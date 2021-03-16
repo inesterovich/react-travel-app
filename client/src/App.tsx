@@ -25,7 +25,7 @@ const App: React.FC<{}> = React.memo(() => {
     (state: RootState) => state.countries.currentLanguage
   );
 
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   return (
     <ThemeProvider theme={theme}>
