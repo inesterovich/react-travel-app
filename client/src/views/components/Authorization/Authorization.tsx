@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionLogout } from "../../../redux/auth";
 
 import { typeLocalization, Lang } from "../../../types";
+import { textLogin } from "../../../localizations";
 
 const textLogout: typeLocalization = {
   [Lang.Ru]: "Выйти",
@@ -65,7 +66,9 @@ const Registration: React.FC = React.memo(() => {
           </Tooltip>
         </IconButton>
       ) : (
-        <Button onClick={handleLoginOpen}>Login</Button>
+        <Button onClick={handleLoginOpen}>
+          {textLogin[currentLanguage as Lang]}
+        </Button>
       )}
 
       <FormLogin
