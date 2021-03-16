@@ -13,9 +13,7 @@ import { actionLogout } from "../../../redux/auth";
 const Registration: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const avatarUrl = useSelector(
-    (state: RootState) => state.registration.avatar
-  );
+  const avatarUrl = useSelector((state: RootState) => state.auth.avatar);
 
   const [loginOpen, setLoginOpen] = React.useState(false);
   const [registerOpen, setRegisterOpen] = React.useState(false);
@@ -51,16 +49,11 @@ const Registration: React.FC = React.memo(() => {
       {isLoggedIn ? (
         <IconButton onClick={onLogOut}>
           <Tooltip title="Logout" interactive>
-            <Avatar
-              alt=""
-              className="Avatar"
-              src={avatarUrl}
-              // src=""
-            />
+            <Avatar alt="" className="Avatar" src={avatarUrl} />
           </Tooltip>
         </IconButton>
       ) : (
-        <Button onClick={handleRegisterOpen}>Login</Button>
+        <Button onClick={handleLoginOpen}>Login</Button>
       )}
 
       <FormLogin

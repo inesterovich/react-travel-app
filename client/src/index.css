@@ -95,6 +95,10 @@ img {
   padding: 0px 0 20px;
 }
 
+.MuiAlert-root {
+  margin-bottom: 0 !important;
+}
+
 .section {
   position: relative;
   margin-bottom: 30px;
@@ -195,6 +199,13 @@ img {
 
 .MuiDialog-paper {
   margin: 10px !important;
+}
+
+.error {
+  color: #f44336;
+  font-size: 0.75rem;
+  margin-top: -25px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 1400px) {

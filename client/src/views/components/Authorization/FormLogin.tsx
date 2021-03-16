@@ -11,7 +11,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CircularProgress, Dialog } from "@material-ui/core";
 import DialogActions from "@material-ui/core/DialogActions";
 
-import { serverLoginThunk } from "../../../redux/auth";
+import {
+  actionRemoveErrorMessage,
+  serverLoginThunk,
+} from "../../../redux/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/rootReducer";
 import { Alert } from "@material-ui/lab";
@@ -21,7 +24,10 @@ const schema = yup.object().shape({
     .string()
     .email("Электронная почта должна иметь правильный формат")
     .required("Email - обязательное поле"),
-  password: yup.string().required("Пароль - обязательное поле"),
+  password: yup
+    .string()
+    .required("Пароль - обязательное поле")
+    .min(6, "Минимум 6 символов"),
 });
 
 const FormLogin: React.FC<{
@@ -53,11 +59,11 @@ const FormLogin: React.FC<{
   useEffect(() => {
     if (isLoading && !isLoggedIn) {
       setTimeout(() => {
-        // dispatch(actionLogout());
+        dispatch(actionRemoveErrorMessage());
         setIsLoading(false);
-      }, 1000);
+      }, 3000);
     }
-  }, [isLoading, isLoggedIn]);
+  }, [isLoading, isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = (data: any) => {
     setIsLoading(true);
@@ -66,7 +72,6 @@ const FormLogin: React.FC<{
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      {loginError && <Alert severity="error">{loginError}</Alert>}
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -74,10 +79,11 @@ const FormLogin: React.FC<{
         encType="multipart/form-data"
       >
         <div className={styles.dialog}>
+          {loginError && <Alert severity="error">{loginError}</Alert>}
           <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <TextField
-              value="dev@dev.ru"
+              // value="dev@dev.ru"
               type="email"
               name="email"
               label="Email *"
@@ -88,7 +94,7 @@ const FormLogin: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              value="password"
+              // value="password"
               type="password"
               name="password"
               label="Password *"

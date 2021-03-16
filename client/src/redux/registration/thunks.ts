@@ -1,9 +1,11 @@
-import { actionLoginFailed, actionLoginSuccess } from "./../auth/actions";
+// import { actionLoginFailed } from "./../auth/actions";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../rootReducer";
 import { Action } from "redux";
 import { actionRegister } from "./actions";
-import { serverRegister } from "../api";
+import { serverLogin, serverRegister } from "../api";
+import { actionLoginFailed } from "../auth";
+import { actionLoginSuccess } from "../auth/actions";
 
 export const serverRegisterThunk = ({
   name,
@@ -21,20 +23,16 @@ export const serverRegisterThunk = ({
     name,
     avatar,
   });
-  console.log("isRegister = ", isRegister?.data);
-  if (isRegister?.data.success) {
-    dispatch(actionLoginSuccess(isRegister?.data.token));
+
+  if (isRegister && isRegister?.statusText) {
+    const isLogin = await serverLogin({
+      email,
+      password,
+    });
+
+    const { token, userId, avatar } = isLogin?.data;
+    dispatch(actionLoginSuccess(token, userId, avatar));
   } else {
-    dispatch(actionLoginFailed(isRegister?.data.error));
+    dispatch(actionLoginFailed(isRegister.response.data.message));
   }
-  // try {
-  //   const register = yield call(serverRegister, action.payload);
-  //   if (register.success) {
-  //     yield put(logIn(register.token, action.payload.email));
-  //   } else {
-  //     yield put(logInFailed(register.error));
-  //   }
-  // } catch (e) {
-  //   yield put(logInFailed(SERVER_ERROR_MESSAGE));
-  // }
 };
