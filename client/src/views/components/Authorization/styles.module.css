@@ -1,0 +1,13 @@
+.registration button {
+  color: #fff;
+}
+
+.dialog {
+  width: 400px !important;
+}
+
+@media (max-width: 576px) {
+  .dialog {
+    width: 300px !important;
+  }
+}
