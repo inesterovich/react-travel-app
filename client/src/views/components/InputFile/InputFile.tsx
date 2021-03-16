@@ -1,14 +1,21 @@
 import { Avatar, Button, Fade } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles.module.css";
 import { actionSetAvatar } from "../../../redux/registration/actions";
+import { Lang } from "../../../types";
+import { textAvatarButton } from "../../../localizations";
+import { RootState } from "../../../redux/rootReducer";
 
 const InputFile: React.FC<{
   register: any;
 }> = React.memo(({ register }) => {
   const [avatarUrl, setAvatarUrl] = useState(undefined);
   const [updateFile, setUpdateFile] = useState(false);
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
 
   useEffect(() => {
     setUpdateFile(true);
@@ -66,7 +73,7 @@ const InputFile: React.FC<{
 
       <label htmlFor="avatar">
         <Button variant="outlined" component="span" color="secondary">
-          Upload AVATAR
+          {`${textAvatarButton[currentLanguage as Lang]} *`}
         </Button>
       </label>
 

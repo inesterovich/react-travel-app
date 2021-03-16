@@ -1,8 +1,11 @@
 export const actionLoginSuccess = (
   token: string,
   userId: string,
-  avatar: string
-) => ({ type: "auth/LOG_IN", payload: { token, userId, avatar } } as const);
+  avatar: string,
+  name: string
+) =>
+  ({ type: "auth/LOG_IN", payload: { token, userId, avatar, name } } as const);
+
 export const actionLoginFailed = (error: string) =>
   ({ type: "auth/LOG_IN_FAILED", payload: { error } } as const);
 export const actionAuthenticate = (email: string, password: string) =>

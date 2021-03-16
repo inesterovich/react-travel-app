@@ -5,6 +5,7 @@ const initialState = {
   token: null as string | null,
   error: null as string | null,
   userId: null as string | null,
+  userName: null as string | null,
   avatar: undefined as string | undefined,
 };
 
@@ -22,6 +23,7 @@ const auth = (
         isLoggedIn: true,
         token: action.payload.token,
         userId: action.payload.userId,
+        userName: action.payload.name,
         avatar: action.payload.avatar,
       };
     }

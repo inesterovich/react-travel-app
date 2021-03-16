@@ -17,17 +17,28 @@ import { serverRegisterThunk } from "../../../redux/registration/thunks";
 import { RootState } from "../../../redux/rootReducer";
 import { Alert } from "@material-ui/lab";
 import { actionRemoveErrorMessage } from "../../../redux/auth";
+import { Lang } from "../../../types";
+import {
+  textAuthLink,
+  textLogin,
+  textRegister,
+  textSubmit,
+  textName,
+  textEmail,
+  textPassword,
+  textValidationAvatar,
+} from "../../../localizations";
 
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email("Электронная почта должна иметь правильный формат")
-    .required("Email - обязательное поле"),
+    .email("Email must be in the correct format")
+    .required("Email is a required field"),
   password: yup
     .string()
-    .required("Пароль - обязательное поле")
-    .min(6, "Минимум 6 символов"),
-  name: yup.string().required("Имя - обязательное поле"),
+    .required("Password is a required field")
+    .min(6, "Minimum 6 characters"),
+  name: yup.string().required("Name is required"),
 });
 
 const FormRegister: React.FC<{
@@ -46,6 +57,10 @@ const FormRegister: React.FC<{
 
   const loginError = useSelector((state: RootState) => state.auth?.error);
   const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
 
   const isAvatarLoaded = useSelector(
     (state: RootState) => state.registration.avatar
@@ -87,18 +102,18 @@ const FormRegister: React.FC<{
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        // encType="multipart/form-data"
         className={`${isLoading && "disabled"}`}
       >
         <div className={styles.dialog}>
           {loginError && <Alert severity="error">{loginError}</Alert>}
-          <DialogTitle id="form-dialog-title">Register</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            {textRegister[currentLanguage as Lang]}
+          </DialogTitle>
           <DialogContent>
             <TextField
-              value="Elmira"
               type="text"
               name="name"
-              label="Name *"
+              label={`${textName[currentLanguage as Lang]} *`}
               fullWidth
               autoFocus
               inputRef={register}
@@ -106,20 +121,18 @@ const FormRegister: React.FC<{
               helperText={errors?.name?.message}
             />
             <TextField
-              // value="t@gmail.ru"
               type="email"
               name="email"
-              label="Email *"
+              label={`${textEmail[currentLanguage as Lang]} *`}
               fullWidth
               inputRef={register}
               error={!!errors.email}
               helperText={errors?.email?.message}
             />
             <TextField
-              value="123456"
               type="password"
               name="password"
-              label="Password *"
+              label={`${textPassword[currentLanguage as Lang]} *`}
               fullWidth
               inputRef={register}
               error={!!errors.password}
@@ -127,19 +140,21 @@ const FormRegister: React.FC<{
             />
             <InputFile register={register} />
             {inputFileErr && !isAvatarLoaded && (
-              <div className="error error--input_file">Avatar is required</div>
+              <div className="error error--input_file">{`${
+                textValidationAvatar[currentLanguage as Lang]
+              } *`}</div>
             )}
           </DialogContent>
           <DialogActions>
             <div className="question">
-              Уже зарегистрированы?
+              {textAuthLink[currentLanguage as Lang]}
               <br />
               <div className="link" onClick={handleLoginOpen}>
-                Войти
+                {textLogin[currentLanguage as Lang]}
               </div>
             </div>
             <Button type="submit" variant="outlined" color="primary">
-              Submit
+              {textSubmit[currentLanguage as Lang]}
             </Button>
           </DialogActions>
         </div>
