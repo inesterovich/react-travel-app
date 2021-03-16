@@ -1,4 +1,4 @@
-import { ActionTypes } from "../../types";
+import {ActionTypes} from "../../types";
 
 const initialState = {
   data: [] as Array<Object> | [],
@@ -11,7 +11,7 @@ const initialState = {
   isLoaderCurrency: false as boolean,
 };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 const posts = (
   state: InitialStateType = initialState,

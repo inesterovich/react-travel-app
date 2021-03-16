@@ -8,7 +8,7 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 
 const Footer: React.FC = React.memo(() => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} id={"footer"}>
       <Container maxWidth="xl">
         <Toolbar className={styles.footer__toolbar}>
           <div className={styles.footer__githubs}>

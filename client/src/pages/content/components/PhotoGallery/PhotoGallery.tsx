@@ -15,11 +15,13 @@ import SwiperCore, {
   A11y,
   EffectCube,
 } from "swiper";
+
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
-import { Button } from "@material-ui/core";
-import { useHttp } from "../../../../hooks/http.hook";
+import Votes from "./Votes";
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube]);
+
 enum Lang {
   Ru = "ru",
   Es = "es",
@@ -73,6 +75,8 @@ const PhotoGallery: React.FC = React.memo(() => {
 
   const [images, setImages] = useState([]);
   const [galleryOpened, setGalleryOpened] = useState(false);
+
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const toggleGallery = useCallback(() => {
     setGalleryOpened(!galleryOpened);
@@ -149,29 +153,13 @@ const PhotoGallery: React.FC = React.memo(() => {
         >
           {countryLangData?.attractions?.map((item: any) => {
             return (
-              <>
-                <SwiperSlide key={item._id}>
-                  <img src={item.url} alt="slider" className={styles.img} />{" "}
-                  <p className={styles.textImg}>{item.name}</p>{" "}
-                  <div className={styles.vote}>
-                    {" "}
-                    <Rating
-                      name="read-only"
-                      value={3}
-                      readOnly
-                      size="small"
-                      className={styles.meta__rating}
-                    />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleClickOpen(item._id)}
-                    >
-                      {textBtnVote[currentLanguage as Lang]}
-                    </Button>
-                  </div>
-                </SwiperSlide>{" "}
-              </>
+              <SwiperSlide key={item._id}>
+                <img src={item.url} alt="slider" className={styles.img} />
+                <div className={styles.textImg}>
+                  <p className={styles.textImg__text}>{item.name}</p>
+                  {isLoggedIn && <Votes />}
+                </div>
+              </SwiperSlide>
             );
           })}
         </Swiper>

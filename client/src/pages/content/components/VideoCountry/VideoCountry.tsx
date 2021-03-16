@@ -58,7 +58,6 @@ const VideoCountry: React.FC = React.memo(() => {
 
   return (
     <>
-      {" "}
       {videoLink && (
         <>
           <Typography variant="h4" gutterBottom>
@@ -67,7 +66,7 @@ const VideoCountry: React.FC = React.memo(() => {
           {countryLangData?.video && (
             <iframe
               width="100%"
-              height="400"
+              height="280"
               src={videoLink}
               title={countryLangData?.name}
               // @ts-ignore

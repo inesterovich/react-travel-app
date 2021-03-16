@@ -10,18 +10,33 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CircularProgress, Dialog } from "@material-ui/core";
 import DialogActions from "@material-ui/core/DialogActions";
+import {
+  textRegisterhLink,
+  textLogin,
+  textRegister,
+  textSubmit,
+  textEmail,
+  textPassword,
+} from "../../../localizations";
 
-import { serverLoginThunk } from "../../../redux/auth";
+import {
+  actionRemoveErrorMessage,
+  serverLoginThunk,
+} from "../../../redux/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/rootReducer";
 import { Alert } from "@material-ui/lab";
+import { Lang } from "../../../types";
 
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email("Электронная почта должна иметь правильный формат")
-    .required("Email - обязательное поле"),
-  password: yup.string().required("Пароль - обязательное поле"),
+    .email("Email must be in the correct format")
+    .required("Email is a required field"),
+  password: yup
+    .string()
+    .required("Password is a required field")
+    .min(6, "Minimum 6 characters"),
 });
 
 const FormLogin: React.FC<{
@@ -39,6 +54,9 @@ const FormLogin: React.FC<{
 
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const loginError = useSelector((state: RootState) => state.auth.error);
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
 
   useEffect(() => {
     if (loginError) {
@@ -53,11 +71,11 @@ const FormLogin: React.FC<{
   useEffect(() => {
     if (isLoading && !isLoggedIn) {
       setTimeout(() => {
-        // dispatch(actionLogout());
+        dispatch(actionRemoveErrorMessage());
         setIsLoading(false);
-      }, 1000);
+      }, 3000);
     }
-  }, [isLoading, isLoggedIn]);
+  }, [isLoading, isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = (data: any) => {
     setIsLoading(true);
@@ -66,7 +84,6 @@ const FormLogin: React.FC<{
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      {loginError && <Alert severity="error">{loginError}</Alert>}
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -74,13 +91,15 @@ const FormLogin: React.FC<{
         encType="multipart/form-data"
       >
         <div className={styles.dialog}>
-          <DialogTitle id="form-dialog-title">Login</DialogTitle>
+          {loginError && <Alert severity="error">{loginError}</Alert>}
+          <DialogTitle id="form-dialog-title">
+            {textLogin[currentLanguage as Lang]}
+          </DialogTitle>
           <DialogContent>
             <TextField
-              value="dev@dev.ru"
               type="email"
               name="email"
-              label="Email *"
+              label={`${textEmail[currentLanguage as Lang]} *`}
               fullWidth
               autoFocus
               inputRef={register}
@@ -88,10 +107,9 @@ const FormLogin: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              value="password"
               type="password"
               name="password"
-              label="Password *"
+              label={`${textPassword[currentLanguage as Lang]} *`}
               fullWidth
               inputRef={register}
               error={!!errors.password}
@@ -101,13 +119,13 @@ const FormLogin: React.FC<{
           </DialogContent>
           <DialogActions>
             <div className="question">
-              Новый пользователь? <br />
+              {textRegisterhLink[currentLanguage as Lang]} <br />
               <div className="link" onClick={handleRegisterOpen}>
-                Регистрация
+                {textRegister[currentLanguage as Lang]}
               </div>
             </div>
             <Button type="submit" variant="outlined" color="primary">
-              Submit
+              {textSubmit[currentLanguage as Lang]}
             </Button>
           </DialogActions>
         </div>

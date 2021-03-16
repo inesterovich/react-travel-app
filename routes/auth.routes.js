@@ -122,7 +122,8 @@ router.post(
           const avatarLink = `${config.get('baseUrl')}/${user.avatar}`
 
          return res.json({
-            token,
+           token,
+           name: user.name,
             userId: user.id,
             avatar: avatarLink
 

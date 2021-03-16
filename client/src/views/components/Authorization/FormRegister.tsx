@@ -16,14 +16,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { serverRegisterThunk } from "../../../redux/registration/thunks";
 import { RootState } from "../../../redux/rootReducer";
 import { Alert } from "@material-ui/lab";
+import { actionRemoveErrorMessage } from "../../../redux/auth";
+import { Lang } from "../../../types";
+import {
+  textAuthLink,
+  textLogin,
+  textRegister,
+  textSubmit,
+  textName,
+  textEmail,
+  textPassword,
+  textValidationAvatar,
+} from "../../../localizations";
 
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email("Электронная почта должна иметь правильный формат")
-    .required("Email - обязательное поле"),
-  password: yup.string().required("Пароль - обязательное поле"),
-  name: yup.string().required("Имя - обязательное поле"),
+    .email("Email must be in the correct format")
+    .required("Email is a required field"),
+  password: yup
+    .string()
+    .required("Password is a required field")
+    .min(6, "Minimum 6 characters"),
+  name: yup.string().required("Name is required"),
 });
 
 const FormRegister: React.FC<{
@@ -38,9 +53,22 @@ const FormRegister: React.FC<{
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [inputFileErr, setInputFileErr] = useState<boolean>(false);
 
-  const loginError = useSelector((state: RootState) => state.auth.error);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const loginError = useSelector((state: RootState) => state.auth?.error);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
+
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
+
+  const isAvatarLoaded = useSelector(
+    (state: RootState) => state.registration.avatar
+  );
+
+  useEffect(() => {
+    if (isAvatarLoaded) setInputFileErr(false);
+  }, [isAvatarLoaded]);
 
   useEffect(() => {
     setIsLoading(false);
@@ -49,13 +77,18 @@ const FormRegister: React.FC<{
   useEffect(() => {
     if (isLoading && !isLoggedIn) {
       setTimeout(() => {
-        // dispatch(actionLogout());
         setIsLoading(false);
-      }, 1000);
+        dispatch(actionRemoveErrorMessage());
+      }, 3000);
     }
-  }, [isLoading, isLoggedIn]);
+  }, [isLoading, isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = (data: any) => {
+    if (!data.avatar.length) {
+      setInputFileErr(true);
+      return;
+    }
+    setInputFileErr(false);
     setIsLoading(true);
     dispatch(serverRegisterThunk(data));
   };
@@ -66,21 +99,21 @@ const FormRegister: React.FC<{
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      {loginError && <Alert severity="error">{loginError}</Alert>}
       {isLoading && <CircularProgress className="centered" />}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        encType="multipart/form-data"
         className={`${isLoading && "disabled"}`}
       >
         <div className={styles.dialog}>
-          <DialogTitle id="form-dialog-title">Register</DialogTitle>
+          {loginError && <Alert severity="error">{loginError}</Alert>}
+          <DialogTitle id="form-dialog-title">
+            {textRegister[currentLanguage as Lang]}
+          </DialogTitle>
           <DialogContent>
             <TextField
-              // value="Elmira"
               type="text"
               name="name"
-              label="Name *"
+              label={`${textName[currentLanguage as Lang]} *`}
               fullWidth
               autoFocus
               inputRef={register}
@@ -88,37 +121,40 @@ const FormRegister: React.FC<{
               helperText={errors?.name?.message}
             />
             <TextField
-              // value="timra.work@g.ru"
               type="email"
               name="email"
-              label="Email *"
+              label={`${textEmail[currentLanguage as Lang]} *`}
               fullWidth
               inputRef={register}
               error={!!errors.email}
               helperText={errors?.email?.message}
             />
             <TextField
-              // value="1"
               type="password"
               name="password"
-              label="Password *"
+              label={`${textPassword[currentLanguage as Lang]} *`}
               fullWidth
               inputRef={register}
               error={!!errors.password}
               helperText={errors?.password?.message}
             />
             <InputFile register={register} />
+            {inputFileErr && !isAvatarLoaded && (
+              <div className="error error--input_file">{`${
+                textValidationAvatar[currentLanguage as Lang]
+              } *`}</div>
+            )}
           </DialogContent>
           <DialogActions>
             <div className="question">
-              Уже зарегистрированы?
+              {textAuthLink[currentLanguage as Lang]}
               <br />
               <div className="link" onClick={handleLoginOpen}>
-                Войти
+                {textLogin[currentLanguage as Lang]}
               </div>
             </div>
             <Button type="submit" variant="outlined" color="primary">
-              Submit
+              {textSubmit[currentLanguage as Lang]}
             </Button>
           </DialogActions>
         </div>

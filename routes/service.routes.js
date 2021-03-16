@@ -80,6 +80,7 @@ router.post('/countries', auth, async (req, res) => {
 
       const responseCountries = countries.map((country, index) => {
         return {
+          _id: country._id,
           en: country.en,
           ru: russianCountries[index],
           es: spanishCountries[index],
