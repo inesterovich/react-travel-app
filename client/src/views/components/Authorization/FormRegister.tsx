@@ -95,7 +95,6 @@ const FormRegister: React.FC<{
           <DialogTitle id="form-dialog-title">Register</DialogTitle>
           <DialogContent>
             <TextField
-              value="Elmira"
               type="text"
               name="name"
               label="Name *"
@@ -106,7 +105,6 @@ const FormRegister: React.FC<{
               helperText={errors?.name?.message}
             />
             <TextField
-              // value="t@gmail.ru"
               type="email"
               name="email"
               label="Email *"
@@ -116,7 +114,6 @@ const FormRegister: React.FC<{
               helperText={errors?.email?.message}
             />
             <TextField
-              value="123456"
               type="password"
               name="password"
               label="Password *"

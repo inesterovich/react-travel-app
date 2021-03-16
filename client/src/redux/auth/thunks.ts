@@ -26,8 +26,8 @@ export const serverLoginThunk = ({
   });
 
   if (isLogin && isLogin?.data?.token) {
-    const { token, userId, avatar } = isLogin?.data;
-    dispatch(actionLoginSuccess(token, userId, avatar));
+    const { token, userId, avatar, name } = isLogin?.data;
+    dispatch(actionLoginSuccess(token, userId, avatar, name));
   } else {
     dispatch(actionLoginFailed(isLogin.response.data.message));
   }

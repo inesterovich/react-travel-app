@@ -30,8 +30,8 @@ export const serverRegisterThunk = ({
       password,
     });
 
-    const { token, userId, avatar } = isLogin?.data;
-    dispatch(actionLoginSuccess(token, userId, avatar));
+    const { token, userId, avatar, name } = isLogin?.data;
+    dispatch(actionLoginSuccess(token, userId, avatar, name));
   } else {
     dispatch(actionLoginFailed(isRegister.response.data.message));
   }
