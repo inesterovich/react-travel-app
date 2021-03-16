@@ -18,7 +18,7 @@ const CountryCard: React.FC<CountryType> = ({
   description,
   capital,
 }) => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   return (
     <Card className={styles.Card}>

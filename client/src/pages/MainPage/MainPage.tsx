@@ -20,15 +20,15 @@ export interface IProps {
   };
 }
 
-const MainPage: React.FC = () => {
+const MainPage: React.FC<{}> = () => {
   const countries = useSelector((state: IProps) => state.countries || []);
   const dispatch = useDispatch();
-  const search = useSelector((state: RootState) => state.countries.search);
+  const search = useSelector((state: RootState) => state.countries?.search);
   const currentLanguage = useSelector(
-    (state: RootState) => state.countries.currentLanguage
+    (state: RootState) => state.countries?.currentLanguage
   );
 
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   useEffect(() => {
     if (!countries.data.length) {
@@ -52,14 +52,13 @@ const MainPage: React.FC = () => {
   return (
     <div className={styles.mainPage}>
       {countries.isLoading ? (
-        <div className="center_block">
+        <div className="center_block" id={"center_block"}>
           <CircularProgress />
         </div>
       ) : (
         <Fade in={true} timeout={700}>
-          <div className="flex-wrap">
-            {countries.data
-              .filter(
+          <div className="flex-wrap" id="flex-wrap">
+            {countries?.data?.filter(
                 (e) =>
                   e[`${currentLanguage}`].name
                     ?.toLowerCase()
@@ -73,6 +72,7 @@ const MainPage: React.FC = () => {
                   className="flex-wrap__item"
                   key={uuidv4()}
                   onClick={() => handleClickCard(el)}
+                  id={"countryCard"}
                 >
                   <CountryCard
                     name={el[`${currentLanguage}`].name}

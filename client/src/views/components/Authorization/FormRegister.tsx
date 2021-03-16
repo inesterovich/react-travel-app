@@ -44,8 +44,8 @@ const FormRegister: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputFileErr, setInputFileErr] = useState<boolean>(false);
 
-  const loginError = useSelector((state: RootState) => state.auth.error);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const loginError = useSelector((state: RootState) => state.auth?.error);
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   const isAvatarLoaded = useSelector(
     (state: RootState) => state.registration.avatar
