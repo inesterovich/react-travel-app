@@ -10,7 +10,19 @@ import { RootState } from "../../../redux/rootReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { actionLogout } from "../../../redux/auth";
 
+import { typeLocalization, Lang } from "../../../types";
+
+const textLogout: typeLocalization = {
+  [Lang.Ru]: "Выйти",
+  [Lang.En]: "Logout",
+  [Lang.Es]: "Fuera",
+};
+
 const Registration: React.FC = React.memo(() => {
+  const currentLanguage = useSelector(
+    (state: RootState) => state.countries.currentLanguage
+  );
+
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const avatarUrl = useSelector((state: RootState) => state.auth.avatar);
@@ -48,7 +60,7 @@ const Registration: React.FC = React.memo(() => {
     <div className={`${styles.registration} registration`}>
       {isLoggedIn ? (
         <IconButton onClick={onLogOut}>
-          <Tooltip title="Logout" interactive>
+          <Tooltip title={`${textLogout[currentLanguage as Lang]}`} interactive>
             <Avatar alt="" className="Avatar" src={avatarUrl} />
           </Tooltip>
         </IconButton>

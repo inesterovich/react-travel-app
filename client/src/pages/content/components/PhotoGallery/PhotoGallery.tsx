@@ -13,9 +13,13 @@ import SwiperCore, {
   A11y,
   EffectCube,
 } from "swiper";
+
 import "swiper/swiper-bundle.css";
 import styles from "./styles.module.css";
+import Votes from "./Votes";
+
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube]);
+
 enum Lang {
   Ru = "ru",
   Es = "es",
@@ -49,6 +53,8 @@ const PhotoGallery: React.FC = React.memo(() => {
 
   const [images, setImages] = useState([]);
   const [galleryOpened, setGalleryOpened] = useState(false);
+
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const toggleGallery = useCallback(() => {
     setGalleryOpened(!galleryOpened);
@@ -85,7 +91,10 @@ const PhotoGallery: React.FC = React.memo(() => {
             return (
               <SwiperSlide key={item._id}>
                 <img src={item.url} alt="slider" className={styles.img} />
-                <p className={styles.textImg}>{item.name}</p>
+                <div className={styles.textImg}>
+                  <p className={styles.textImg__text}>{item.name}</p>
+                  {isLoggedIn && <Votes />}
+                </div>
               </SwiperSlide>
             );
           })}
