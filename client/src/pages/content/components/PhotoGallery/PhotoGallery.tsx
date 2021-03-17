@@ -80,20 +80,20 @@ const PhotoGallery: React.FC = React.memo(() => {
     <div className={styles.photoGallery}>
       <div className={styles.swiperContainer}>
         <Swiper
-          id="main"
-          spaceBetween={1}
-          slidesPerView={1}
+          cssMode={true}
+          onSwiper={(swiper) => console.log(swiper)}
+          scrollbar={{ draggable: true }}
           navigation
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
         >
-          {countryLangData?.attractions?.map((item: any) => {
+          {countryLangData?.attractions?.map((item: any, idx) => {
             return (
-              <SwiperSlide key={item._id}>
+              <SwiperSlide key={item._id} className={idx.toString()}>
                 <img src={item.url} alt="slider" className={styles.img} />
                 <div className={styles.textImg}>
                   <p className={styles.textImg__text}>{item.name}</p>
-                  {isLoggedIn && <Votes />}
+
+                  {isLoggedIn && <Votes voteId={idx} />}
                 </div>
               </SwiperSlide>
             );

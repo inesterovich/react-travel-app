@@ -47,3 +47,36 @@ export const serverRegister = async (payload: any) => {
     return await err;
   }
 };
+
+// Для голосования надо отправить запрос на /api/service/vote. Роут ждёт json, в заголовке прописываем токен (без него вернёт 401 ошибку), тело запроса выглядит так:
+// countryId: country._id (самый верхний параметр, не внутри языков!!!),
+// attractionId: attraction._id (конкретного языка),
+// lang: langCode (текущий выбранный язык пользователя),
+// value: Number (range не настраивал, к числу привести попытается, но если получится "NaN", может быть плохо
+// }
+
+// В ответ сервер возвращает обновленную СТРАНУ целиком - на всех языках.
+// Поле рейтинг у конкретной достопримечательности - массив объектов (бывает пустым).
+// В каждом объекте рейтинга есть value, userId, и ссылка на аватарку.
+
+// ПРИМЕЧАНИЕ: "переголосовать" роут позволяет, ошибку не выкинет. Однако обновление аватарки (если вдруг "когда-нибудь появится") он не увидит: линк прописывается в базу жестко, находить всех юзеров "на лету" не получилось.
+
+export const setVoices = async (/* payload: any */) => {
+  try {
+    // const { avatar, email, name, password } = payload;
+
+    const config = {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    };
+
+    const data = new FormData();
+    // data.append("countryId", "0");
+    // data.append("attractionId", "0");
+    // data.append("lang", "ru");
+    // data.append("value", "5");
+
+    return await axios.post("/api/service/vote", data, config);
+  } catch (err) {
+    return await err;
+  }
+};

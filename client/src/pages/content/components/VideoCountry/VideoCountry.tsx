@@ -66,7 +66,7 @@ const VideoCountry: React.FC = React.memo(() => {
           {countryLangData?.video && (
             <iframe
               width="100%"
-              height="0"
+              height="280"
               src={videoLink}
               title={countryLangData?.name}
               // @ts-ignore

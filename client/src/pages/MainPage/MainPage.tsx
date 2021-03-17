@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import styles from "./styles.module.css";
 import { getAuthCountriesThunk } from "../../redux/countries/thunks";
+import { setVoices } from "../../redux/api";
 export interface IProps {
   countries: {
     data: Array<ICountry> | [];
@@ -31,6 +32,8 @@ const MainPage: React.FC<{}> = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
 
   useEffect(() => {
+    const set = setVoices();
+    console.log(set);
     if (!countries.data.length) {
       dispatch(getCountriesThunk());
     }
@@ -58,7 +61,8 @@ const MainPage: React.FC<{}> = () => {
       ) : (
         <Fade in={true} timeout={700}>
           <div className="flex-wrap" id="flex-wrap">
-            {countries?.data?.filter(
+            {countries?.data
+              ?.filter(
                 (e) =>
                   e[`${currentLanguage}`].name
                     ?.toLowerCase()
