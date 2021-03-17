@@ -57,6 +57,7 @@ router.post('/countries', auth, async (req, res) => {
           attractions: country.en.attractions.map((attraction, index) => {
             return {
               ...attraction,
+              _id: country.ru.attractions[index]._id,
               name: country.ru.attractions[index].name
             }
           })
@@ -81,6 +82,7 @@ router.post('/countries', auth, async (req, res) => {
           attractions: country.en.attractions.map((attraction, index) => {
             return {
               ...attraction,
+              _id: country.es.attractions[index]._id,
               name: country.es.attractions[index].name
             }
           })
