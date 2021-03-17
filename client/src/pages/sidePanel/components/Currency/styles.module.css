@@ -1,0 +1,14 @@
+.currency {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.valueCurrency {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.nameCurrency {
+  margin: 0 0 10px;
+  color: rgba(0, 0, 0, 0.54);
+}

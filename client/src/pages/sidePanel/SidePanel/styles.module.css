@@ -1,0 +1,4 @@
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+}

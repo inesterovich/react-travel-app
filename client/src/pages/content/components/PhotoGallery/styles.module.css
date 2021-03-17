@@ -1,0 +1,53 @@
+.photoGallery {
+  position: relative;
+  max-width: 100%;
+}
+.swiperContainer {
+  width: 100%;
+}
+
+.img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.textImg {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  padding: 10px 20px 64px 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-weight: bold;
+}
+
+.textImg__text {
+  margin-bottom: 10px;
+}
+
+:root {
+  --swiper-theme-color: #69c6ba;
+}
+
+.imgThumbs {
+  cursor: pointer;
+  opacity: 0.4;
+  height: 30px;
+}
+
+.imgFullscreen {
+  margin: 5px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 15px;
+  transition: all 0.3s ease;
+}
+
+.imgFullscreen:hover {
+  filter: invert(1);
+  transition: transform 1s;
+}

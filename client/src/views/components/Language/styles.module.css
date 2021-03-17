@@ -1,0 +1,10 @@
+.language {
+  margin-left: 20px;
+}
+
+@media (max-width: 576px) {
+  .language {
+    margin-left: 0px;
+    margin-right: -15px;
+  }
+}

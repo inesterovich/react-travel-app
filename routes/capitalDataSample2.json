@@ -1,0 +1,82 @@
+[
+  {
+    "coordinates": {
+      "latitude": 39.9188664434238,
+      "longitude": 116.39045558587343
+    },
+    "name": "Beijing",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 18.47384048665745,
+      "longitude": -69.8960441
+    },
+    "name": "Santo Domingo",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 40.4156,
+      "longitude": -3.6932244
+    },
+    "name": "Madrid",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 48.86160523653276,
+      "longitude": 2.3322959
+    },
+    "name": "Paris",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 51.5084,
+      "longitude": -0.1367
+    },
+    "name": "London",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 41.89860236662193,
+      "longitude": 12.48358764499874
+    },
+    "name": "Rome",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 4.1775448339838235,
+      "longitude": 73.5112361829028
+    },
+    "name": "Malé",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 55.75249334565815,
+      "longitude": 37.616972157829004
+    },
+    "name": "Moscow",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 13.7475234,
+      "longitude": 100.51638888889
+    },
+    "name": "Bangkok",
+    "trigram": 1
+  },
+  {
+    "coordinates": {
+      "latitude": 38.89130713424488,
+      "longitude": -77.0287742
+    },
+    "name": "Washington, D.C.",
+    "trigram": 1
+  }
+]
